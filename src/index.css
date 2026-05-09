@@ -1,0 +1,341 @@
+@import "tailwindcss";
+
+@theme {
+  /* === Atelier — Eunice De Campi === */
+  --color-ink-50: #F5F4F1;
+  --color-ink-100: #E0DFD9;
+  --color-ink-200: #B8B5AB;
+  --color-ink-300: #7A7770;
+  --color-ink-400: #3F3D38;
+  --color-ink-500: #1A1A19;
+  --color-ink-600: #0E0E0D;
+
+  --color-olive-50: #EFF1E8;
+  --color-olive-100: #D6DBC2;
+  --color-olive-200: #BBC198;
+  --color-olive-300: #8A9362;
+  --color-olive-400: #677352;
+  --color-olive-500: #5D6A3F;
+  --color-olive-600: #44502E;
+  --color-olive-700: #2E371F;
+
+  --color-stone-50: #F5F2EC;
+  --color-stone-100: #EFE9E3;
+  --color-stone-200: #E2DBD0;
+  --color-stone-300: #D6CFC4;
+  --color-stone-400: #B8AE9E;
+
+  --color-clay-300: #E0A579;
+  --color-clay-400: #C78553;
+  --color-clay-500: #A96C3F;
+  --color-clay-600: #8A552F;
+
+  --color-paper: #EFE9E3;
+  --color-paper-warm: #F5F2EC;
+  --color-ink: #1A1A19;
+
+  --font-display: "Italiana", "Didot", serif;
+  --font-body: "Manrope", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --spacing-edge: clamp(1.5rem, 4vw, 5rem);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-weight: 300;
+    line-height: 1.55;
+    font-size: 15px;
+    text-rendering: optimizeLegibility;
+    letter-spacing: 0.005em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.005em;
+  }
+
+  .mono {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+  }
+
+  .mono-sm {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 0.625rem;
+  }
+
+  .display-thin {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background: var(--color-olive-500);
+    color: var(--color-paper);
+  }
+}
+
+@layer components {
+  .container-edge {
+    padding-left: var(--spacing-edge);
+    padding-right: var(--spacing-edge);
+  }
+
+  .grid-12 {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: clamp(0.75rem, 1.5vw, 1.5rem);
+  }
+
+  .hairline {
+    height: 1px;
+    background-color: var(--color-ink);
+    opacity: 0.18;
+  }
+
+  .hairline-strong {
+    height: 1px;
+    background-color: var(--color-ink);
+  }
+
+  /* Vertical mono label */
+  .vertical-label {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+  }
+
+  .atelier-link {
+    position: relative;
+    display: inline-block;
+    color: var(--color-ink);
+    transition: color 0.4s ease;
+  }
+  .atelier-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+  }
+  .atelier-link:hover {
+    color: var(--color-clay-500);
+  }
+  .atelier-link:hover::after {
+    transform-origin: left;
+    transform: scaleX(1);
+  }
+
+  .index-num {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-feature-settings: "tnum";
+  }
+
+  .display-italic {
+    font-family: var(--font-display);
+    font-style: italic;
+  }
+
+  /* === DRAFTING SURFACE — v2's signature texture ===
+     v2 has its OWN creative persona — not paper, but architectural drafting.
+     Layer 1 — very faint cool wash (top-light → cool-bone)
+     Layer 2 — vertical column rules at the 12-grid (extremely faint)
+     Layer 3 — diagonal cross-hatch (4°, 1px) at 1% alpha — drafting
+     Layer 4 — warm vignette around the edges (museum lighting)
+     The result: a surface that feels like architect's tracing paper, not journal paper.
+  */
+  .drafting-surface {
+    position: relative;
+    background-color: var(--color-paper);
+    background-image:
+      /* Cool top-light wash */
+      radial-gradient(ellipse 1500px 1000px at 50% -15%, rgba(245, 244, 241, 0.55), transparent 65%),
+      /* Olive under-tone, very faint */
+      radial-gradient(ellipse 1400px 800px at 50% 110%, rgba(93, 106, 63, 0.04), transparent 60%);
+    background-attachment: fixed, fixed;
+  }
+
+  .drafting-surface::before {
+    /* The drafting cross-hatch — very faint diagonal lines, like architectural paper */
+    content: "";
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      /* 4° diagonal hairline */
+      repeating-linear-gradient(
+        4deg,
+        transparent 0px,
+        transparent 7px,
+        rgba(26, 26, 25, 0.022) 7px,
+        rgba(26, 26, 25, 0.022) 8px
+      ),
+      /* 94° opposing diagonal */
+      repeating-linear-gradient(
+        94deg,
+        transparent 0px,
+        transparent 9px,
+        rgba(26, 26, 25, 0.012) 9px,
+        rgba(26, 26, 25, 0.012) 10px
+      );
+  }
+
+  .drafting-surface::after {
+    /* Edge vignette — museum lighting */
+    content: "";
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    box-shadow:
+      inset 0 0 200px 0 rgba(26, 26, 25, 0.05),
+      inset 0 0 480px 0 rgba(26, 26, 25, 0.03);
+  }
+
+  .drafting-surface > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* === COLUMN RULES — visible only on certain pages, draws on scroll === */
+  .column-rules {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    background-image:
+      linear-gradient(to right,
+        transparent calc(100%/6 - 0.5px),
+        rgba(26, 26, 25, 0.04) calc(100%/6 - 0.5px),
+        rgba(26, 26, 25, 0.04) calc(100%/6 + 0.5px),
+        transparent calc(100%/6 + 0.5px),
+        transparent calc(100%*2/6 - 0.5px),
+        rgba(26, 26, 25, 0.04) calc(100%*2/6 - 0.5px),
+        rgba(26, 26, 25, 0.04) calc(100%*2/6 + 0.5px),
+        transparent calc(100%*2/6 + 0.5px),
+        transparent calc(100%*3/6 - 0.5px),
+        rgba(26, 26, 25, 0.04) calc(100%*3/6 - 0.5px),
+        rgba(26, 26, 25, 0.04) calc(100%*3/6 + 0.5px),
+        transparent calc(100%*3/6 + 0.5px),
+        transparent calc(100%*4/6 - 0.5px),
+        rgba(26, 26, 25, 0.04) calc(100%*4/6 - 0.5px),
+        rgba(26, 26, 25, 0.04) calc(100%*4/6 + 0.5px),
+        transparent calc(100%*4/6 + 0.5px),
+        transparent calc(100%*5/6 - 0.5px),
+        rgba(26, 26, 25, 0.04) calc(100%*5/6 - 0.5px),
+        rgba(26, 26, 25, 0.04) calc(100%*5/6 + 0.5px),
+        transparent calc(100%*5/6 + 0.5px)
+      );
+  }
+
+  /* SVG draw-on for hairlines */
+  .draw-line {
+    stroke-dasharray: 1500;
+    stroke-dashoffset: 1500;
+  }
+  .draw-line-active {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.6s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  /* Image clip-reveal — horizontal wipe from left */
+  .clip-wipe {
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 1.4s cubic-bezier(0.7, 0, 0.3, 1);
+  }
+  .clip-wipe-active {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* === HERO STRICT-FIT ===
+   Hero is intentionally shorter than viewport — 88svh — so all content
+   (incl. bottom meta) is visible at landing, and a peek of the next section
+   hints at scroll. Capped at 820px on tall monitors. */
+.hero-fit {
+  height: 88svh;
+  min-height: 580px;
+  max-height: 820px;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+.hero-fit > * { min-height: 0; }
+/* Hero display — atelier scale. v2 displays a single large word/phrase
+   so it can be larger than v1's two-line title. */
+.hero-display {
+  font-size: clamp(2.75rem, min(14vh, 14vw), 14rem);
+  line-height: 0.86;
+}
+.hero-body {
+  font-size: clamp(0.95rem, min(1.55vh, 1.1vw), 1.2rem);
+  line-height: 1.55;
+}
+.hero-eyebrow {
+  font-size: clamp(0.6rem, min(1.05vh, 0.8vw), 0.72rem);
+}
+
+/* === IMAGE ASPECT TOKENS ===
+   Every image in the site renders at one of these formal ratios.
+   Pick one, and the design always lands the same way.
+
+   Cinematic — full-bleed hero photos, page-leading editorial spreads
+   Hero      — slightly less wide hero, mobile fallback
+   Cover     — vertical card (project covers in the index grid)
+   Tall      — narrower vertical (note covers — atelier prefers tall)
+   Plate     — landscape gallery plate
+   Square    — equal-ratio pillar block
+*/
+.img-cinematic { aspect-ratio: 21 / 9; }
+.img-hero      { aspect-ratio: 16 / 9; }
+.img-spread    { aspect-ratio: 4 / 3; }
+.img-plate     { aspect-ratio: 4 / 3; }
+.img-cover     { aspect-ratio: 4 / 5; }
+.img-tall      { aspect-ratio: 3 / 4; }
+.img-square    { aspect-ratio: 1 / 1; }
+.img-portrait  { aspect-ratio: 2 / 3; }
+
+img {
+  object-position: center;
+}
+
+/* The atelier ring cursor — disabled on touch devices */
+@media (hover: hover) and (pointer: fine) {
+  .ring-cursor {
+    cursor: none;
+  }
+}
