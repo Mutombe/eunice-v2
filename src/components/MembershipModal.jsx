@@ -22,13 +22,13 @@ export default function MembershipModal({ onClose }) {
         onClick={(e) => e.stopPropagation()}
         className="bg-paper w-full max-w-2xl my-12 relative"
       >
-        <button onClick={onClose} className="absolute top-4 right-4 text-ink/50 hover:text-ink">
+        <button onClick={onClose} className="absolute top-4 right-4 text-ink/65 hover:text-ink">
           <X size={20} />
         </button>
 
         <div className="p-10 md:p-14">
           {/* Step indicator */}
-          <div className="mono text-ink/55 flex items-center gap-3 mb-10">
+          <div className="mono text-ink/65 flex items-center gap-3 mb-10">
             <span>{`Step 0${step}`}</span>
             <span className="flex-1 h-px bg-ink/15"></span>
             <span className="text-ink/35">of 03</span>
@@ -73,28 +73,28 @@ export default function MembershipModal({ onClose }) {
               <h3 className="display-thin text-4xl md:text-5xl leading-[1]">A few <span className="display-italic">precise</span> details.</h3>
               <div className="space-y-6 mt-10">
                 <div>
-                  <label className="mono text-ink/55 block mb-2">Email</label>
+                  <label className="mono text-ink/65 block mb-2">Email</label>
                   <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
                     className="w-full bg-transparent border-b border-ink/30 focus:border-ink outline-none py-2 text-lg" />
                 </div>
                 <div>
-                  <label className="mono text-ink/55 block mb-2">Card number</label>
+                  <label className="mono text-ink/65 block mb-2">Card number</label>
                   <input placeholder="0000 0000 0000 0000" value={card.number} onChange={(e) => setCard({ ...card, number: e.target.value })}
                     className="w-full bg-transparent border-b border-ink/30 focus:border-ink outline-none py-2 text-lg tabular" />
                 </div>
                 <div className="grid grid-cols-2 gap-5">
                   <div>
-                    <label className="mono text-ink/55 block mb-2">Expiry</label>
+                    <label className="mono text-ink/65 block mb-2">Expiry</label>
                     <input placeholder="MM / YY" value={card.exp} onChange={(e) => setCard({ ...card, exp: e.target.value })}
                       className="w-full bg-transparent border-b border-ink/30 focus:border-ink outline-none py-2 text-lg tabular" />
                   </div>
                   <div>
-                    <label className="mono text-ink/55 block mb-2">CVC</label>
+                    <label className="mono text-ink/65 block mb-2">CVC</label>
                     <input placeholder="•••" value={card.cvc} onChange={(e) => setCard({ ...card, cvc: e.target.value })}
                       className="w-full bg-transparent border-b border-ink/30 focus:border-ink outline-none py-2 text-lg tabular" />
                   </div>
                 </div>
-                <p className="mono-sm text-ink/45">Demonstration form · no data stored · no charge made</p>
+                <p className="mono-sm text-ink/65">Demonstration form · no data stored · no charge made</p>
               </div>
               <button type="submit" className="mt-10 w-full py-4 bg-ink-500 text-paper-warm hover:bg-clay-500 mono transition-colors">
                 Confirm membership →

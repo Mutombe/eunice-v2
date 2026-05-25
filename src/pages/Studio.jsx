@@ -2,31 +2,30 @@ import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import PageTransition from '../components/PageTransition.jsx'
+import Seo from '../components/Seo.jsx'
 import Reveal from '../components/Reveal.jsx'
 import Heading from '../components/Heading.jsx'
-import ProjectCard from '../components/ProjectCard.jsx'
 import NoteCard from '../components/NoteCard.jsx'
 import ParallaxImage from '../components/ParallaxImage.jsx'
 import HairlineDivider from '../components/HairlineDivider.jsx'
 import CountUp from '../components/CountUp.jsx'
 import RingCursor from '../components/RingCursor.jsx'
 import ProductCover from '../components/ProductCover.jsx'
-import { hero, practice, projects, notes, voices, brand, studio, shop } from '../data/siteData.js'
+import { useCollection } from '../lib/hooks.js'
+import { useSettings } from '../lib/settings.jsx'
 
-/* ============= HERO — three-slide typographic carousel ===============
-   v2 is type-led, not photo-led. The carousel cycles three subtle paper
-   tones, three typographic compositions, and three architectural marks.
-   Each slide is its own museum-card composition; only paper + content
-   cross-fade. Calm, considered, no flourish.
+/* ============= HERO — two-slide typographic carousel ================
+   v2 is type-led, not photo-led. The carousel cycles subtle paper tones
+   and typographic compositions. Calm, considered, no flourish.
 ==================================================================== */
 
 const HERO_SLIDES = [
   {
     key: 'studio',
-    paper: '#F5F2EC',           // paper-warm
+    paper: '#F7F1E6',           // paper-warm
     leftLabel: 'EDC—STUDIO 2026',
     rightLabel: 'OXFORD · MMXXVI',
-    indexNum: '01 / 03',
+    indexNum: '01 / 02',
     pretitle: 'An atelier — for the long, considered work',
     title: [
       { text: 'Of', italic: false },
@@ -46,31 +45,11 @@ const HERO_SLIDES = [
     layout: 'studio',
   },
   {
-    key: 'index',
-    paper: '#EFE9E3',           // stone-100
-    leftLabel: 'EDC—INDEX 2026',
-    rightLabel: 'FIVE PLATES · ROOMS',
-    indexNum: '02 / 03',
-    pretitle: 'Recent residential and atelier commissions',
-    title: [
-      { text: 'An', italic: false },
-      { text: 'index', italic: true, br: true },
-      { text: 'of considered', italic: false },
-      { text: 'rooms.', italic: true },
-    ],
-    body:
-      'Five plates from the studio. Lime plaster, untreated oak, brass that is allowed to age — interiors held to a slow architectural standard.',
-    primaryCta: { label: 'Open the index →', to: '/index' },
-    metaLeft: 'Oxford · Cotswolds · St John\'s Wood',
-    metaRight: '5 plates · 2023–2025',
-    layout: 'index',
-  },
-  {
     key: 'circle',
     paper: '#EFF1E8',           // olive-50
     leftLabel: 'EDC—CIRCLE 2026',
     rightLabel: 'BY APPLICATION · CAPPED 240',
-    indexNum: '03 / 03',
+    indexNum: '02 / 02',
     pretitle: 'A small membership · for women in the long work',
     title: [
       { text: 'The', italic: false },
@@ -96,7 +75,9 @@ function Hero() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const yLabel = useTransform(scrollYProgress, [0, 1], [0, 80])
+  const yBg = useTransform(scrollYProgress, [0, 1], [0, 120])
   const fadeOnScroll = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+  const { membership } = useSettings()
 
   useEffect(() => {
     if (paused) return
@@ -116,23 +97,31 @@ function Hero() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* Paper tone — cross-fades between slides */}
+      {/* Atmospheric background — the calm mountain mist behind the type */}
+      {membership.heroImage && (
+        <motion.div style={{ y: yBg }} className="absolute inset-0 -top-[8%] h-[116%]">
+          <img src={membership.heroImage} alt="" className="w-full h-full object-cover object-center" loading="eager" fetchpriority="high" decoding="async" />
+        </motion.div>
+      )}
+
+      {/* Paper tone — cross-fades between slides, semi-transparent so the image shows through */}
       <motion.div
         animate={{ backgroundColor: slide.paper }}
         transition={{ duration: FADE, ease: [0.21, 0.47, 0.32, 0.98] }}
         className="absolute inset-0"
+        style={{ opacity: 0.78 }}
       />
 
       {/* Vertical mono labels — outside slides so they cross-fade their text */}
       <motion.div
         style={{ y: yLabel, opacity: fadeOnScroll }}
-        className="vertical-label fixed left-3 top-32 z-30 text-ink/55 tracking-[0.4em] hidden md:block"
+        className="vertical-label fixed left-3 top-32 z-30 text-ink/65 tracking-[0.4em] hidden md:block"
       >
         <CrossFadeText value={slide.leftLabel} />
       </motion.div>
       <motion.div
         style={{ y: yLabel, opacity: fadeOnScroll }}
-        className="vertical-label fixed right-3 top-32 z-30 text-ink/55 tracking-[0.4em] hidden md:block"
+        className="vertical-label fixed right-3 top-32 z-30 text-ink/65 tracking-[0.4em] hidden md:block"
       >
         <CrossFadeText value={slide.rightLabel} />
       </motion.div>
@@ -180,7 +169,6 @@ function Slide({ slide, active, fadeOnScroll }) {
     >
       <motion.div style={{ opacity: fadeOnScroll }} className="absolute inset-0 grid grid-rows-[auto_1fr_auto]">
         {slide.layout === 'studio' && <StudioLayout slide={slide} />}
-        {slide.layout === 'index'  && <IndexLayout  slide={slide} />}
         {slide.layout === 'circle' && <CircleLayout slide={slide} />}
       </motion.div>
     </motion.div>
@@ -205,7 +193,7 @@ function SlideTitle({ segments, className = '' }) {
 function StudioLayout({ slide }) {
   return (
     <>
-      <div className="container-edge pt-6 md:pt-8 mono hero-eyebrow text-ink/55 flex items-center gap-3">
+      <div className="container-edge pt-6 md:pt-8 mono hero-eyebrow text-ink/65 flex items-center gap-3">
         <span className="tabular">{slide.indexNum}</span>
         <span className="w-10 h-px bg-ink/30" />
         <span className="truncate">{slide.pretitle}</span>
@@ -229,7 +217,7 @@ function StudioLayout({ slide }) {
           <div className="col-span-6 md:col-span-3 grid grid-cols-3 gap-2 border-t border-ink/15 pt-2.5">
             {slide.meta.map((m) => (
               <div key={m.label}>
-                <div className="mono-sm text-ink/45 text-[0.55rem]">{m.label}</div>
+                <div className="mono-sm text-ink/65 text-[0.7rem]">{m.label}</div>
                 <div className="display-thin text-lg md:text-2xl mt-0.5">{m.value}</div>
               </div>
             ))}
@@ -240,64 +228,11 @@ function StudioLayout({ slide }) {
   )
 }
 
-/* === INDEX — title left, drafted floor-plan diagram bottom-right === */
-function IndexLayout({ slide }) {
-  return (
-    <>
-      <div className="container-edge pt-6 md:pt-8 mono hero-eyebrow text-ink/55 flex items-center gap-3">
-        <span className="tabular">{slide.indexNum}</span>
-        <span className="w-10 h-px bg-ink/30" />
-        <span className="truncate">{slide.pretitle}</span>
-      </div>
-
-      <div className="container-edge self-center w-full">
-        <SlideTitle segments={slide.title} />
-      </div>
-
-      <div className="container-edge pb-6 md:pb-8 relative">
-        <div className="grid grid-cols-12 gap-4 md:gap-6 items-end">
-          <p className="col-span-12 md:col-span-6 hero-body text-ink/75 max-w-md">{slide.body}</p>
-
-          <div className="col-span-6 md:col-span-3 flex flex-col gap-1.5 md:items-end">
-            <Link to={slide.primaryCta.to} className="mono hero-eyebrow atelier-link">{slide.primaryCta.label}</Link>
-          </div>
-
-          {/* Drafted floor-plan diagram — the signature gesture for this slide */}
-          <div className="col-span-6 md:col-span-3 flex items-end justify-end gap-3">
-            <FloorPlanGlyph className="text-ink/40 w-28 md:w-32 hidden md:block" />
-            <div className="border-t border-ink/15 pt-2.5 mono-sm text-ink/55 leading-tight">
-              <div className="text-[0.55rem] text-ink/45">— Index</div>
-              <div className="mt-1 tabular text-[0.6rem]">{slide.metaRight}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  )
-}
-
-function FloorPlanGlyph({ className = '' }) {
-  return (
-    <svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
-      <rect x="1" y="1"   width="78" height="49" stroke="currentColor" strokeWidth="0.6" />
-      <rect x="79" y="1"  width="40" height="29" stroke="currentColor" strokeWidth="0.6" />
-      <rect x="79" y="30" width="40" height="20" stroke="currentColor" strokeWidth="0.6" />
-      <rect x="1" y="50"  width="118" height="29" stroke="currentColor" strokeWidth="0.6" />
-      {/* Door breaks — small notches in the rules */}
-      <line x1="40" y1="1"  x2="50" y2="1"  stroke="currentColor" strokeWidth="0.6" opacity="0" />
-      <line x1="40" y1="50" x2="50" y2="50" stroke="currentColor" strokeWidth="2.4" />
-      <line x1="79" y1="20" x2="79" y2="14" stroke="currentColor" strokeWidth="2.4" />
-      {/* Plate stamp — tiny dot at the entry */}
-      <circle cx="45" cy="50" r="0.9" fill="currentColor" />
-    </svg>
-  )
-}
-
 /* === CIRCLE — centered invitation card with a drafted compass circle === */
 function CircleLayout({ slide }) {
   return (
     <>
-      <div className="container-edge pt-6 md:pt-8 mono hero-eyebrow text-ink/55 flex items-center gap-3">
+      <div className="container-edge pt-6 md:pt-8 mono hero-eyebrow text-ink/65 flex items-center gap-3">
         <span className="tabular">{slide.indexNum}</span>
         <span className="w-10 h-px bg-ink/30" />
         <span className="truncate">{slide.pretitle}</span>
@@ -322,8 +257,8 @@ function CircleLayout({ slide }) {
             </Link>
           </div>
           <div className="col-span-12 md:col-span-3 border-t border-ink/15 pt-2.5">
-            <div className="mono-sm text-ink/45 text-[0.55rem]">— Membership</div>
-            <div className="mt-1 tabular mono-sm text-ink/65 text-[0.6rem]">{slide.metaRight}</div>
+            <div className="mono-sm text-ink/65 text-[0.7rem]">— Membership</div>
+            <div className="mt-1 tabular mono-sm text-ink/65 text-[0.7rem]">{slide.metaRight}</div>
           </div>
         </div>
       </div>
@@ -359,7 +294,7 @@ function SlidePagination({ active, setActive, count, paused, duration }) {
             aria-label={`Slide ${i + 1}`}
             className="group flex flex-col items-center gap-1.5"
           >
-            <span className={`mono-sm tabular text-[0.55rem] transition-colors ${isActive ? 'text-ink' : 'text-ink/40 group-hover:text-ink/70'}`}>
+            <span className={`mono-sm tabular text-[0.7rem] transition-colors ${isActive ? 'text-ink' : 'text-ink/65 group-hover:text-ink/70'}`}>
               0{i + 1}
             </span>
             <span className="block w-12 md:w-14 h-px bg-ink/15 relative overflow-hidden">
@@ -389,17 +324,17 @@ function StatsRow() {
       <div className="container-edge grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
         {[
           { num: 18, label: 'Years in practice', suffix: '' },
-          { num: 84, label: 'Commissioned spaces', suffix: '' },
+          { num: 200, label: 'Women guided', suffix: '' },
           { num: 240, label: 'Members capped', suffix: '' },
           { num: 4, label: 'Disciplines, one studio', suffix: '' },
         ].map((s, i) => (
           <Reveal key={i} delay={i * 0.06}>
             <div className="border-l border-ink/15 pl-6">
-              <div className="mono text-ink/55 tabular">{String(i + 1).padStart(2, '0')}</div>
+              <div className="mono text-ink/65 tabular">{String(i + 1).padStart(2, '0')}</div>
               <div className="display-thin text-[clamp(3rem,6vw,5rem)] leading-none mt-3">
                 <CountUp to={s.num} suffix={s.suffix} />
               </div>
-              <div className="mono-sm text-ink/55 mt-2">{s.label}</div>
+              <div className="mono-sm text-ink/65 mt-2">{s.label}</div>
             </div>
           </Reveal>
         ))}
@@ -410,6 +345,8 @@ function StatsRow() {
 
 /* ============= PRACTICE — disciplines ============= */
 function Practice() {
+  const { items: practice, loading } = useCollection('practice')
+  if (loading || !practice.length) return null
   return (
     <>
       <HairlineDivider num="02" label="The Practice" />
@@ -422,11 +359,11 @@ function Practice() {
             <Reveal key={p.slug} delay={i * 0.06}>
               <Link to={`/practice/${p.slug}`} className="group block bg-paper p-8 lg:p-10 h-full transition-colors hover:bg-paper-warm">
                 <div className="flex items-center gap-3">
-                  <span className="mono text-ink/55 tabular">{p.num}</span>
+                  <span className="mono text-ink/65 tabular">{p.num}</span>
                   <span className="w-6 h-px bg-ink/30"></span>
                 </div>
                 <h3 className="mt-4 display-thin text-4xl md:text-5xl leading-[0.95] group-hover:text-clay-500 transition-colors">{p.title}</h3>
-                <p className="mono-sm text-ink/55 mt-2">{p.discipline}</p>
+                <p className="mono-sm text-ink/65 mt-2">{p.discipline}</p>
                 <p className="mt-5 text-ink/80 leading-relaxed text-sm">{p.short}</p>
                 <span className="mt-8 inline-block mono atelier-link">Read →</span>
               </Link>
@@ -438,56 +375,37 @@ function Practice() {
   )
 }
 
-/* ============= INDEX with parallax on covers ============= */
-function IndexFeatured() {
-  const featured = projects.slice(0, 4)
-  return (
-    <>
-      <HairlineDivider num="03" label="Index · Recent works" />
-      <section className="pb-24 md:pb-36">
-        <div className="container-edge">
-          <Reveal>
-            <div className="flex items-end justify-between flex-wrap gap-6">
-              <Heading num="" label="Selected · 2023 — 2025" title="Five rooms," italic="five small lives." />
-              <Link to="/index" className="mono atelier-link text-clay-500">Open the index →</Link>
-            </div>
-          </Reveal>
-          <div className="mt-16 grid md:grid-cols-2 gap-8 md:gap-x-6 md:gap-y-16">
-            {featured.map((p, i) => (
-              <Reveal key={p.slug} delay={i * 0.05}>
-                <ProjectCard project={p} />
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
-  )
-}
-
 /* ============= BELIEFS — sticky number column ============= */
 function Beliefs() {
+  const { studio } = useSettings()
   return (
     <section className="bg-ink-500 text-paper-warm py-28 md:py-44 border-t border-ink/15">
       <div className="container-edge">
         <div className="grid md:grid-cols-12 gap-10">
           <div className="md:col-span-4 md:sticky md:top-32 self-start">
-            <span className="mono text-paper-warm/55">04 — A working ethic</span>
+            <span className="mono text-paper-warm/65">03 — A working ethic</span>
             <h2 className="mt-6 display-thin text-4xl md:text-5xl leading-[0.95]">
               Four <span className="display-italic">beliefs</span><br />the studio works by.
             </h2>
-            <p className="mt-6 mono-sm text-paper-warm/55 max-w-xs">
+            <p className="mt-6 mono-sm text-paper-warm/65 max-w-xs">
               Held quietly. Defended only by example.
             </p>
           </div>
+          {/* motion.li so the reveal lives on the list-item itself —
+              keeps <ol>/<li> a valid list (a11y) AND keeps the animation. */}
           <ol className="md:col-span-8 space-y-2">
             {studio.beliefs.map((b, i) => (
-              <Reveal key={b.num} delay={i * 0.07}>
-                <li className="grid grid-cols-12 gap-4 items-baseline border-b border-paper-warm/15 pb-8 pt-4">
-                  <span className="col-span-2 mono text-paper-warm/55 tabular">{b.num}</span>
-                  <p className="col-span-10 display-thin text-2xl md:text-4xl leading-[1.05]">{b.line}</p>
-                </li>
-              </Reveal>
+              <motion.li
+                key={b.num}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.7, delay: i * 0.07, ease: [0.21, 0.47, 0.32, 0.98] }}
+                className="grid grid-cols-12 gap-4 items-baseline border-b border-paper-warm/15 pb-8 pt-4"
+              >
+                <span className="col-span-2 mono text-paper-warm/65 tabular">{b.num}</span>
+                <p className="col-span-10 display-thin text-2xl md:text-4xl leading-[1.05]">{b.line}</p>
+              </motion.li>
             ))}
           </ol>
         </div>
@@ -498,7 +416,9 @@ function Beliefs() {
 
 /* ============= SHOP PREVIEW — printed editions ============= */
 function ShopPreview() {
-  const featured = shop.products.slice(0, 4)
+  const { items: products, loading } = useCollection('shop')
+  if (loading || !products.length) return null
+  const featured = products.slice(0, 4)
   return (
     <>
       <HairlineDivider num="04" label="Shop · Printed editions" />
@@ -529,13 +449,14 @@ function ShopPreview() {
 
 /* ============= FOUNDER — Eunice, full-length, atelier scale ============= */
 function Founder() {
+  const { studio } = useSettings()
   return (
     <section className="container-edge py-28 md:py-40 border-t border-ink/15">
       <div className="grid md:grid-cols-12 gap-10 md:gap-14 items-start">
         {/* Mono index strip */}
         <div className="md:col-span-2">
           <Reveal>
-            <span className="mono text-ink/55 tabular">04—1/2 · Founder</span>
+            <span className="mono text-ink/65 tabular">— Founder</span>
           </Reveal>
         </div>
 
@@ -548,7 +469,7 @@ function Founder() {
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="mono-sm text-ink/55 mt-3">b. Lagos · founded the studio in Oxford, 2008</p>
+            <p className="mono-sm text-ink/65 mt-3">b. Lagos · founded the studio in Oxford, 2008</p>
           </Reveal>
           <Reveal delay={0.15}>
             <p className="mt-10 text-lg md:text-xl leading-[1.55] text-ink/85 max-w-md">
@@ -564,16 +485,16 @@ function Founder() {
           <Reveal delay={0.25}>
             <div className="mt-10 grid grid-cols-3 gap-4 max-w-sm border-t border-ink/15 pt-5">
               <div>
-                <div className="mono-sm text-ink/45">Practising</div>
+                <div className="mono-sm text-ink/65">Practising</div>
                 <div className="display-thin text-2xl mt-1 tabular">18</div>
-                <div className="mono-sm text-ink/55">years</div>
+                <div className="mono-sm text-ink/65">years</div>
               </div>
               <div>
-                <div className="mono-sm text-ink/45">Working</div>
+                <div className="mono-sm text-ink/65">Working</div>
                 <div className="display-thin text-2xl mt-1">UK · int.</div>
               </div>
               <div>
-                <div className="mono-sm text-ink/45">Studio</div>
+                <div className="mono-sm text-ink/65">Studio</div>
                 <div className="display-thin text-2xl mt-1">Oxford</div>
               </div>
             </div>
@@ -592,7 +513,7 @@ function Founder() {
                 style={{ objectPosition: 'center 25%' }}
               />
             </div>
-            <p className="mono-sm text-ink/55 mt-4 flex justify-between">
+            <p className="mono-sm text-ink/65 mt-4 flex justify-between">
               <span>Eunice · Studio · Oxford</span>
               <span className="tabular">2026</span>
             </p>
@@ -605,15 +526,17 @@ function Founder() {
 
 /* ============= NOTES preview ============= */
 function NotesPreview() {
-  const featured = notes.slice(0, 3)
+  const { items: posts, loading } = useCollection('journal')
+  if (loading || !posts.length) return null
+  const featured = posts.slice(0, 3)
   return (
     <>
-      <HairlineDivider num="05" label="Notes · From the studio" />
+      <HairlineDivider num="05" label="Journal · From the studio" />
       <section className="container-edge pb-24 md:pb-36">
         <Reveal>
           <div className="flex items-end justify-between flex-wrap gap-6">
             <Heading num="" label="Editorial · Vol. I" title="Slow" italic="reading." />
-            <Link to="/notes" className="mono atelier-link text-clay-500">All notes →</Link>
+            <Link to="/journal" className="mono atelier-link text-clay-500">Read the journal →</Link>
           </div>
         </Reveal>
         <div className="mt-16 grid md:grid-cols-3 gap-x-6 gap-y-12">
@@ -630,6 +553,8 @@ function NotesPreview() {
 
 /* ============= VOICES ============= */
 function Voices() {
+  const { items: voices, loading } = useCollection('testimonials')
+  if (loading || !voices.length) return null
   return (
     <section className="bg-paper-warm py-28 md:py-36 border-t border-ink/15">
       <div className="container-edge">
@@ -640,7 +565,7 @@ function Voices() {
           {voices.map((v, i) => (
             <Reveal key={i} delay={i * 0.07}>
               <figure className="bg-paper-warm p-8 lg:p-10 h-full flex flex-col">
-                <span className="mono text-ink/55 tabular">{String(i + 1).padStart(2, '0')}</span>
+                <span className="mono text-ink/65 tabular">{String(i + 1).padStart(2, '0')}</span>
                 <blockquote className="mt-6 display-thin text-2xl md:text-3xl leading-[1.15] flex-1">
                   <span className="display-italic text-clay-500">"</span>{v.quote}<span className="display-italic text-clay-500">"</span>
                 </blockquote>
@@ -676,11 +601,11 @@ function ClosingCTA() {
 export default function Studio() {
   return (
     <PageTransition>
+      <Seo path="/" description="A calm, elevated practice for high-achieving women navigating burnout, grief, transition and reinvention — coaching, wellbeing strategy and design for intentional living." />
       <RingCursor />
       <Hero />
       <StatsRow />
       <Practice />
-      <IndexFeatured />
       <Beliefs />
       <Founder />
       <ShopPreview />

@@ -3,19 +3,43 @@ import { useState } from 'react'
 import {
   InstagramLogo, LinkedinLogo, EnvelopeSimple, Phone, MapPin, ArrowRight,
 } from '@phosphor-icons/react'
-import { brand, navLinks } from '../data/siteData.js'
+import { useSettings } from '../lib/settings.jsx'
+import { apiRequest } from '../lib/api.js'
 
 export default function Footer() {
   const [email, setEmail] = useState('')
   const [done, setDone] = useState(false)
-  const submit = (e) => { e.preventDefault(); if (email) setDone(true) }
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
   const year = new Date().getFullYear()
+  const { brand, navLinks } = useSettings()
+
+  async function submit(e) {
+    e.preventDefault()
+    if (!email || busy) return
+    setBusy(true); setError('')
+    try {
+      await apiRequest('/newsletter/', { method: 'POST', body: { email } })
+      setDone(true)
+    } catch (err) {
+      // Treat "already subscribed" as a soft success — the visitor doesn't
+      // need to see a scary error when their email is already on the list.
+      const msg = err?.message || ''
+      if (/already|exists|unique/i.test(msg)) {
+        setDone(true)
+      } else {
+        setError(msg || 'Could not subscribe just now. Please try again.')
+      }
+    } finally {
+      setBusy(false)
+    }
+  }
 
   return (
     <footer className="bg-ink-500 text-paper-warm relative">
       {/* === Top hairline + index === */}
       <div className="container-edge pt-10 pb-6">
-        <div className="flex items-baseline justify-between mono text-paper-warm/55 tabular">
+        <div className="flex items-baseline justify-between mono text-paper-warm/65 tabular">
           <span>{brand.index}</span>
           <span className="hidden md:inline">END OF DOCUMENT · SCROLL UP TO RETURN</span>
           <span className="hidden md:inline">EDC—STUDIO 2026</span>
@@ -33,7 +57,7 @@ export default function Footer() {
             </Link>
           </div>
           <div className="lg:col-span-5 lg:pl-10 lg:border-l border-paper-warm/15">
-            <p className="mono text-paper-warm/55">— Studio statement</p>
+            <p className="mono text-paper-warm/65">— Studio statement</p>
             <p className="display-thin text-2xl md:text-3xl leading-[1.2] mt-4 max-w-md">
               An atelier — for interiors, mindset, and the architecture of a considered life.
             </p>
@@ -46,11 +70,11 @@ export default function Footer() {
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-6">
           {/* Index */}
           <div className="lg:col-span-3">
-            <span className="mono text-paper-warm/55">— Index</span>
+            <span className="mono text-paper-warm/65">— Index</span>
             <ul className="mt-5 space-y-3">
               {navLinks.map((l) => (
                 <li key={l.to} className="flex items-baseline gap-3">
-                  <span className="mono-sm text-paper-warm/40 w-6 tabular">{l.num}</span>
+                  <span className="mono-sm text-paper-warm/65 w-6 tabular">{l.num}</span>
                   <Link to={l.to} className="atelier-link text-paper-warm">{l.label}</Link>
                 </li>
               ))}
@@ -59,32 +83,32 @@ export default function Footer() {
 
           {/* Reach the studio */}
           <div className="lg:col-span-4">
-            <span className="mono text-paper-warm/55">— Reach the studio</span>
+            <span className="mono text-paper-warm/65">— Reach the studio</span>
             <ul className="mt-5 space-y-3">
               <li>
                 <a href={`mailto:${brand.email}`} className="atelier-link text-paper-warm inline-flex items-center gap-3 group">
-                  <EnvelopeSimple size={15} className="text-paper-warm/55 group-hover:text-clay-300 transition-colors" />
+                  <EnvelopeSimple size={15} className="text-paper-warm/65 group-hover:text-clay-300 transition-colors" />
                   <span>{brand.email}</span>
                 </a>
               </li>
               <li>
                 <a href={`tel:${brand.phone.replace(/\s/g, '')}`} className="atelier-link text-paper-warm inline-flex items-center gap-3 group">
-                  <Phone size={15} className="text-paper-warm/55 group-hover:text-clay-300 transition-colors" />
+                  <Phone size={15} className="text-paper-warm/65 group-hover:text-clay-300 transition-colors" />
                   <span className="tabular">{brand.phone}</span>
                 </a>
               </li>
               <li>
                 <span className="inline-flex items-center gap-3 text-paper-warm/85">
-                  <MapPin size={15} className="text-paper-warm/55" />
+                  <MapPin size={15} className="text-paper-warm/65" />
                   <span>{brand.studio}</span>
                 </span>
               </li>
             </ul>
-            <p className="mt-6 mono-sm text-paper-warm/45">{brand.hours}</p>
+            <p className="mt-6 mono-sm text-paper-warm/65">{brand.hours}</p>
 
             {/* Social */}
             <div className="mt-8 pt-8 border-t border-paper-warm/15 flex items-center gap-4">
-              <span className="mono text-paper-warm/55">Elsewhere</span>
+              <span className="mono text-paper-warm/65">Elsewhere</span>
               <a href={brand.social.instagram} target="_blank" rel="noreferrer"
                 className="w-9 h-9 border border-paper-warm/30 flex items-center justify-center text-paper-warm/85 hover:bg-paper-warm hover:text-ink-500 transition-all"
                 aria-label="Instagram">
@@ -100,7 +124,7 @@ export default function Footer() {
 
           {/* The private letter */}
           <div className="lg:col-span-5 lg:pl-10 lg:border-l border-paper-warm/15">
-            <span className="mono text-paper-warm/55">— The private letter</span>
+            <span className="mono text-paper-warm/65">— The private letter</span>
             <p className="display-thin text-2xl md:text-3xl mt-3 leading-[1.15]">
               Sent only when there is something <span className="display-italic">worth saying.</span>
             </p>
@@ -108,16 +132,26 @@ export default function Footer() {
               No schedule, no marketing — twelve letters a year, posted on Sundays.
             </p>
             {!done ? (
-              <form onSubmit={submit} className="mt-6 flex gap-3 items-end">
-                <input
-                  type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@somewhere.com"
-                  className="flex-1 bg-transparent border-b border-paper-warm/30 focus:border-paper-warm outline-none py-2 text-paper-warm placeholder:text-paper-warm/30"
-                />
-                <button className="mono text-clay-300 hover:text-paper-warm whitespace-nowrap inline-flex items-center gap-1 transition-colors">
-                  Subscribe <ArrowRight size={11} />
-                </button>
-              </form>
+              <>
+                <form onSubmit={submit} className="mt-6 flex gap-3 items-end">
+                  <input
+                    type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@somewhere.com"
+                    disabled={busy}
+                    className="flex-1 bg-transparent border-b border-paper-warm/30 focus:border-paper-warm outline-none py-2 text-paper-warm placeholder:text-paper-warm/30 disabled:opacity-50"
+                  />
+                  <button
+                    type="submit"
+                    disabled={busy}
+                    className="mono text-clay-300 hover:text-paper-warm whitespace-nowrap inline-flex items-center gap-1 transition-colors disabled:opacity-50"
+                  >
+                    {busy ? 'Subscribing…' : <>Subscribe <ArrowRight size={11} /></>}
+                  </button>
+                </form>
+                {error && (
+                  <p className="mt-3 mono-sm text-clay-300/80">— {error}</p>
+                )}
+              </>
             ) : (
               <p className="display-italic text-2xl mt-4 text-clay-300">Thank you. We'll write when there is something worth saying.</p>
             )}
@@ -142,7 +176,7 @@ export default function Footer() {
             { num: 'III', k: 'Currently quiet', v: 'December retreat list — closed' },
           ].map((item) => (
             <div key={item.num} className="border-t border-paper-warm/15 pt-4">
-              <div className="flex items-baseline gap-3 mono-sm text-paper-warm/55">
+              <div className="flex items-baseline gap-3 mono-sm text-paper-warm/65">
                 <span className="tabular">{item.num}</span>
                 <span>{item.k}</span>
               </div>
@@ -152,13 +186,28 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* === Secondary nav — pages that live below the top nav === */}
+      <div className="container-edge pb-8">
+        <div className="hairline bg-paper-warm/15 mb-6"></div>
+        <div className="grid md:grid-cols-12 gap-y-3 gap-x-6 mono-sm">
+          <div className="md:col-span-3 text-paper-warm/65">— Beyond the top nav</div>
+          <div className="md:col-span-9 flex flex-wrap items-baseline gap-x-6 gap-y-3">
+            <Link to="/speaking" className="atelier-link text-paper-warm/85 hover:text-paper-warm">Speaking</Link>
+            <Link to="/retreats" className="atelier-link text-paper-warm/85 hover:text-paper-warm">Retreats</Link>
+            <Link to="/privacy"  className="atelier-link text-paper-warm/85 hover:text-paper-warm">Privacy</Link>
+            <Link to="/cookies"  className="atelier-link text-paper-warm/85 hover:text-paper-warm">Cookies</Link>
+            <Link to="/terms"    className="atelier-link text-paper-warm/85 hover:text-paper-warm">Terms</Link>
+          </div>
+        </div>
+      </div>
+
       {/* === Colophon — printer's mark === */}
       <div className="container-edge pb-10">
         <div className="hairline bg-paper-warm/15 mb-6"></div>
-        <div className="grid md:grid-cols-12 gap-4 items-baseline mono-sm text-paper-warm/45">
+        <div className="grid md:grid-cols-12 gap-4 items-baseline mono-sm text-paper-warm/65">
           <div className="md:col-span-3 tabular">{brand.index}</div>
           <div className="md:col-span-3 tabular">First impression · MMXXVI</div>
-          <div className="md:col-span-3 tabular">Set in Italiana, Manrope &amp; JetBrains Mono</div>
+          <div className="md:col-span-3 tabular">Set in Fraunces &amp; Figtree</div>
           <div className="md:col-span-3 tabular md:text-right flex items-baseline gap-3 md:justify-end flex-wrap">
             <Link to="/login" className="atelier-link text-paper-warm/65 hover:text-paper-warm">STUDIO · SIGN IN</Link>
             <span className="text-paper-warm/25">·</span>

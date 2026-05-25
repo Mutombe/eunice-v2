@@ -1,12 +1,19 @@
 import { Link, useParams, Navigate } from 'react-router-dom'
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react'
 import PageTransition from '../components/PageTransition.jsx'
+import Seo from '../components/Seo.jsx'
 import Reveal from '../components/Reveal.jsx'
 import ParallaxImage from '../components/ParallaxImage.jsx'
-import { practice } from '../data/siteData.js'
+import { Loading, LoadError } from '../components/AsyncBoundary.jsx'
+import { useCollection } from '../lib/hooks.js'
 
 export default function PracticeDetail() {
   const { slug } = useParams()
+  const { items: practice, loading, error } = useCollection('practice')
+
+  if (loading) return <Loading />
+  if (error) return <LoadError />
+
   const item = practice.find((p) => p.slug === slug)
   if (!item) return <Navigate to="/practice" replace />
   const idx = practice.findIndex((p) => p.slug === slug)
@@ -15,6 +22,7 @@ export default function PracticeDetail() {
 
   return (
     <PageTransition>
+      <Seo title={item.title} path={`/practice/${item.slug}`} description={item.short} />
       <section className="container-edge pt-16 pb-10">
         <Link to="/practice" className="mono atelier-link inline-flex items-center gap-2"><ArrowLeft size={12} /> Back · The Practice</Link>
       </section>
@@ -26,7 +34,7 @@ export default function PracticeDetail() {
             {item.title}.
           </h1>
         </div>
-        <p className="mono-sm text-ink/55 mt-4">{item.discipline}</p>
+        <p className="mono-sm text-ink/65 mt-4">{item.discipline}</p>
         <p className="mt-8 max-w-3xl display-thin text-2xl md:text-3xl text-ink/85 leading-[1.25] display-italic">
           {item.short}
         </p>
@@ -37,7 +45,7 @@ export default function PracticeDetail() {
       <section className="container-edge py-20 md:py-28">
         <div className="grid md:grid-cols-12 gap-10">
           <div className="md:col-span-3">
-            <span className="mono text-ink/55">— On the discipline</span>
+            <span className="mono text-ink/65">— On the discipline</span>
           </div>
           <div className="md:col-span-9 space-y-6">
             {item.body.map((p, i) => (
@@ -60,7 +68,7 @@ export default function PracticeDetail() {
               {item.formats.map((f, i) => (
                 <Reveal key={f.label} delay={i * 0.05}>
                   <div className="bg-paper-warm p-8 h-full">
-                    <span className="mono text-ink/55 tabular">{f.num}</span>
+                    <span className="mono text-ink/65 tabular">{f.num}</span>
                     <h4 className="mt-4 display-thin text-2xl md:text-3xl">{f.label}</h4>
                   </div>
                 </Reveal>
@@ -81,11 +89,11 @@ export default function PracticeDetail() {
 
       <section className="grid grid-cols-2 border-t border-ink/15">
         <Link to={`/practice/${prev.slug}`} className="container-edge py-10 md:py-14 hover:bg-paper-warm transition-colors group">
-          <span className="mono text-ink/55 inline-flex items-center gap-2"><ArrowLeft size={12} /> {prev.num} · Previous</span>
+          <span className="mono text-ink/65 inline-flex items-center gap-2"><ArrowLeft size={12} /> {prev.num} · Previous</span>
           <h3 className="mt-3 display-thin text-2xl md:text-4xl group-hover:text-clay-500 transition-colors">{prev.title}</h3>
         </Link>
         <Link to={`/practice/${next.slug}`} className="container-edge py-10 md:py-14 hover:bg-paper-warm transition-colors group text-right border-l border-ink/15">
-          <span className="mono text-ink/55 inline-flex items-center gap-2 justify-end w-full">{next.num} · Next <ArrowRight size={12} /></span>
+          <span className="mono text-ink/65 inline-flex items-center gap-2 justify-end w-full">{next.num} · Next <ArrowRight size={12} /></span>
           <h3 className="mt-3 display-thin text-2xl md:text-4xl group-hover:text-clay-500 transition-colors">{next.title}</h3>
         </Link>
       </section>

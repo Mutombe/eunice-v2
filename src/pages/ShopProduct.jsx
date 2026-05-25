@@ -3,22 +3,30 @@ import { useState } from 'react'
 import { ArrowLeft, ArrowRight, Check } from '@phosphor-icons/react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PageTransition from '../components/PageTransition.jsx'
+import Seo from '../components/Seo.jsx'
 import Reveal from '../components/Reveal.jsx'
 import ProductCover from '../components/ProductCover.jsx'
-import { shop } from '../data/siteData.js'
+import { Loading, LoadError } from '../components/AsyncBoundary.jsx'
+import { useCollection } from '../lib/hooks.js'
 
 export default function ShopProduct() {
   const { slug } = useParams()
-  const product = shop.products.find((p) => p.slug === slug)
-  if (!product) return <Navigate to="/shop" replace />
-  const idx = shop.products.findIndex((p) => p.slug === slug)
-  const next = shop.products[(idx + 1) % shop.products.length]
+  const { items: products, loading, error } = useCollection('shop')
   const [step, setStep] = useState(0)
   const [email, setEmail] = useState('')
   const [card, setCard] = useState({ number: '', exp: '', cvc: '' })
 
+  if (loading) return <Loading />
+  if (error) return <LoadError />
+
+  const product = products.find((p) => p.slug === slug)
+  if (!product) return <Navigate to="/shop" replace />
+  const idx = products.findIndex((p) => p.slug === slug)
+  const next = products[(idx + 1) % products.length]
+
   return (
     <PageTransition>
+      <Seo title={product.name} path={`/shop/${product.slug}`} description={product.blurb} image={product.cover} />
       <section className="container-edge pt-16 pb-10">
         <Link to="/shop" className="mono atelier-link inline-flex items-center gap-2"><ArrowLeft size={12} /> Back · Shop</Link>
       </section>
@@ -28,7 +36,7 @@ export default function ShopProduct() {
           <div className="md:col-span-6 md:sticky md:top-32 self-start">
             <Reveal>
               <ProductCover product={product} size="hero" asLink={false} />
-              <div className="mt-5 flex items-baseline justify-between mono text-ink/55">
+              <div className="mt-5 flex items-baseline justify-between mono text-ink/65">
                 <span>{product.num} · Posted from the studio</span>
                 <span className="tabular">{product.edition}</span>
               </div>
@@ -77,7 +85,7 @@ export default function ShopProduct() {
                   ['Edition', product.edition],
                 ].filter(([, v]) => v).map(([k, v]) => (
                   <div key={k}>
-                    <dt className="mono-sm text-ink/55 text-[0.55rem]">{k}</dt>
+                    <dt className="mono-sm text-ink/65 text-[0.7rem]">{k}</dt>
                     <dd className="mt-1 display-thin text-base">{v}</dd>
                   </div>
                 ))}
@@ -87,7 +95,7 @@ export default function ShopProduct() {
             <Reveal delay={0.22}>
               <div className="mt-10 flex items-center justify-between flex-wrap gap-4">
                 <div>
-                  <div className="mono-sm text-ink/55">From the studio</div>
+                  <div className="mono-sm text-ink/65">From the studio</div>
                   <div className="display-thin text-3xl tabular mt-1">{product.price}</div>
                 </div>
                 <button onClick={() => setStep(1)} className="inline-flex items-center gap-2 px-7 py-3.5 bg-ink-500 text-paper-warm hover:bg-clay-500 transition-colors mono">
@@ -116,7 +124,7 @@ export default function ShopProduct() {
 
       <section className="border-t border-ink/15">
         <Link to={`/shop/${next.slug}`} className="container-edge py-16 md:py-20 grid grid-cols-12 gap-6 hover:bg-paper-warm transition-colors group">
-          <span className="col-span-12 md:col-span-3 mono text-ink/55 self-end">{next.num} · Next →</span>
+          <span className="col-span-12 md:col-span-3 mono text-ink/65 self-end">{next.num} · Next →</span>
           <h3 className="col-span-12 md:col-span-9 display-thin text-3xl md:text-5xl group-hover:text-clay-500 transition-colors">{next.name}</h3>
         </Link>
       </section>
@@ -137,12 +145,12 @@ export default function ShopProduct() {
                   <h3 className="mt-3 display-thin text-3xl md:text-4xl">{product.name} <span className="display-italic">— posting to.</span></h3>
                   <div className="mt-8 space-y-5">
                     <div>
-                      <label className="mono text-ink/55 block mb-2">Email</label>
+                      <label className="mono text-ink/65 block mb-2">Email</label>
                       <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
                         className="w-full bg-transparent border-b border-ink/30 focus:border-ink outline-none py-2 text-lg" />
                     </div>
                     <div>
-                      <label className="mono text-ink/55 block mb-2">Postal address (UK only for printed)</label>
+                      <label className="mono text-ink/65 block mb-2">Postal address (UK only for printed)</label>
                       <textarea rows={3} className="w-full bg-transparent border-b border-ink/30 focus:border-ink outline-none py-2 text-base resize-none" />
                     </div>
                   </div>
@@ -155,18 +163,18 @@ export default function ShopProduct() {
                   <h3 className="mt-3 display-thin text-3xl md:text-4xl">A few <span className="display-italic">precise</span> details.</h3>
                   <div className="mt-8 space-y-5">
                     <div>
-                      <label className="mono text-ink/55 block mb-2">Card number</label>
+                      <label className="mono text-ink/65 block mb-2">Card number</label>
                       <input value={card.number} onChange={(e) => setCard({ ...card, number: e.target.value })} placeholder="0000 0000 0000 0000"
                         className="w-full bg-transparent border-b border-ink/30 focus:border-ink outline-none py-2 text-lg" />
                     </div>
                     <div className="grid grid-cols-2 gap-5">
                       <div>
-                        <label className="mono text-ink/55 block mb-2">Expiry</label>
+                        <label className="mono text-ink/65 block mb-2">Expiry</label>
                         <input value={card.exp} onChange={(e) => setCard({ ...card, exp: e.target.value })} placeholder="MM / YY"
                           className="w-full bg-transparent border-b border-ink/30 focus:border-ink outline-none py-2 text-lg" />
                       </div>
                       <div>
-                        <label className="mono text-ink/55 block mb-2">CVC</label>
+                        <label className="mono text-ink/65 block mb-2">CVC</label>
                         <input value={card.cvc} onChange={(e) => setCard({ ...card, cvc: e.target.value })} placeholder="•••"
                           className="w-full bg-transparent border-b border-ink/30 focus:border-ink outline-none py-2 text-lg" />
                       </div>

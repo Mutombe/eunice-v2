@@ -1,0 +1,90 @@
+{
+  "reports": [
+    {
+      "route": "/",
+      "ok": true,
+      "violations": []
+    },
+    {
+      "route": "/about",
+      "ok": true,
+      "violations": []
+    },
+    {
+      "route": "/practice",
+      "ok": true,
+      "violations": []
+    },
+    {
+      "route": "/programmes",
+      "ok": true,
+      "violations": []
+    },
+    {
+      "route": "/journal",
+      "ok": true,
+      "violations": []
+    },
+    {
+      "route": "/membership",
+      "ok": true,
+      "violations": []
+    },
+    {
+      "route": "/retreats",
+      "ok": true,
+      "violations": []
+    },
+    {
+      "route": "/speaking",
+      "ok": true,
+      "violations": []
+    },
+    {
+      "route": "/shop",
+      "ok": true,
+      "violations": []
+    },
+    {
+      "route": "/enquire",
+      "ok": true,
+      "violations": []
+    },
+    {
+      "route": "/privacy",
+      "ok": true,
+      "violations": []
+    },
+    {
+      "route": "/cookies",
+      "ok": true,
+      "violations": []
+    },
+    {
+      "route": "/terms",
+      "ok": true,
+      "violations": []
+    },
+    {
+      "route": "/practice/interiors",
+      "ok": true,
+      "violations": []
+    },
+    {
+      "route": "/programmes/reinvention",
+      "ok": true,
+      "violations": []
+    },
+    {
+      "route": "/journal/second-season",
+      "ok": true,
+      "violations": []
+    },
+    {
+      "route": "/shop/quiet-report-q1",
+      "ok": true,
+      "violations": []
+    }
+  ],
+  "rules": []
+}

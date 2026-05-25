@@ -1,0 +1,79 @@
+# Frontend CI/CD — build + deploy to GitHub Pages on every push to main.
+#
+# Pipeline:
+#   1. Checkout
+#   2. Set up Node 20 + cache npm
+#   3. Install Chromium for Puppeteer (cached via setup-node cache)
+#   4. Install deps with `npm ci`
+#   5. Build the SPA with GH_PAGES=true (uses /eunice-v2/ base path)
+#      and prerender all 31 routes
+#   6. Publish dist/ to the gh-pages branch
+#
+# Required (one-time setup in GitHub):
+#   - Settings → Pages → Source: "Deploy from a branch" → gh-pages → / (root)
+#   - Optional: Settings → Secrets and variables → Actions → New repository variable
+#       VITE_API_URL = https://your-render-service.onrender.com/api
+#     (otherwise the value in .env.production is used.)
+
+name: Deploy Frontend to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'index.html'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'vite.config.js'
+      - '.env.production'
+      - 'scripts/**'
+      - '.github/workflows/deploy-frontend.yml'
+  workflow_dispatch:    # Lets you trigger a deploy manually from the Actions tab
+
+# Avoid two deploys running over each other when commits land close together.
+concurrency:
+  group: deploy-frontend
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # Needed to push to gh-pages branch
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (SPA + prerender)
+        env:
+          GH_PAGES: 'true'
+          # If VITE_API_URL is set as a repo variable, it overrides .env.production.
+          VITE_API_URL: ${{ vars.VITE_API_URL || 'https://eunice-backend.onrender.com/api' }}
+          # Where prerender's Puppeteer should fetch dynamic slugs from. If
+          # unreachable, the script falls back to siteData.js — never fails.
+          PRERENDER_API_BASE: ${{ vars.VITE_API_URL || 'https://eunice-backend.onrender.com/api' }}
+          PRERENDER_BASE_PATH: '/eunice-v2/'
+        run: |
+          npm run build
+          node scripts/prerender.mjs
+
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          # Force-orphan keeps gh-pages branch lean (no history bloat over time).
+          force_orphan: true
+          commit_message: 'chore(deploy): publish ${{ github.sha }}'

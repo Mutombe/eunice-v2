@@ -2,19 +2,14 @@ import { Link } from 'react-router-dom'
 import { X } from '@phosphor-icons/react'
 import { AnimatePresence, motion } from 'framer-motion'
 import useLocalStorage from '../hooks/useLocalStorage.js'
+import { useSettings } from '../lib/settings.jsx'
 
-const KEY = 'eunice-v2.notification'
+/* The notice bar's content comes from site settings (editable in the admin).
+   Per-visitor dismissal stays in localStorage. */
 const DISMISSED_KEY = 'eunice-v2.notification.dismissed'
 
-export const DEFAULT_NOTIFICATION = {
-  enabled: false,
-  message: 'The Quiet Report · Q1 has arrived. By application only.',
-  linkLabel: 'Open the report',
-  linkTo: '/shop/quiet-report-q1',
-}
-
 export default function NotificationBar() {
-  const [n] = useLocalStorage(KEY, DEFAULT_NOTIFICATION)
+  const { notification: n } = useSettings()
   const [dismissed, setDismissed] = useLocalStorage(DISMISSED_KEY, '')
   const visible = n?.enabled && dismissed !== n.message
 
@@ -56,5 +51,3 @@ export default function NotificationBar() {
     </AnimatePresence>
   )
 }
-
-export { KEY as NOTIFICATION_KEY }

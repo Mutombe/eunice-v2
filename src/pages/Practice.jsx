@@ -1,12 +1,24 @@
 import { Link } from 'react-router-dom'
 import PageTransition from '../components/PageTransition.jsx'
+import Seo from '../components/Seo.jsx'
 import Reveal from '../components/Reveal.jsx'
 import Heading from '../components/Heading.jsx'
-import { practice, studio } from '../data/siteData.js'
+import { LoadError } from '../components/AsyncBoundary.jsx'
+import { useCollection } from '../lib/hooks.js'
+import { useSettings } from '../lib/settings.jsx'
 
 export default function Practice() {
+  const { items: practice, error } = useCollection('practice')
+  const { studio } = useSettings()
+
+  // Render the page chrome (hero, headings, CTA) immediately. The
+  // discipline list fills in as soon as the API responds — no full-
+  // page loading flash on navigation.
+  if (error) return <LoadError />
+
   return (
     <PageTransition>
+      <Seo title="Practice" path="/practice" description="Coaching, wellbeing strategy, burnout recovery, grief and reinvention, feminine leadership, and wellbeing-led interior design — the disciplines of the practice." />
       <section className="container-edge pt-20 md:pt-28 pb-16">
         <Heading num="02" label="The Practice · Disciplines" />
         <h1 className="mt-10 display-thin text-[clamp(3rem,10vw,9rem)] leading-[0.9]">
@@ -28,7 +40,7 @@ export default function Practice() {
                 </div>
                 <div className="md:col-span-6">
                   <h2 className="display-thin text-5xl md:text-7xl leading-[0.92] group-hover:text-clay-500 transition-colors">{p.title}</h2>
-                  <p className="mono-sm text-ink/55 mt-3">{p.discipline}</p>
+                  <p className="mono-sm text-ink/65 mt-3">{p.discipline}</p>
                   <p className="mt-6 text-ink/85 leading-relaxed text-lg max-w-xl">{p.short}</p>
                   <span className="mt-6 inline-block mono atelier-link">Read the discipline →</span>
                 </div>

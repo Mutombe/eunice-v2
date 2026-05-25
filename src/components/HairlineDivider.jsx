@@ -15,7 +15,7 @@ export default function HairlineDivider({ label = '', num = '' }) {
   return (
     <div ref={ref} className="container-edge py-12 md:py-20 relative">
       <div className="grid grid-cols-12 items-center gap-4">
-        <span className="col-span-2 mono text-ink/55 tabular">{num}</span>
+        <span className="col-span-2 mono text-ink/65 tabular">{num}</span>
         <div className="col-span-10 relative">
           <svg viewBox="0 0 1200 1" preserveAspectRatio="none" className="w-full h-px">
             <line x1="0" y1="0.5" x2="1200" y2="0.5"
@@ -25,7 +25,7 @@ export default function HairlineDivider({ label = '', num = '' }) {
             />
           </svg>
           {label && (
-            <span className={`absolute right-0 -top-3 bg-paper px-3 mono text-ink/55 transition-opacity duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`} style={{ transitionDelay: '0.8s' }}>
+            <span className={`absolute right-0 -top-3 bg-paper px-3 mono text-ink/65 transition-opacity duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`} style={{ transitionDelay: '0.8s' }}>
               {label}
             </span>
           )}

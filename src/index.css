@@ -7,8 +7,8 @@
   --color-ink-200: #B8B5AB;
   --color-ink-300: #7A7770;
   --color-ink-400: #3F3D38;
-  --color-ink-500: #1A1A19;
-  --color-ink-600: #0E0E0D;
+  --color-ink-500: #2B2722; /* warm deep charcoal — softened section/button fill */
+  --color-ink-600: #1C1916;
 
   --color-olive-50: #EFF1E8;
   --color-olive-100: #D6DBC2;
@@ -25,18 +25,31 @@
   --color-stone-300: #D6CFC4;
   --color-stone-400: #B8AE9E;
 
-  --color-clay-300: #E0A579;
-  --color-clay-400: #C78553;
-  --color-clay-500: #A96C3F;
-  --color-clay-600: #8A552F;
+  /* Accent — muted sage (was terracotta; re-tuned per brief).
+     Token names kept so no component file needs touching. */
+  --color-clay-300: #AEB794;
+  --color-clay-400: #8C9A70;
+  --color-clay-500: #5E6D44;
+  --color-clay-600: #47532F;
 
-  --color-paper: #EFE9E3;
-  --color-paper-warm: #F5F2EC;
+  /* Cocoa — warm earthy depth (brief: cocoa). For surgical accents. */
+  --color-cocoa-300: #B89A7D;
+  --color-cocoa-400: #7A6452;
+  --color-cocoa-500: #5A483A;
+  --color-cocoa-600: #3E3127;
+
+  /* Warm ivory base (brief: warm ivory). */
+  --color-paper: #F2ECE2;
+  --color-paper-warm: #F7F1E6;
   --color-ink: #1A1A19;
 
-  --font-display: "Italiana", "Didot", serif;
-  --font-body: "Manrope", system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  /* Hybrid direction — soft editorial serif + warm humanist sans.
+     Fraunces (display) is a soft, optically-sized serif; Figtree (body +
+     labels) is a rounded, human-centred sans. Replaces Italiana + the
+     JetBrains Mono code-font used for labels. */
+  --font-display: "Fraunces", "Georgia", "Didot", serif;
+  --font-body: "Figtree", system-ui, -apple-system, sans-serif;
+  --font-mono: "Figtree", system-ui, sans-serif;
 
   --spacing-edge: clamp(1.5rem, 4vw, 5rem);
 }
@@ -52,9 +65,9 @@
     font-family: var(--font-body);
     background-color: var(--color-paper);
     color: var(--color-ink);
-    font-weight: 300;
-    line-height: 1.55;
-    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+    font-size: 16px;
     text-rendering: optimizeLegibility;
     letter-spacing: 0.005em;
   }
@@ -66,27 +79,31 @@
     letter-spacing: -0.005em;
   }
 
+  /* Label style — humanist sans, tracked uppercase (was code-mono).
+     Sizes bumped for the 45+ audience's readability. */
   .mono {
     font-family: var(--font-mono);
-    font-weight: 400;
-    letter-spacing: 0.04em;
+    font-weight: 500;
+    letter-spacing: 0.11em;
     text-transform: uppercase;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
   }
 
   .mono-sm {
     font-family: var(--font-mono);
-    font-weight: 400;
-    letter-spacing: 0.06em;
+    font-weight: 500;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
-    font-size: 0.625rem;
+    font-size: 0.6875rem;
   }
 
   .display-thin {
     font-family: var(--font-display);
-    font-weight: 400;
-    line-height: 0.92;
-    letter-spacing: -0.01em;
+    /* Fraunces reads heavier than Italiana at the same weight — 300
+       restores the airy, elongated display feel. */
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.005em;
   }
 
   ::selection {
@@ -299,14 +316,14 @@
    so it can be larger than v1's two-line title. */
 .hero-display {
   font-size: clamp(2.75rem, min(14vh, 14vw), 14rem);
-  line-height: 0.86;
+  line-height: 0.92;
 }
 .hero-body {
   font-size: clamp(0.95rem, min(1.55vh, 1.1vw), 1.2rem);
   line-height: 1.55;
 }
 .hero-eyebrow {
-  font-size: clamp(0.6rem, min(1.05vh, 0.8vw), 0.72rem);
+  font-size: clamp(0.7rem, min(1.2vh, 0.95vw), 0.8rem);
 }
 
 /* === IMAGE ASPECT TOKENS ===
@@ -337,5 +354,46 @@ img {
 @media (hover: hover) and (pointer: fine) {
   .ring-cursor {
     cursor: none;
+  }
+}
+
+/* === ACCESSIBILITY ===================================================== */
+
+/* Skip-to-content link — visible only when focused by keyboard */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-ink-500);
+  color: var(--color-paper-warm);
+  padding: 0.75rem 1.25rem;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+/* Visible keyboard-focus ring on every interactive element */
+:focus-visible {
+  outline: 2px solid var(--color-clay-500);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+/* Honour the OS "reduce motion" setting — calm by default (brief) */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

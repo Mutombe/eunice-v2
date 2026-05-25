@@ -1,35 +1,38 @@
 import { useState } from 'react'
 import { Link, useNavigate, Navigate } from 'react-router-dom'
-import { ArrowRight, EnvelopeSimple, Lock as LockIcon, ShieldCheck } from '@phosphor-icons/react'
+import { ArrowRight, EnvelopeSimple, Lock as LockIcon, ShieldCheck, Warning } from '@phosphor-icons/react'
 import PageTransition from '../components/PageTransition.jsx'
+import Seo from '../components/Seo.jsx'
 import Reveal from '../components/Reveal.jsx'
-import useLocalStorage from '../hooks/useLocalStorage.js'
-
-export const ADMIN_AUTH_KEY = 'eunice-v2.adminAuth'
+import { login, getToken } from '../lib/api.js'
 
 export default function Login() {
-  const [auth, setAuth] = useLocalStorage(ADMIN_AUTH_KEY, null)
-  const [email, setEmail] = useState('')
+  const [identifier, setIdentifier] = useState('')
   const [password, setPassword] = useState('')
   const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
   const navigate = useNavigate()
 
-  if (auth?.loggedIn) return <Navigate to="/admin" replace />
+  // Already signed in — the admin guard re-validates the token.
+  if (getToken()) return <Navigate to="/admin" replace />
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault()
-    if (!email || !password) return
+    if (!identifier || !password) return
     setBusy(true)
-    window.setTimeout(() => {
-      const next = { loggedIn: true, email, since: new Date().toISOString() }
-      try { window.localStorage.setItem(ADMIN_AUTH_KEY, JSON.stringify(next)) } catch {}
-      setAuth(next)
+    setError('')
+    try {
+      await login(identifier, password)
       navigate('/admin', { replace: true })
-    }, 600)
+    } catch (err) {
+      setError(err.message || 'Sign-in failed. Please try again.')
+      setBusy(false)
+    }
   }
 
   return (
     <PageTransition>
+      <Seo title="Sign in" path="/login" description="Private studio sign-in." noindex />
       <section className="container-edge pt-20 md:pt-28 pb-32 grid md:grid-cols-12 gap-10 md:gap-14 items-start">
         {/* Press title */}
         <div className="md:col-span-6">
@@ -41,13 +44,14 @@ export default function Login() {
           </Reveal>
           <Reveal delay={0.2}>
             <p className="mt-8 max-w-md text-lg text-ink/85 leading-relaxed">
-              For Eunice and the studio team. Sign in to manage projects, the index, the shop, and the small details that keep the atelier readable.
+              For Eunice and the studio team. Sign in to manage the journal,
+              the practice, and the shop.
             </p>
           </Reveal>
           <Reveal delay={0.3}>
-            <div className="mt-10 mono-sm text-ink/55 inline-flex items-center gap-2">
+            <div className="mt-10 mono-sm text-ink/65 inline-flex items-center gap-2">
               <ShieldCheck size={13} />
-              <span>MOCKUP · NO DATA IS SENT</span>
+              <span>SECURE · STUDIO TEAM ONLY</span>
             </div>
           </Reveal>
         </div>
@@ -60,18 +64,18 @@ export default function Login() {
               className="bg-paper-warm border border-ink/15 p-8 md:p-10"
               style={{ boxShadow: '0 30px 60px -30px rgba(26,26,25,0.18)' }}
             >
-              <span className="mono text-ink/55">01 — Identify</span>
+              <span className="mono text-ink/65">01 — Identify</span>
               <h2 className="mt-2 display-thin text-3xl md:text-4xl">Sign in.</h2>
 
               <div className="mt-8 space-y-6">
                 <Field
-                  label="Email"
+                  label="Email or username"
                   icon={<EnvelopeSimple size={14} />}
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  type="text"
+                  value={identifier}
+                  onChange={(e) => setIdentifier(e.target.value)}
                   placeholder="studio@eunicedecampi.com"
-                  autoComplete="email"
+                  autoComplete="username"
                 />
                 <Field
                   label="Password"
@@ -84,31 +88,26 @@ export default function Login() {
                 />
               </div>
 
-              <div className="mt-6 flex items-center justify-between mono-sm text-ink/55 text-[0.6rem]">
-                <label className="inline-flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" defaultChecked className="accent-ink-500" />
-                  KEEP ME SIGNED IN
-                </label>
-                <a className="atelier-link cursor-pointer">FORGOT?</a>
-              </div>
+              {error && (
+                <p className="mt-5 inline-flex items-start gap-2 text-[0.85rem] text-red-800">
+                  <Warning size={14} className="mt-0.5 shrink-0" />
+                  <span>{error}</span>
+                </p>
+              )}
 
               <button
                 type="submit"
-                disabled={busy || !email || !password}
+                disabled={busy || !identifier || !password}
                 className="mt-8 w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-ink-500 text-paper-warm hover:bg-clay-500 disabled:opacity-60 disabled:cursor-not-allowed transition-colors mono"
               >
                 {busy ? 'OPENING THE STUDIO…' : 'ENTER THE STUDIO'}
                 {!busy && <ArrowRight size={12} />}
               </button>
-
-              <p className="mt-5 mono-sm text-center text-ink/55 text-[0.55rem]">
-                USE ANY EMAIL + PASSWORD — THIS IS A MOCKUP
-              </p>
             </form>
           </Reveal>
 
           <Reveal delay={0.2}>
-            <div className="mt-6 flex items-center justify-between mono-sm text-ink/55 text-[0.55rem]">
+            <div className="mt-6 flex items-center justify-between mono-sm text-ink/65 text-[0.7rem]">
               <Link to="/" className="atelier-link">← RETURN TO PUBLIC SITE</Link>
               <span className="tabular">v2 · MMXXVI</span>
             </div>
@@ -122,7 +121,7 @@ export default function Login() {
 function Field({ label, icon, ...props }) {
   return (
     <label className="block">
-      <span className="mono-sm text-ink/55 text-[0.55rem] mb-2 inline-flex items-center gap-2">
+      <span className="mono-sm text-ink/65 text-[0.7rem] mb-2 inline-flex items-center gap-2">
         {icon} {label}
       </span>
       <input

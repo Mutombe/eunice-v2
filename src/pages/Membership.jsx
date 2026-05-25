@@ -2,27 +2,30 @@ import { useState, useRef } from 'react'
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import { Check } from '@phosphor-icons/react'
 import PageTransition from '../components/PageTransition.jsx'
+import Seo from '../components/Seo.jsx'
 import Reveal from '../components/Reveal.jsx'
 import Heading from '../components/Heading.jsx'
 import MembershipModal from '../components/MembershipModal.jsx'
-import { membership } from '../data/siteData.js'
+import { useSettings } from '../lib/settings.jsx'
 
 export default function Membership() {
   const [open, setOpen] = useState(false)
   const heroRef = useRef(null)
   const { scrollYProgress: sp } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const yBg = useTransform(sp, [0, 1], [0, 220])
+  const { membership } = useSettings()
 
   return (
     <PageTransition>
+      <Seo title="The Circle — Membership" path="/membership" description={membership.pitch} />
       {/* Hero — strict one viewport */}
       <section ref={heroRef} className="relative hero-fit border-b border-ink/15">
         <motion.div style={{ y: yBg }} className="absolute inset-0 -top-[8%] h-[116%] opacity-[0.22] -z-10">
-          <img src={membership.heroImage} alt="" className="w-full h-full object-cover object-center" />
+          <img src={membership.heroImage} alt="" className="w-full h-full object-cover object-center" loading="eager" fetchpriority="high" decoding="async" />
         </motion.div>
         <div className="container-edge pt-6 md:pt-8 flex items-center justify-between">
           <span className="mono hero-eyebrow text-clay-500">{membership.pretitle}</span>
-          <span className="mono hero-eyebrow text-ink/55 hidden md:inline tabular">240 / 240 capped · 71 places open</span>
+          <span className="mono hero-eyebrow text-ink/65 hidden md:inline tabular">240 / 240 capped · 71 places open</span>
         </div>
         <div className="container-edge self-center w-full">
           <h1 className="display-thin hero-display">
@@ -47,7 +50,7 @@ export default function Membership() {
               <div className={`p-8 lg:p-10 h-full flex flex-col ${
                 t.highlighted ? 'bg-ink-500 text-paper-warm' : 'bg-paper'
               }`}>
-                <span className={`mono tabular ${t.highlighted ? 'text-paper-warm/55' : 'text-ink/55'}`}>{t.num} — Tier</span>
+                <span className={`mono tabular ${t.highlighted ? 'text-paper-warm/65' : 'text-ink/65'}`}>{t.num} — Tier</span>
                 <h3 className="mt-4 display-thin text-5xl md:text-6xl">{t.name}</h3>
                 <div className="mt-3 flex items-baseline gap-2">
                   <span className="display-thin text-3xl tabular">{t.price}</span>
@@ -89,7 +92,7 @@ export default function Membership() {
                   style={{ objectPosition: 'center 30%' }}
                 />
               </div>
-              <p className="mono-sm text-ink/55 mt-4 flex justify-between">
+              <p className="mono-sm text-ink/65 mt-4 flex justify-between">
                 <span>Eunice — Founder · Oxford</span>
                 <span className="tabular">2026</span>
               </p>
@@ -122,11 +125,11 @@ export default function Membership() {
               <div className="bg-paper p-10 md:p-14 h-full">
                 <span className="mono text-clay-500 tabular">{r.num}</span>
                 <h3 className="mt-4 display-thin text-5xl md:text-6xl leading-[0.95]">{r.season}</h3>
-                <p className="mt-4 mono-sm text-ink/55">{r.date} · {r.location}</p>
+                <p className="mt-4 mono-sm text-ink/65">{r.date} · {r.location}</p>
                 <p className="mt-6 text-ink/85 leading-relaxed">
                   Three nights, twelve members, considered food, considered silence. The retreats are the slow-time of the membership year — the place where the year's writing is read aloud, walked through, and put to rest.
                 </p>
-                <p className="mt-6 mono-sm text-ink/55">{r.spots}</p>
+                <p className="mt-6 mono-sm text-ink/65">{r.spots}</p>
               </div>
             </Reveal>
           ))}
@@ -150,7 +153,7 @@ export default function Membership() {
             ].map((c, i) => (
               <Reveal key={i} delay={i * 0.04}>
                 <div className="bg-paper-warm p-8 lg:p-10 h-full">
-                  <span className="mono text-ink/55 tabular">{c.num}</span>
+                  <span className="mono text-ink/65 tabular">{c.num}</span>
                   <h3 className="mt-4 display-thin text-2xl md:text-3xl leading-[1.05]">{c.h}</h3>
                   <p className="mt-3 text-ink/75 leading-relaxed text-sm">{c.p}</p>
                 </div>

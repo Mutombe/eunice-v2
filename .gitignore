@@ -1,7 +1,46 @@
+# --- Node / Vite ---
 node_modules
 dist
 dist-ssr
 *.local
 .vite
 .DS_Store
+
+# --- Env files (all variants — secrets never go up) ---
+.env
+.env.local
+.env.*.local
+backend/.env
+# NOTE: .env.production and .env.example ARE committed — they hold no secrets.
+
+# --- Python / Django ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+backend/.venv/
+backend/venv/
+backend/staticfiles/
+backend/media/
+backend/db.sqlite3
+backend/db.sqlite3-journal
+backend/sqlite_dump.json
+# Migration files are committed; pycache inside is not (handled by __pycache__/ above)
+
+# --- Editor + tooling state ---
+.claude/
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# --- Curation working files ---
+# Image previews fetched during review (1+ MB) — re-fetched on demand.
+scripts/preview-images/
+# Audit/manifest JSONs ARE committed — they're the record of choices made.
+
+# --- Inspiration / scratch ---
 inspiration/
+
+# --- Client-supplied docs (live alongside the repo but not in it) ---
+BITS STUDIO COPY.docx

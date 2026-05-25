@@ -1,0 +1,74 @@
+# Render Blueprint — auto-deploy the Django API.
+#
+# To enable:
+#   1. Push this file to main on github.com/Mutombe/eunice-v2
+#   2. In Render dashboard: "New > Blueprint" → connect this repo → apply
+#   3. Render reads this file, creates the service, runs the build command,
+#      and provides a free https://eunice-backend.onrender.com URL.
+#   4. Set the env vars marked `sync: false` below in the Render dashboard
+#      (those don't live in git for security).
+#
+# After the first deploy, EVERY push to main auto-redeploys the backend.
+# No CI tool is needed in between — Render watches the branch.
+
+services:
+  - type: web
+    name: eunice-backend
+    runtime: python
+    plan: free                    # 750 hrs/mo, sleeps after 15 min idle
+    region: oregon                # us-west — change if you want closer to clients
+    rootDir: backend              # All paths below are relative to backend/
+
+    # Build phase — install deps, collect static, run migrations
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+      python manage.py migrate --noinput
+
+    # Run phase — gunicorn, 2 workers, bound to Render's $PORT
+    startCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 60 --access-logfile -
+
+    healthCheckPath: /api/health/
+
+    autoDeploy: true              # Push to main → redeploy
+
+    envVars:
+      # --- Public values (committed to render.yaml) ---
+      - key: DEBUG
+        value: "False"
+      - key: PYTHON_VERSION
+        value: 3.13.3
+      - key: WEB_CONCURRENCY
+        value: "2"
+      - key: ALLOWED_HOSTS
+        # eunicedecampi.com is included pre-emptively for custom-domain day.
+        # RENDER_EXTERNAL_HOSTNAME is added automatically by settings.py.
+        value: "eunicedecampi.com,www.eunicedecampi.com"
+      - key: USE_S3_MEDIA
+        value: "True"
+      - key: AWS_STORAGE_BUCKET_NAME
+        value: "edc"
+      - key: AWS_S3_ENDPOINT_URL
+        value: "https://sfo3.digitaloceanspaces.com"
+      - key: AWS_S3_REGION_NAME
+        value: "sfo3"
+      - key: CORS_ALLOWED_ORIGINS
+        # Includes the GitHub Pages preview + the production custom domain.
+        # Add more comma-separated origins here as needed.
+        value: "https://mutombe.github.io,https://eunicedecampi.com,https://www.eunicedecampi.com"
+      - key: CSRF_TRUSTED_ORIGINS
+        value: "https://mutombe.github.io,https://eunicedecampi.com,https://www.eunicedecampi.com"
+
+      # --- Secrets — set in Render dashboard, never committed ---
+      - key: SECRET_KEY
+        generateValue: true       # Render generates a long random string
+      - key: DATABASE_URL
+        sync: false               # Paste your Neon URL in the dashboard
+      - key: AWS_ACCESS_KEY_ID
+        sync: false               # DigitalOcean Spaces access key
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false               # DigitalOcean Spaces secret key
+      - key: MAILERLITE_API_KEY
+        sync: false               # Mailerlite token
+      - key: MAILERLITE_GROUP_IDS
+        sync: false               # Optional — comma-separated group IDs

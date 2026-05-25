@@ -1,19 +1,48 @@
 import { useState } from 'react'
 import { Check } from '@phosphor-icons/react'
 import PageTransition from '../components/PageTransition.jsx'
+import Seo from '../components/Seo.jsx'
 import Reveal from '../components/Reveal.jsx'
 import Heading from '../components/Heading.jsx'
-import { contact, brand } from '../data/siteData.js'
+import { useSettings } from '../lib/settings.jsx'
+import { apiRequest } from '../lib/api.js'
 
 const interests = ['Interiors', 'Mindset', 'Membership', 'Other']
 
 export default function Enquire() {
   const [form, setForm] = useState({ name: '', email: '', interest: 'Interiors', note: '', budget: 'Open' })
   const [sent, setSent] = useState(false)
-  const submit = (e) => { e.preventDefault(); setSent(true) }
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
+  const { contact, brand } = useSettings()
+
+  async function submit(e) {
+    e.preventDefault()
+    if (busy) return
+    setBusy(true)
+    setError('')
+    try {
+      await apiRequest('/enquiries/', {
+        method: 'POST',
+        body: {
+          name: form.name,
+          email: form.email,
+          interest: form.interest,
+          budget: form.budget,
+          note: form.note,
+        },
+      })
+      setSent(true)
+    } catch (err) {
+      setError(err.message || 'Could not send your note. Please try again.')
+    } finally {
+      setBusy(false)
+    }
+  }
 
   return (
     <PageTransition>
+      <Seo title="Enquire" path="/enquire" description={contact.intro} />
       <section className="container-edge pt-20 md:pt-28 pb-12">
         <Heading num="06" label="Enquire · Begin a precise note" />
         <h1 className="mt-10 display-thin text-[clamp(3rem,10vw,9rem)] leading-[0.92]">
@@ -26,45 +55,47 @@ export default function Enquire() {
 
       <section className="container-edge pb-32">
         <div className="grid grid-cols-12 gap-12">
-          {/* Left rail */}
-          <aside className="col-span-12 md:col-span-4 space-y-10">
+          {/* Left rail — visual sidebar; not a top-level <aside> landmark */}
+          <div className="col-span-12 md:col-span-4 space-y-10">
             {contact.channels.map((ch) => (
               <div key={ch.label}>
-                <span className="mono text-ink/55 tabular">{ch.num} · {ch.label}</span>
+                <span className="mono text-ink/65 tabular">{ch.num} · {ch.label}</span>
                 <p className="mt-2 display-thin text-2xl md:text-3xl">
                   {ch.href ? <a href={ch.href} className="atelier-link">{ch.value}</a> : ch.value}
                 </p>
               </div>
             ))}
             <div>
-              <span className="mono text-ink/55">— Elsewhere</span>
+              <span className="mono text-ink/65">— Elsewhere</span>
               <ul className="mt-3 space-y-1">
                 <li><a href={brand.social.instagram} target="_blank" rel="noreferrer" className="atelier-link mono-sm">Instagram · @eunicedecampi</a></li>
                 <li><a href={brand.social.linkedin} target="_blank" rel="noreferrer" className="atelier-link mono-sm">LinkedIn</a></li>
               </ul>
             </div>
-          </aside>
+          </div>
 
           {/* Form */}
           <div className="col-span-12 md:col-span-8 md:pl-12 md:border-l border-ink/15">
             {!sent ? (
               <form onSubmit={submit} className="space-y-10">
                 <div>
-                  <label className="mono text-ink/55 block mb-2">01 — Name</label>
+                  <label htmlFor="enquire-name" className="mono text-ink/65 block mb-2">01 — Name</label>
                   <input
+                    id="enquire-name"
                     type="text" required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
                     className="w-full bg-transparent border-b border-ink/30 focus:border-ink outline-none py-2 text-xl"
                   />
                 </div>
                 <div>
-                  <label className="mono text-ink/55 block mb-2">02 — Email</label>
+                  <label htmlFor="enquire-email" className="mono text-ink/65 block mb-2">02 — Email</label>
                   <input
+                    id="enquire-email"
                     type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
                     className="w-full bg-transparent border-b border-ink/30 focus:border-ink outline-none py-2 text-xl"
                   />
                 </div>
                 <div>
-                  <label className="mono text-ink/55 block mb-3">03 — What brings you to the studio?</label>
+                  <label className="mono text-ink/65 block mb-3">03 — What brings you to the studio?</label>
                   <div className="flex flex-wrap gap-2">
                     {interests.map((i) => (
                       <button
@@ -81,7 +112,7 @@ export default function Enquire() {
                 </div>
                 {form.interest === 'Interiors' && (
                   <div>
-                    <label className="mono text-ink/55 block mb-3">04 — Indicative budget</label>
+                    <label className="mono text-ink/65 block mb-3">04 — Indicative budget</label>
                     <div className="flex flex-wrap gap-2">
                       {['Under £40k', '£40k – £100k', '£100k – £250k', '£250k +', 'Open'].map((b) => (
                         <button
@@ -98,18 +129,26 @@ export default function Enquire() {
                   </div>
                 )}
                 <div>
-                  <label className="mono text-ink/55 block mb-2">05 — A short note</label>
+                  <label htmlFor="enquire-note" className="mono text-ink/65 block mb-2">05 — A short note</label>
                   <textarea
+                    id="enquire-note"
                     required rows={6} value={form.note} onChange={(e) => setForm({ ...form, note: e.target.value })}
                     placeholder="Tell the studio a little about where you are, and what you would like to make."
                     className="w-full bg-transparent border-b border-ink/30 focus:border-ink outline-none py-2 text-lg leading-relaxed resize-none"
                   />
                 </div>
                 <div className="pt-4">
-                  <button type="submit" className="px-8 py-4 bg-ink-500 text-paper-warm hover:bg-clay-500 transition-colors mono">
-                    Send the note →
+                  {error && (
+                    <p className="mb-4 text-sm text-red-800">{error}</p>
+                  )}
+                  <button
+                    type="submit"
+                    disabled={busy}
+                    className="px-8 py-4 bg-ink-500 text-paper-warm hover:bg-clay-500 disabled:opacity-60 disabled:cursor-not-allowed transition-colors mono"
+                  >
+                    {busy ? 'Sending…' : 'Send the note →'}
                   </button>
-                  <p className="mt-3 mono-sm text-ink/45">A reply usually arrives within three working days.</p>
+                  <p className="mt-3 mono-sm text-ink/65">A reply usually arrives within three working days.</p>
                 </div>
               </form>
             ) : (

@@ -1,12 +1,13 @@
-// Eunice De Campi — Atelier · Content
-// Voice: precise, considered, low-emotive register. Curated like a museum label.
-// Every photo chosen for context (subject + palette + architectural mood).
-// All Unsplash IDs verified 200 OK.
+// Eunice De Campi — Studio · Content
+// Voice: precise, considered, low-emotive register. Wellbeing-coach first;
+// interiors and editorial practice as expressions of the same idea.
+// Photography curated via scripts/fetch-unsplash.mjs (see unsplash-manifest.json).
 
 export const brand = {
   name: "Eunice De Campi",
+  siteUrl: "https://eunicedecampi.com",
   shortName: "EDC",
-  tagline: "An atelier for interiors, mindset, and the architecture of a considered life.",
+  tagline: "A wellbeing practice for women in reinvention — coaching, considered interiors, and the architecture of a considered life.",
   email: "studio@eunicedecampi.com",
   phone: "+44 (0)1865 000 000",
   studio: "The Atelier · Oxford OX1",
@@ -20,27 +21,26 @@ export const brand = {
 
 export const navLinks = [
   { num: "01", label: "Studio", to: "/" },
-  { num: "02", label: "Practice", to: "/practice" },
-  { num: "03", label: "Index", to: "/index" },
-  { num: "04", label: "Notes", to: "/notes" },
-  { num: "05", label: "Blog", to: "/blog" },
+  { num: "02", label: "About", to: "/about" },
+  { num: "03", label: "Practice", to: "/practice" },
+  { num: "04", label: "Programmes", to: "/programmes" },
+  { num: "05", label: "Journal", to: "/journal" },
   { num: "06", label: "Shop", to: "/shop" },
-  { num: "07", label: "Membership", to: "/membership" },
-  { num: "08", label: "Enquire", to: "/enquire" },
+  { num: "07", label: "Enquire", to: "/enquire" },
 ]
 
 // === Hero ===
 export const hero = {
-  index: "01 / 06",
+  index: "01 / 07",
   edition: "STUDIO · MMXXVI · NO. 01",
   wordmark: "Eunice De Campi",
-  pretitle: "An atelier — for the long, considered work",
-  title: "Of",
-  titleEm: "interiors,",
-  title2: "mindset, and",
-  title2Em: "human living.",
+  pretitle: "A wellbeing practice — for women in second seasons",
+  title: "The",
+  titleEm: "considered",
+  title2: "work of",
+  title2Em: "becoming.",
   body:
-    "An interdisciplinary studio practice working at the intersection of residential interior design, mindset coaching, and the editorial study of how rooms shape the people inside them. Founded in Oxford. Working internationally.",
+    "Coaching for reinvention, recovery, and the long work of becoming someone new. Alongside it, a small interiors practice and a quarterly journal of considered living. Founded in Oxford. Working internationally. By application.",
   meta: [
     { label: "Founded", value: "2008" },
     { label: "Disciplines", value: "Four" },
@@ -70,8 +70,8 @@ export const practice = [
       { num: "iii", label: "Studio & wellness spaces" },
       { num: "iv", label: "Pre-sale property styling" },
     ],
-    // Modern open living room with architectural light — atelier interiors
-    image: "https://images.unsplash.com/photo-1600585152915-d208bec867a1?w=1800&auto=format&fit=crop&q=85",
+    // Restraint — plant on oak table, neutral palette (Thanos Pal · Unsplash)
+    image: "https://images.unsplash.com/photo-1632829882891-5047ccc421bc?auto=format&fit=crop&w=1600&q=85",
   },
   {
     slug: "mindset",
@@ -112,8 +112,8 @@ export const practice = [
       { num: "iii", label: "Members letters" },
       { num: "iv", label: "Annual print edition" },
     ],
-    // White tufted chair on a clean studio backdrop — the writing room as object
-    image: "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=1800&auto=format&fit=crop&q=85",
+    // A writing desk · lamp + open book (Romina Mosquera · Unsplash)
+    image: "https://images.unsplash.com/photo-1560752596-3d5bdd30ddc1?auto=format&fit=crop&w=1600&q=85",
   },
   {
     slug: "circle",
@@ -132,131 +132,8 @@ export const practice = [
       { num: "iii", label: "Two annual retreats" },
       { num: "iv", label: "Quarterly reports" },
     ],
-    // Cream living room with macrame & plants — the gathering room
-    image: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=1800&auto=format&fit=crop&q=85",
-  },
-]
-
-// === Index — projects ===
-// v2's photo set is intentionally distinct from v1.
-// Covers and primary slots use NEW Unsplash IDs that don't appear in v1.
-// Gallery photos are documented per-image — most are new; a few re-use v1
-// gallery shots in different contexts (no cover-to-cover collisions anywhere).
-export const projects = [
-  {
-    slug: "house-on-park",
-    num: "001",
-    title: "House on Park",
-    typology: "Full Residential",
-    location: "Oxford",
-    year: "2025",
-    surface: "186 m²",
-    rooms: 7,
-    summary:
-      "A 1920s family house reworked over fourteen months. Lime-plaster walls, an oak-clad library, and a kitchen built around the household's morning ritual.",
-    palette: ["Bone", "Olive", "Untreated oak", "Aged brass"],
-    // Modern dining + sweeping stairs — architectural family scale
-    cover: "https://images.unsplash.com/photo-1602872030490-4a484a7b3ba6?w=2000&auto=format&fit=crop&q=85",
-    gallery: [
-      // Warm boho-modern living
-      "https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1600&auto=format&fit=crop&q=85",
-      // Modern open living detail
-      "https://images.unsplash.com/photo-1600585152915-d208bec867a1?w=1600&auto=format&fit=crop&q=85",
-      // Tropical-warm bedroom
-      "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=1600&auto=format&fit=crop&q=85",
-      // Cream + macrame living
-      "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=1600&auto=format&fit=crop&q=85",
-    ],
-  },
-  {
-    slug: "atelier-no-2",
-    num: "002",
-    title: "Atelier №2",
-    typology: "Studio & Wellness",
-    location: "Oxford",
-    year: "2025",
-    surface: "28 m²",
-    rooms: 1,
-    summary:
-      "A single-room coaching studio designed to hold three light-moods inside a single 28 m² envelope: morning, afternoon, and candlelit.",
-    palette: ["Stone", "Olive", "Linen", "Slow brass"],
-    // Single pendant lamp on grey — atelier-spare
-    cover: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=2000&auto=format&fit=crop&q=85",
-    gallery: [
-      // White tufted chair, studio
-      "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=1600&auto=format&fit=crop&q=85",
-      // Modern open living detail
-      "https://images.unsplash.com/photo-1600585152915-d208bec867a1?w=1600&auto=format&fit=crop&q=85",
-      // Warm boho — afternoon light variant
-      "https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1600&auto=format&fit=crop&q=85",
-    ],
-  },
-  {
-    slug: "olive-house",
-    num: "003",
-    title: "Olive House",
-    typology: "Full Residential",
-    location: "Cotswolds",
-    year: "2024",
-    surface: "240 m²",
-    rooms: 9,
-    summary:
-      "A countryside house for a returning expat family. Olive plaster, reclaimed elm, and a 9-metre kitchen built for long Sundays.",
-    palette: ["Olive plaster", "Reclaimed elm", "Cream wool", "Stone"],
-    // Dark moody kitchen — the long Cotswold kitchen
-    cover: "https://images.unsplash.com/photo-1564540586988-aa4e53c3d799?w=2000&auto=format&fit=crop&q=85",
-    gallery: [
-      // Modern dining/stairs detail
-      "https://images.unsplash.com/photo-1602872030490-4a484a7b3ba6?w=1600&auto=format&fit=crop&q=85",
-      // Cream + macrame
-      "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=1600&auto=format&fit=crop&q=85",
-      // Tropical bedroom variant
-      "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=1600&auto=format&fit=crop&q=85",
-    ],
-  },
-  {
-    slug: "sanctuary-edit",
-    num: "004",
-    title: "Sanctuary Edit",
-    typology: "Bedroom Edit",
-    location: "St John's Wood",
-    year: "2024",
-    surface: "32 m²",
-    rooms: 1,
-    summary:
-      "A bedroom-only intervention for a recovering CEO. Ivory linen, low warm light, hidden tech. Designed around her morning, not her work.",
-    palette: ["Ivory linen", "Charcoal oak", "Brass", "Stone"],
-    // Tropical-style bedroom — warm linen variation
-    cover: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=2000&auto=format&fit=crop&q=85",
-    gallery: [
-      // Single pendant lamp accent
-      "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=1600&auto=format&fit=crop&q=85",
-      // White tufted chair detail
-      "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=1600&auto=format&fit=crop&q=85",
-      // Dark moody kitchen as detail
-      "https://images.unsplash.com/photo-1564540586988-aa4e53c3d799?w=1600&auto=format&fit=crop&q=85",
-    ],
-  },
-  {
-    slug: "garden-pavilion",
-    num: "005",
-    title: "Garden Pavilion",
-    typology: "Studio & Wellness",
-    location: "Surrey",
-    year: "2023",
-    surface: "44 m²",
-    rooms: 1,
-    summary:
-      "A standalone garden room for a yoga teacher. Underfloor heating, a single oversize window, a wall of pale clay bricks reclaimed from the prior outhouse.",
-    palette: ["Pale clay", "Linen", "Larch", "Brass"],
-    // Warm boho living = pavilion mood
-    cover: "https://images.unsplash.com/photo-1615529182904-14819c35db37?w=2000&auto=format&fit=crop&q=85",
-    gallery: [
-      // Modern open with garden view
-      "https://images.unsplash.com/photo-1600585152915-d208bec867a1?w=1600&auto=format&fit=crop&q=85",
-      // Pendant lamp accent
-      "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=1600&auto=format&fit=crop&q=85",
-    ],
+    // The Circle — set table, considered gathering (Juliette F · Unsplash)
+    image: "https://images.unsplash.com/photo-1683803181172-594517d41077?auto=format&fit=crop&w=1600&q=85",
   },
 ]
 
@@ -273,8 +150,8 @@ export const notes = [
     date: "April 2026",
     readTime: "8 min",
     isPremium: false,
-    // Mountain mist — quiet domestic architecture
-    cover: "https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?w=1800&auto=format&fit=crop&q=85",
+    // The room as a collaborator — sunlit window (nulo · Unsplash)
+    cover: "https://images.unsplash.com/photo-1718112188918-dbdabca87aa7?auto=format&fit=crop&w=1600&q=85",
     body: [
       "There is a kind of grief that arrives before language does. It sits in the corner of a room you can no longer enter the same way.",
       "I think of rooms now the way I once thought about people — as quiet collaborators in who we are becoming. The window seat that asks you to read. The kitchen that holds a Sunday morning argument and resolves it by the time the kettle boils.",
@@ -290,8 +167,8 @@ export const notes = [
     date: "March 2026",
     readTime: "11 min",
     isPremium: true,
-    // Mist landscape — the unmarked chapter
-    cover: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1800&auto=format&fit=crop&q=85",
+    // Second season — autumn leaves in misty forest (heino eisner · Unsplash)
+    cover: "https://images.unsplash.com/photo-1611458182018-c043f4e947ec?auto=format&fit=crop&w=1600&q=85",
     body: [
       "There is a chapter that arrives quietly, often in the hour before the rest of the house wakes up. It is the chapter where the woman you have been will no longer carry you.",
       "I lost my husband in a single afternoon. The version of me who had built a life around him died on the same day in a different way — slower, more privately. What followed was not grief alone. It was the long, uncertain becoming of someone I hadn't met yet.",
@@ -307,8 +184,8 @@ export const notes = [
     date: "February 2026",
     readTime: "6 min",
     isPremium: false,
-    // Ocean wave — the architecture of a quiet day
-    cover: "https://images.unsplash.com/photo-1465804575741-338df8554e02?w=1800&auto=format&fit=crop&q=85",
+    // Inner architecture — woman in kitchen at window (ochimax studio · Unsplash)
+    cover: "https://images.unsplash.com/photo-1764867249027-06a1db1c6613?auto=format&fit=crop&w=1600&q=85",
     body: [
       "I keep a small notebook by the kettle. Not a journal — a ledger. It records the temperature of the room, the colour of the light, the shape of the silence.",
       "The rooms in your house are working on you whether you have asked them to or not. The lighting in your kitchen at 7am is shaping the woman who will walk out of the front door at 8.",
@@ -324,8 +201,8 @@ export const notes = [
     date: "January 2026",
     readTime: "32 min",
     isPremium: true,
-    // Mountain forest — the dossier mood
-    cover: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=1800&auto=format&fit=crop&q=85",
+    // Quiet Report — books stacked on a wooden table (Tim Wildsmith · Unsplash)
+    cover: "https://images.unsplash.com/photo-1479142506502-19b3a3b7ff33?auto=format&fit=crop&w=1600&q=85",
     body: [
       "[The Quiet Report is a members-only quarterly dossier. This edition spans 38 pages and includes: the state-of-craft index, a private sourcebook for material specialists, four anonymised case studies, and a long essay on the politics of slow luxury.]",
       "[Become a member to access the report.]",
@@ -340,8 +217,8 @@ export const notes = [
     date: "December 2025",
     readTime: "5 min",
     isPremium: false,
-    // Mist landscape (variant) — the unsayable
-    cover: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1800&auto=format&fit=crop&q=85",
+    // Letters — open book on wooden table (micheile henderson · Unsplash)
+    cover: "https://images.unsplash.com/photo-1641477176034-1a3e10c343a8?auto=format&fit=crop&w=1600&q=85",
     body: [
       "Dear one — I am writing this from the small green room at the back of the house. The light is doing something forgiving. There are four letters in this series. You will know which one to read first.",
       "I.   For the woman who has not yet said the thing out loud.",
@@ -406,7 +283,7 @@ export const studio = {
   // Secondary portrait — seated, considered authority
   founderSeated: "/eunice/seated.jpg",
   shortBio:
-    "Eunice De Campi founded the studio in Oxford in 2008. The practice has grown — slowly, quietly — into a four-discipline atelier working internationally on interiors, mindset, and the long study of how rooms shape the people inside them.",
+    "Eunice De Campi is a coach, writer and interior wellbeing designer. The studio was founded in Oxford in 2008 and has grown — slowly, quietly — into a wellbeing-first practice for women in reinvention, with a small interiors arm and a quarterly editorial journal running alongside.",
   timeline: [
     { num: "01", year: "2008", h: "Interiors", b: "Practice founded. Residential commissions across Oxford and London." },
     { num: "02", year: "2014", h: "Event styling", b: "The studio expands into private events. Same instincts, different scale." },
@@ -467,7 +344,7 @@ export const shop = {
       kind: "Printed workbook · 96 pages",
       price: "£32",
       tone: "ink",
-      cover: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=1400&auto=format&fit=crop&q=85",
+      cover: "https://images.unsplash.com/photo-1726938757756-c3fb24fb49c1?auto=format&fit=crop&w=1600&q=85",
       blurb: "The framework I use with private clients, in book form. Three chapters — the inventory, the burial, the build — with thirty short prompts.",
       featured: true,
     },
@@ -486,7 +363,7 @@ export const shop = {
       kind: "PDF · 38 pages · digital",
       price: "£18",
       tone: "olive-deep",
-      cover: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1400&auto=format&fit=crop&q=85",
+      cover: "https://images.unsplash.com/photo-1654542645844-590f5b8c146a?auto=format&fit=crop&w=1600&q=85",
       blurb: "Quarterly dossier — state-of-craft index, sourcebook, four anonymised case studies, an essay on restraint.",
     },
     {
@@ -504,7 +381,7 @@ export const shop = {
       kind: "Saddle-stitched · 32 pages · letterpress",
       price: "£14",
       tone: "clay",
-      cover: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1400&auto=format&fit=crop&q=85",
+      cover: "https://images.unsplash.com/photo-1646568779353-b9d2b903b3e1?auto=format&fit=crop&w=1600&q=85",
       blurb: "Four short letters in their original envelopes — for the woman in the middle of the unsayable. Hand-bound, edition of 200.",
     },
     {
@@ -522,7 +399,7 @@ export const shop = {
       kind: "PDF · 24 pages · digital",
       price: "£12",
       tone: "stone",
-      cover: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1400&auto=format&fit=crop&q=85",
+      cover: "https://images.unsplash.com/photo-1778731525611-64dc4006a5da?auto=format&fit=crop&w=1600&q=85",
       blurb: "The brief, palette, lighting plan, mistakes, sourcebook. A working monograph from the St John's Wood project.",
     },
     {
@@ -540,7 +417,7 @@ export const shop = {
       kind: "Hardcover · 184 pages · linen-bound",
       price: "£48",
       tone: "olive",
-      cover: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1400&auto=format&fit=crop&q=85",
+      cover: "https://images.unsplash.com/photo-1771313121019-4d0ce055b9a4?auto=format&fit=crop&w=1600&q=85",
       blurb: "The year's best writing bound by hand in olive linen. Posted in December. Edition of 500.",
     },
     {
@@ -558,7 +435,7 @@ export const shop = {
       kind: "Letterpress notebook · A6 · 128 pages",
       price: "£22",
       tone: "ink-soft",
-      cover: "https://images.unsplash.com/photo-1517842645767-c639042777db?w=1400&auto=format&fit=crop&q=85",
+      cover: "https://images.unsplash.com/photo-1603950227760-e609ce8e15b4?auto=format&fit=crop&w=1600&q=85",
       blurb: "Not a journal — a ledger. For the temperature of the room, the colour of the light, the shape of the silence.",
     },
   ],
@@ -574,4 +451,262 @@ export const contact = {
     { num: "03", label: "Address", value: "The Atelier · Oxford OX1" },
     { num: "04", label: "Hours", value: "Tue – Fri · 09:00 – 17:00 GMT" },
   ],
+}
+
+// === About / Story ===
+// The long-form page about Eunice — replaces a one-line bio with a
+// considered story, a stated philosophy, and a credentials list.
+export const about = {
+  edition: "STUDIO · MMXXVI · STORY",
+  pretitle: "The interior life of the woman in her second chapter",
+  title: "I built the practice",
+  titleEm: "I needed",
+  title2: "first.",
+  lede:
+    "Eunice De Campi is a coach, writer, and interior wellbeing designer. She works at the meeting point of three disciplines — coaching psychology, residential interiors, and the editorial study of considered living — with women navigating reinvention, leadership, and the long quiet of a life rebuilt on purpose.",
+  story: [
+    "The studio began in a room. A real one, in Oxford, with bad light and a chair that did not belong to me. I had left a corporate role, a marriage, and a city that I had agreed to call home for fifteen years. None of the language available to me — pivot, hustle, journey — fit the work that was actually required.",
+    "What I needed was a quiet practice for a loud transition. A method for designing the next chapter the way an architect designs a room — slowly, on paper, with attention to load-bearing walls. I built it, by hand, out of the books and the training and the long hours of asking better questions. I built it for me first.",
+    "The practice you find here is what came of that. It is for women in second seasons. For founders rebuilding after burnout. For couples reordering a household around a quieter ambition. For the small handful each year who want a coach who reads architecture and an interior designer who reads psychology — and who knows the two are the same conversation.",
+  ],
+  philosophy: [
+    {
+      num: "I",
+      title: "The architecture of a considered life",
+      body: "A life is constructed, not received. Rooms, schedules, relationships, language — each is a load-bearing element. Coaching, at its best, is the slow editing of the building.",
+    },
+    {
+      num: "II",
+      title: "Restraint is the discipline",
+      body: "Less, more carefully chosen. The studio rejects optimisation, content velocity, the language of acceleration. We work in seasons, not sprints.",
+    },
+    {
+      num: "III",
+      title: "Privacy is the standard",
+      body: "Names, addresses, and detail are not for circulation. Every commission is private; every retreat is closed-door; every conversation is held.",
+    },
+    {
+      num: "IV",
+      title: "The room is part of the work",
+      body: "Where you live shapes who you become. The studio's interior practice and its coaching practice are not adjacent — they are the same idea, applied at different scales.",
+    },
+  ],
+  credentials: [
+    "MSc Coaching Psychology, University of East London",
+    "ICF Professional Certified Coach (PCC)",
+    "Trained in Internal Family Systems · grief literacy · trauma-informed coaching",
+    "Fifteen years in residential interior design — Oxford, London, Lisbon",
+    "Contributing essays in Cereal, World of Interiors, and The Gentlewoman",
+  ],
+  // Reading nook · bookshelf, wooden chair (Annie Spratt · Unsplash)
+  image: "https://images.unsplash.com/photo-1600188769045-bc6026bfc8cd?auto=format&fit=crop&w=1600&q=85",
+  imageCaption: "The reading room · Oxford · MMXXVI",
+  cta: { label: "Begin a private conversation", to: "/enquire" },
+}
+
+// === Speaking ===
+export const speaking = {
+  edition: "STUDIO · MMXXVI · SPEAKING",
+  pretitle: "On stages, around tables, in rooms",
+  title: "Quieter",
+  titleEm: "speaking",
+  title2: "— in service of a louder idea.",
+  lede:
+    "Eunice speaks to audiences working through transition — founders re-entering after burnout, women in second seasons, design teams interested in wellbeing as practice rather than perk. Keynote, workshop, and fireside formats. Sourced material, no slides for show.",
+  topics: [
+    {
+      num: "I",
+      title: "The architecture of a considered life",
+      body: "How rooms — physical and otherwise — shape the people inside them. A keynote on burnout, restoration, and the editorial practice of subtraction.",
+    },
+    {
+      num: "II",
+      title: "Second seasons",
+      body: "On women rebuilding in mid-life. The chapter no one warns you is coming, and the practice that meets it well.",
+    },
+    {
+      num: "III",
+      title: "Interiors as wellbeing infrastructure",
+      body: "For design teams and developers — designing residential spaces that hold a person, not just a programme. Case studies from fifteen years of private commissions.",
+    },
+    {
+      num: "IV",
+      title: "Restraint, in a season of more",
+      body: "On building a quiet brand in a loud industry. For founders, marketers, and creative directors who suspect velocity is not the answer.",
+    },
+  ],
+  formats: [
+    { num: "I", label: "Keynote", detail: "45–60 minutes · auditorium or conference" },
+    { num: "II", label: "Workshop", detail: "Half-day or full · capped at 24 participants · materials included" },
+    { num: "III", label: "Fireside / panel", detail: "Moderated conversation · 30–60 minutes" },
+    { num: "IV", label: "Private salon", detail: "8–16 guests · in a borrowed room · by invitation" },
+  ],
+  engagements: [
+    { date: "MMXXVI", venue: "The London Design Biennale", title: "Rooms that hold us" },
+    { date: "MMXXVI", venue: "Cereal Editions, in conversation", title: "On restraint" },
+    { date: "MMXXV", venue: "House of St Barnabas, London", title: "Second seasons — closed salon" },
+    { date: "MMXXV", venue: "Hawkwood College", title: "The architecture of a considered life" },
+  ],
+  audience: "Founders, executives in transition, designers, women in second chapter, considered creative teams.",
+  cta: { label: "Invite Eunice to speak", to: "/enquire?subject=speaking" },
+}
+
+// === Retreats ===
+// Extracted and expanded from the membership tiers so retreats can have
+// their own page, their own application list, and their own SEO.
+export const retreats = {
+  edition: "STUDIO · MMXXVI · RETREATS",
+  pretitle: "A small house, a quieter table, a closed door",
+  title: "Three days that",
+  titleEm: "behave",
+  title2: "like a season.",
+  lede:
+    "Twice a year the studio takes a small group of guests into a sourced house — Tuscany in spring, the Hebrides in autumn — for a closed-door practice in coaching, conversation, and considered living. No optimisation, no agenda densely packed, no Instagram permitted. Eight guests. Three days. A long table.",
+  philosophy: [
+    "A retreat is not a holiday. It is a practice of subtraction — fewer inputs, slower meals, a smaller room, a single book. The studio's retreats are designed around what you would do if you trusted yourself for three days.",
+    "Each retreat is built like a residency, not a programme: coaching sessions in the morning, long unstructured afternoons, a chef who reads the room, and conversations that finish themselves. Guests arrive at a stranger's table on Friday and leave it changed on Monday.",
+  ],
+  format: [
+    { num: "I", label: "Eight guests", detail: "Sometimes twelve. Never more. A waiting list is kept." },
+    { num: "II", label: "Three or seven days", detail: "Short retreats are quarterly; long retreats are biannual." },
+    { num: "III", label: "A sourced house", detail: "Always private, always small, always far from the road. Locations are confidential." },
+    { num: "IV", label: "Coaching included", detail: "One private session per guest. Group coaching afternoons. A take-home practice." },
+    { num: "V", label: "A chef in residence", detail: "Slow Italian, mostly vegetarian. Wine sourced locally. Coffee considered." },
+    { num: "VI", label: "No phones, lightly", detail: "Phones are welcomed at the bedside, discouraged at the table." },
+  ],
+  upcoming: [
+    {
+      title: "Spring — The Tuscan retreat",
+      dates: "April · MMXXVII",
+      where: "Val d'Orcia · Italy",
+      length: "Three nights",
+      status: "Application list open",
+      applyTo: "/enquire?subject=retreat-tuscany",
+    },
+    {
+      title: "Autumn — The Hebridean retreat",
+      dates: "October · MMXXVI",
+      where: "Isle of Mull · Scotland",
+      length: "Three nights",
+      status: "Waiting list only",
+      applyTo: "/enquire?subject=retreat-hebrides",
+    },
+    {
+      title: "Winter — The long retreat",
+      dates: "January · MMXXVII",
+      where: "Sourced · undisclosed",
+      length: "Seven nights",
+      status: "Closed",
+      applyTo: "/enquire?subject=retreat-winter",
+    },
+  ],
+  // Golden sunrise over misty rural landscape (Peter Thomas · Unsplash)
+  image: "https://images.unsplash.com/photo-1760681554843-da433454c08e?auto=format&fit=crop&w=1600&q=85",
+  imageCaption: "The Tuscan retreat · April",
+  cta: { label: "Apply to the retreat list", to: "/enquire?subject=retreat" },
+}
+
+// === Legal pages ===
+// Standard templates, brand-voiced. Editable from the admin. Replace
+// the placeholder address/contact details with the studio's actual ones
+// before public launch.
+export const legal = {
+  privacy: {
+    title: "Privacy",
+    updated: "May MMXXVI",
+    intro:
+      "The studio collects only what is necessary to write back, send the letter, fulfil orders, and run its practice. No tracking pixels are loaded. No third-party advertising networks are used. This page tells you, plainly, what is kept and why.",
+    sections: [
+      {
+        title: "What we collect",
+        body: [
+          "When you enquire — your name, email, and the message you write. When you subscribe to the letter — your email. When you purchase from the shop — billing and delivery details necessary to fulfil the order. When you browse — anonymous page counts (path, referrer, no IP, no identifier).",
+        ],
+      },
+      {
+        title: "Where it lives",
+        body: [
+          "Enquiries and subscribers are stored on the studio's own servers (the database is not shared with third parties). Newsletter delivery is operated by Mailerlite (your email is shared with them for the sole purpose of sending the letter; you can unsubscribe in one click). Payment processing, when available, is handled by Stripe — the studio does not see or store card numbers.",
+        ],
+      },
+      {
+        title: "What we never do",
+        body: [
+          "Sell, rent, or share your details for advertising. Load third-party tracking pixels (Facebook, Google, TikTok, none). Use cookies for cross-site profiling. Send marketing email to anyone who has not asked for it.",
+        ],
+      },
+      {
+        title: "Your rights",
+        body: [
+          "Ask for a copy of what we hold on you. Ask to correct anything wrong. Ask to be deleted entirely — and we will, within thirty days. Write to studio@eunicedecampi.com to exercise any of these.",
+        ],
+      },
+    ],
+  },
+  cookies: {
+    title: "Cookies",
+    updated: "May MMXXVI",
+    intro:
+      "The studio uses very few cookies. Those it does use are first-party only and do exactly what the page describes — nothing more.",
+    sections: [
+      {
+        title: "What we set",
+        body: [
+          "edc.token — your sign-in token, if you are a member of the studio team using the admin. Only set after you log in.",
+          "edc.cookieConsent — remembers whether you accepted this notice, so you are not asked again.",
+          "edc.notification.dismissed — remembers whether you dismissed the small notice bar at the top of the page.",
+        ],
+      },
+      {
+        title: "What we do not set",
+        body: [
+          "Advertising cookies. Cross-domain tracking. Social-media pixels. Any cookie set by a third party.",
+        ],
+      },
+      {
+        title: "Anonymous page counts",
+        body: [
+          "We do count, anonymously, which pages are read. The count records the path and the referring page only — no IP address, no fingerprint, no identifier. Nothing about you, only about the page.",
+        ],
+      },
+    ],
+  },
+  terms: {
+    title: "Terms",
+    updated: "May MMXXVI",
+    intro:
+      "Plain-English terms for the studio's site, shop, and coaching practice. By using this site you accept what follows. If anything does not work for you, write — we will read it.",
+    sections: [
+      {
+        title: "The site",
+        body: [
+          "The writing, photography, and design on this site are © Eunice De Campi unless attributed otherwise. Quote freely, with credit; reproduce in full only with written permission. Excerpts of the journal may be syndicated for editorial purposes with attribution.",
+        ],
+      },
+      {
+        title: "The shop",
+        body: [
+          "Products are sold by the studio directly. Digital goods are non-refundable once downloaded. Physical goods may be returned, unused, within fourteen days. Bespoke commissions — interior, editorial, coaching — are governed by the engagement letter signed at the start of work.",
+        ],
+      },
+      {
+        title: "Coaching and retreats",
+        body: [
+          "Coaching engagements are private. Retreat applications are reviewed individually; deposits, when invited, are non-refundable but transferable to a future cohort. Cancellations within twenty-eight days of a retreat forfeit the deposit; cancellations earlier are refunded in full less a small administration fee.",
+        ],
+      },
+      {
+        title: "Liability",
+        body: [
+          "The studio writes about wellbeing, design, and reinvention. Nothing on this site is medical advice. Coaching is not therapy. Where you are working through a clinical question, the studio will refer you to a professional in the appropriate field.",
+        ],
+      },
+      {
+        title: "Law",
+        body: [
+          "These terms are governed by the laws of England and Wales. Any dispute that cannot be resolved by writing will be heard in the courts of Oxford.",
+        ],
+      },
+    ],
+  },
 }

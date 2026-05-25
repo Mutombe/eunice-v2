@@ -12,7 +12,9 @@ const items = [
 
 export default function Ticker() {
   return (
-    <div className="border-y border-ink/15 bg-paper-warm overflow-hidden mt-12">
+    // Top-level <aside> so the marquee is a recognised landmark.
+    // It sits between <main> and <footer>, which is the correct depth.
+    <aside aria-label="Studio status" className="border-y border-ink/15 bg-paper-warm overflow-hidden mt-12">
       <div className="flex animate-marquee whitespace-nowrap py-3">
         {[...items, ...items, ...items].map((it, i) => (
           <span key={i} className="mono text-ink/65 mx-8 inline-flex items-center gap-3">
@@ -24,6 +26,6 @@ export default function Ticker() {
         @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-33.333%); } }
         .animate-marquee { animation: marquee 60s linear infinite; }
       `}</style>
-    </div>
+    </aside>
   )
 }

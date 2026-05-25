@@ -4,11 +4,56 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Eunice De Campi — Atelier. A modern studio for interiors, mindset, and the architecture of human living." />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Manrope:wght@200..700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-    <title>Eunice De Campi — Atelier</title>
+    <meta name="theme-color" content="#EFE9E3" />
+    <meta name="author" content="Eunice De Campi" />
+
+    <!-- Per-page <title>, description, canonical, OG and Twitter tags are
+         managed by react-helmet-async — see src/components/Seo.jsx.
+         This static <title> is only the pre-hydration fallback. -->
+    <title>Eunice De Campi — Wellbeing, Reinvention & Intentional Living</title>
+
+    <!-- Site-wide structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://eunicedecampi.com/#organization",
+          "name": "Eunice De Campi",
+          "url": "https://eunicedecampi.com/",
+          "description": "A calm, elevated practice for high-achieving women navigating burnout, grief, transition and reinvention.",
+          "founder": { "@id": "https://eunicedecampi.com/#eunice" }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://eunicedecampi.com/#eunice",
+          "name": "Eunice De Campi",
+          "jobTitle": "Wellbeing Strategist & Mindset Coach",
+          "url": "https://eunicedecampi.com/",
+          "worksFor": { "@id": "https://eunicedecampi.com/#organization" },
+          "sameAs": [
+            "https://instagram.com/eunicedecampi",
+            "https://linkedin.com/in/eunicedecampi"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://eunicedecampi.com/#website",
+          "url": "https://eunicedecampi.com/",
+          "name": "Eunice De Campi",
+          "publisher": { "@id": "https://eunicedecampi.com/#organization" }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Network hints — bring up the four hosts we know we'll fetch from -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link rel="dns-prefetch" href="https://sfo3.digitaloceanspaces.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Figtree:wght@300..600&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div id="root"></div>

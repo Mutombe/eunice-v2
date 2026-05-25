@@ -1,0 +1,211 @@
+[
+  {
+    "slot": "practice/interiors",
+    "query": "elegant living room linen interior natural light",
+    "url": "https://images.unsplash.com/photo-1632829882891-5047ccc421bc?auto=format&fit=crop&w=1600&q=85",
+    "photoId": "EVjqpcn79AM",
+    "alt": "a living room filled with furniture and a fire place",
+    "photographer": "Spacejoy",
+    "photographerLink": "https://unsplash.com/@spacejoy",
+    "pickedIndex": 0,
+    "totalResults": 627
+  },
+  {
+    "slot": "practice/writing",
+    "query": "leather bound book writing desk vintage lamp library elegant",
+    "url": "https://images.unsplash.com/photo-1560752596-3d5bdd30ddc1?auto=format&fit=crop&w=1600&q=85",
+    "photoId": "5y7F1LFrYds",
+    "alt": "lighted pair of table lamps",
+    "photographer": "Annie Spratt",
+    "photographerLink": "https://unsplash.com/@anniespratt",
+    "pickedIndex": 0,
+    "totalResults": 1020
+  },
+  {
+    "slot": "practice/circle",
+    "query": "elegant private dinner table candlelight wine glasses linen",
+    "url": "https://images.unsplash.com/photo-1683803181172-594517d41077?auto=format&fit=crop&w=1600&q=85",
+    "photoId": "0Kq0aRjZ6x4",
+    "alt": "a wooden table topped with plates and glasses",
+    "photographer": "Joana Abreu",
+    "photographerLink": "https://unsplash.com/@joanacabreu",
+    "pickedIndex": 0,
+    "totalResults": 10
+  },
+  {
+    "slot": "journal/the-room-as-a-collaborator",
+    "query": "elegant living room linen curtain morning sunlight refined",
+    "url": "https://images.unsplash.com/photo-1718112188918-dbdabca87aa7?auto=format&fit=crop&w=1600&q=85",
+    "photoId": "dlvH-7eREM4",
+    "alt": "a view of a living room through a window",
+    "photographer": "Tanya Prodaan",
+    "photographerLink": "https://unsplash.com/@tannnpro",
+    "pickedIndex": 0,
+    "totalResults": 268
+  },
+  {
+    "slot": "journal/second-season",
+    "query": "autumn forest mist golden cinematic refined landscape",
+    "url": "https://images.unsplash.com/photo-1611458182018-c043f4e947ec?auto=format&fit=crop&w=1600&q=85",
+    "photoId": "ZJh5GUgNngo",
+    "alt": "green trees under white clouds",
+    "photographer": "Brendan Beale",
+    "photographerLink": "https://unsplash.com/@theophilus318",
+    "pickedIndex": 0,
+    "totalResults": 5696
+  },
+  {
+    "slot": "journal/inner-architecture",
+    "query": "morning sunlight bedroom linen window quiet",
+    "url": "https://images.unsplash.com/photo-1764867249027-06a1db1c6613?auto=format&fit=crop&w=1600&q=85",
+    "photoId": "APy5TV9HrVo",
+    "alt": "Sunlight casts shadows on a draped sofa.",
+    "photographer": "Efe Kekikciler",
+    "photographerLink": "https://unsplash.com/@mutanzom",
+    "pickedIndex": 0,
+    "totalResults": 7030
+  },
+  {
+    "slot": "journal/quiet-report-q1",
+    "query": "leather books antique library elegant",
+    "url": "https://images.unsplash.com/photo-1479142506502-19b3a3b7ff33?auto=format&fit=crop&w=1600&q=85",
+    "photoId": "jKU2NneZAbI",
+    "alt": "books in glass bookcase",
+    "photographer": "Clarisse Meyer",
+    "photographerLink": "https://unsplash.com/@clarissemeyer",
+    "pickedIndex": 0,
+    "totalResults": 1364
+  },
+  {
+    "slot": "journal/letters-to-women-rebuilding",
+    "query": "vintage handwritten letter wax seal envelope ink elegant",
+    "url": "https://images.unsplash.com/photo-1641477176034-1a3e10c343a8?auto=format&fit=crop&w=1600&q=85",
+    "photoId": "KGDVTn9lYDE",
+    "alt": "a wax stamp on a piece of paper",
+    "photographer": "mk. s",
+    "photographerLink": "https://unsplash.com/@mk__s",
+    "pickedIndex": 0,
+    "totalResults": 252
+  },
+  {
+    "slot": "shop/second-season-workbook",
+    "query": "cloth bound notebook linen elegant flat lay",
+    "url": "https://images.unsplash.com/photo-1726938757756-c3fb24fb49c1?auto=format&fit=crop&w=1600&q=85",
+    "photoId": "xpMpa1hGSVc",
+    "alt": "An open notebook sitting on top of a bed",
+    "photographer": "Mauri Studio",
+    "photographerLink": "https://unsplash.com/@mauri_studio",
+    "pickedIndex": 0,
+    "totalResults": 2514
+  },
+  {
+    "slot": "shop/quiet-report-q1",
+    "query": "leather notebook journal elegant minimal flatlay",
+    "url": "https://images.unsplash.com/photo-1654542645844-590f5b8c146a?auto=format&fit=crop&w=1600&q=85",
+    "photoId": "mtKV-bjjaGk",
+    "alt": "an open notebook sitting on top of a wooden table",
+    "photographer": "Prophsee Journals",
+    "photographerLink": "https://unsplash.com/@prophsee",
+    "pickedIndex": 0,
+    "totalResults": 2363
+  },
+  {
+    "slot": "shop/letters-pamphlet",
+    "query": "vintage letter wax seal envelope ink elegant",
+    "url": "https://images.unsplash.com/photo-1646568779353-b9d2b903b3e1?auto=format&fit=crop&w=1600&q=85",
+    "photoId": "Fcd6LJ4HDNk",
+    "alt": "a white envelope with a wax stamp and a wax seal",
+    "photographer": "Diana Light",
+    "photographerLink": "https://unsplash.com/@dreamcatchlight",
+    "pickedIndex": 0,
+    "totalResults": 276
+  },
+  {
+    "slot": "shop/sanctuary-bedroom-guide",
+    "query": "luxury bedroom linen bedding morning sunlight private",
+    "url": "https://images.unsplash.com/photo-1778731525611-64dc4006a5da?auto=format&fit=crop&w=1600&q=85",
+    "photoId": "1KkQiKqf8JM",
+    "alt": "Modern bedroom with large windows overlooking trees",
+    "photographer": "Franco Debartolo",
+    "photographerLink": "https://unsplash.com/@francotheshooter",
+    "pickedIndex": 0,
+    "totalResults": 3
+  },
+  {
+    "slot": "shop/annual-print-edition",
+    "query": "leather bound book antique library private elegant",
+    "url": "https://images.unsplash.com/photo-1771313121019-4d0ce055b9a4?auto=format&fit=crop&w=1600&q=85",
+    "photoId": "0eO7XdeRM9Q",
+    "alt": "Tall bookshelf filled with old antique books",
+    "photographer": "Ahmet Yüksek ✪",
+    "photographerLink": "https://unsplash.com/@ahmetyuksek",
+    "pickedIndex": 0,
+    "totalResults": 1
+  },
+  {
+    "slot": "shop/morning-ledger",
+    "query": "morning ritual coffee notebook elegant breakfast",
+    "url": "https://images.unsplash.com/photo-1603950227760-e609ce8e15b4?auto=format&fit=crop&w=1600&q=85",
+    "photoId": "lSoOqwAJRZk",
+    "alt": "white book page on white textile",
+    "photographer": "Kritika Hasija",
+    "photographerLink": "https://unsplash.com/@kritikahasija27",
+    "pickedIndex": 0,
+    "totalResults": 6174
+  },
+  {
+    "slot": "about/image",
+    "query": "elegant woman writing desk sunlight refined considered",
+    "url": "https://images.unsplash.com/photo-1600188769045-bc6026bfc8cd?auto=format&fit=crop&w=1600&q=85",
+    "photoId": "NcNkCpMlYDk",
+    "alt": "woman in yellow and black floral dress sitting on brown wooden chair",
+    "photographer": "Darius Bashar",
+    "photographerLink": "https://unsplash.com/@dariusbashar",
+    "pickedIndex": 0,
+    "totalResults": 2542
+  },
+  {
+    "slot": "retreats/image",
+    "query": "tuscan villa countryside cypress estate private golden hour",
+    "url": "https://images.unsplash.com/photo-1760681554843-da433454c08e?auto=format&fit=crop&w=1600&q=85",
+    "photoId": "IOdu9QBbLCA",
+    "alt": "Rolling hills with trees and buildings at sunset.",
+    "photographer": "Peter Thomas",
+    "photographerLink": "https://unsplash.com/@lifeof_peter_",
+    "pickedIndex": 0,
+    "totalResults": 11
+  },
+  {
+    "slot": "programme/reinvention",
+    "query": "woman walking mountain trail solitude contemplative refined",
+    "url": "https://images.unsplash.com/photo-1610551909541-357c94673204?auto=format&fit=crop&w=1600&q=85",
+    "photoId": "IQwA1OurefI",
+    "alt": "woman in black jacket walking on pathway near mountains during daytime",
+    "photographer": "lucas wesney",
+    "photographerLink": "https://unsplash.com/@wesnext",
+    "pickedIndex": 0,
+    "totalResults": 707
+  },
+  {
+    "slot": "programme/considered-recovery",
+    "query": "serene mountain lake reflection dawn cinematic",
+    "url": "https://images.unsplash.com/photo-1602557089158-f91c696af5fd?auto=format&fit=crop&w=1600&q=85",
+    "photoId": "YfuhiAIy5e0",
+    "alt": "body of water near mountain during daytime",
+    "photographer": "Intricate Explorer",
+    "photographerLink": "https://unsplash.com/@intricateexplorer",
+    "pickedIndex": 0,
+    "totalResults": 4700
+  },
+  {
+    "slot": "programme/interior-wellbeing-audit",
+    "query": "elegant home interior oak natural light english refined",
+    "url": "https://images.unsplash.com/photo-1642428668372-cebd5c8a7403?auto=format&fit=crop&w=1600&q=85",
+    "photoId": "Txu8s26Qv_0",
+    "alt": "a window with a bench in front of it",
+    "photographer": "Anna Mould",
+    "photographerLink": "https://unsplash.com/@phosphoricc",
+    "pickedIndex": 0,
+    "totalResults": 4
+  }
+]

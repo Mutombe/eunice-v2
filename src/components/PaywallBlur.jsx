@@ -32,7 +32,7 @@ export default function PaywallBlur({ children }) {
             >
               Join the Circle →
             </button>
-            <p className="mono-sm text-ink/40 mt-3">From £14 / month · cancel anytime</p>
+            <p className="mono-sm text-ink/65 mt-3">From £14 / month · cancel anytime</p>
           </div>
         </div>
       </div>

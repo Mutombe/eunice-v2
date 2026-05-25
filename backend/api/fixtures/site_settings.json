@@ -1,0 +1,550 @@
+[
+  {
+    "model": "api.sitesettings",
+    "pk": 1,
+    "fields": {
+      "brand": {
+        "name": "Eunice De Campi",
+        "siteUrl": "https://eunicedecampi.com",
+        "shortName": "EDC",
+        "tagline": "A wellbeing practice for women in reinvention — coaching, considered interiors, and the architecture of a considered life.",
+        "email": "studio@eunicedecampi.com",
+        "phone": "+44 (0)1865 000 000",
+        "studio": "The Atelier · Oxford OX1",
+        "hours": "Tue – Fri · 09:00 – 17:00 GMT · By appointment",
+        "social": {
+          "instagram": "https://instagram.com/eunicedecampi",
+          "linkedin": "https://linkedin.com/in/eunicedecampi"
+        },
+        "index": "EDC—STUDIO 2026"
+      },
+      "nav": [
+        {
+          "num": "01",
+          "label": "Studio",
+          "to": "/"
+        },
+        {
+          "num": "02",
+          "label": "About",
+          "to": "/about"
+        },
+        {
+          "num": "03",
+          "label": "Practice",
+          "to": "/practice"
+        },
+        {
+          "num": "04",
+          "label": "Programmes",
+          "to": "/programmes"
+        },
+        {
+          "num": "05",
+          "label": "Journal",
+          "to": "/journal"
+        },
+        {
+          "num": "06",
+          "label": "Shop",
+          "to": "/shop"
+        },
+        {
+          "num": "07",
+          "label": "Enquire",
+          "to": "/enquire"
+        }
+      ],
+      "hero": {
+        "index": "01 / 07",
+        "edition": "STUDIO · MMXXVI · NO. 01",
+        "wordmark": "Eunice De Campi",
+        "pretitle": "A wellbeing practice — for women in second seasons",
+        "title": "The",
+        "titleEm": "considered",
+        "title2": "work of",
+        "title2Em": "becoming.",
+        "body": "Coaching for reinvention, recovery, and the long work of becoming someone new. Alongside it, a small interiors practice and a quarterly journal of considered living. Founded in Oxford. Working internationally. By application.",
+        "meta": [
+          {
+            "label": "Founded",
+            "value": "2008"
+          },
+          {
+            "label": "Disciplines",
+            "value": "Four"
+          },
+          {
+            "label": "Studio",
+            "value": "Oxford"
+          }
+        ]
+      },
+      "studio": {
+        "index": "STUDIO 2026",
+        "pretitle": "On the practice and the woman who founded it",
+        "founderPortrait": "/eunice/standing.jpg",
+        "founderSeated": "/eunice/seated.jpg",
+        "shortBio": "Eunice De Campi is a coach, writer and interior wellbeing designer. The studio was founded in Oxford in 2008 and has grown — slowly, quietly — into a wellbeing-first practice for women in reinvention, with a small interiors arm and a quarterly editorial journal running alongside.",
+        "timeline": [
+          {
+            "num": "01",
+            "year": "2008",
+            "h": "Interiors",
+            "b": "Practice founded. Residential commissions across Oxford and London."
+          },
+          {
+            "num": "02",
+            "year": "2014",
+            "h": "Event styling",
+            "b": "The studio expands into private events. Same instincts, different scale."
+          },
+          {
+            "num": "03",
+            "year": "2019",
+            "h": "Refined Wellbeing",
+            "b": "An editorial writing practice begins. The bridge between rooms and inner lives."
+          },
+          {
+            "num": "04",
+            "year": "2021",
+            "h": "A pause",
+            "b": "Personal bereavement. The practice goes quiet for a year. The work that returns is rebuilt."
+          },
+          {
+            "num": "05",
+            "year": "2022",
+            "h": "Coaching",
+            "b": "The mindset discipline is added to the studio. Eastern wisdom, Western frameworks."
+          },
+          {
+            "num": "06",
+            "year": "2026",
+            "h": "The atelier today",
+            "b": "Four disciplines, one practice. Working internationally, with a small list of named clients."
+          }
+        ],
+        "beliefs": [
+          {
+            "num": "I",
+            "line": "A room is never decoration. It is a quiet collaborator."
+          },
+          {
+            "num": "II",
+            "line": "Wellbeing is not a posture. It is an architecture."
+          },
+          {
+            "num": "III",
+            "line": "Reinvention is not recovery. It is design."
+          },
+          {
+            "num": "IV",
+            "line": "Restraint, in the end, is the most generous luxury."
+          }
+        ]
+      },
+      "membership": {
+        "name": "The Circle",
+        "pretitle": "By small invitation · Capped at 240",
+        "pitch": "A private membership for women across four continents. Two annual retreats, four quarterly Quiet Reports, twelve monthly letters, and the full editorial archive. The Circle is intentionally small.",
+        "heroImage": "https://images.unsplash.com/photo-1458668383970-8ddd3927deed?w=2400&auto=format&fit=crop&q=85",
+        "founderPortrait": "/eunice/window.jpg",
+        "tiers": [
+          {
+            "num": "01",
+            "name": "Reader",
+            "price": "Free",
+            "cadence": "always",
+            "features": [
+              "Public essays in full",
+              "Quarterly reading list",
+              "Monthly excerpt of the private letter"
+            ],
+            "cta": "Subscribe",
+            "highlighted": false
+          },
+          {
+            "num": "02",
+            "name": "Member",
+            "price": "£14",
+            "cadence": "/ month",
+            "features": [
+              "All members essays & letters",
+              "The Quiet Reports — quarterly",
+              "The members archive",
+              "Two members calls / year",
+              "10% off all programmes"
+            ],
+            "cta": "Join the Circle",
+            "highlighted": true
+          },
+          {
+            "num": "03",
+            "name": "Inner Circle",
+            "price": "£420",
+            "cadence": "/ year · by application",
+            "features": [
+              "All Member benefits",
+              "Two annual retreats (UK)",
+              "Quarterly group intensives",
+              "Three private sessions / year",
+              "Annual print edition"
+            ],
+            "cta": "Apply",
+            "highlighted": false
+          }
+        ],
+        "retreats": [
+          {
+            "num": "I",
+            "season": "Spring",
+            "location": "Oxford",
+            "date": "April 2026",
+            "spots": "Members only · 12 spaces"
+          },
+          {
+            "num": "II",
+            "season": "Autumn",
+            "location": "Cotswolds",
+            "date": "October 2026",
+            "spots": "Members only · 12 spaces"
+          }
+        ]
+      },
+      "contact": {
+        "intro": "The studio works with a small number of private clients each year. New commissions and coaching enquiries are welcomed by note. A short reply usually arrives within three working days.",
+        "channels": [
+          {
+            "num": "01",
+            "label": "Studio",
+            "value": "studio@eunicedecampi.com",
+            "href": "mailto:studio@eunicedecampi.com"
+          },
+          {
+            "num": "02",
+            "label": "Voice",
+            "value": "+44 (0)1865 000 000",
+            "href": "tel:+441865000000"
+          },
+          {
+            "num": "03",
+            "label": "Address",
+            "value": "The Atelier · Oxford OX1"
+          },
+          {
+            "num": "04",
+            "label": "Hours",
+            "value": "Tue – Fri · 09:00 – 17:00 GMT"
+          }
+        ]
+      },
+      "notification": {
+        "enabled": false,
+        "message": "The Quiet Report · Q1 has arrived. By application only.",
+        "linkLabel": "Open the report",
+        "linkTo": "/shop/quiet-report-q1"
+      },
+      "about": {
+        "edition": "STUDIO · MMXXVI · STORY",
+        "pretitle": "The interior life of the woman in her second chapter",
+        "title": "I built the practice",
+        "titleEm": "I needed",
+        "title2": "first.",
+        "lede": "Eunice De Campi is a coach, writer, and interior wellbeing designer. She works at the meeting point of three disciplines — coaching psychology, residential interiors, and the editorial study of considered living — with women navigating reinvention, leadership, and the long quiet of a life rebuilt on purpose.",
+        "story": [
+          "The studio began in a room. A real one, in Oxford, with bad light and a chair that did not belong to me. I had left a corporate role, a marriage, and a city that I had agreed to call home for fifteen years. None of the language available to me — pivot, hustle, journey — fit the work that was actually required.",
+          "What I needed was a quiet practice for a loud transition. A method for designing the next chapter the way an architect designs a room — slowly, on paper, with attention to load-bearing walls. I built it, by hand, out of the books and the training and the long hours of asking better questions. I built it for me first.",
+          "The practice you find here is what came of that. It is for women in second seasons. For founders rebuilding after burnout. For couples reordering a household around a quieter ambition. For the small handful each year who want a coach who reads architecture and an interior designer who reads psychology — and who knows the two are the same conversation."
+        ],
+        "philosophy": [
+          {
+            "num": "I",
+            "title": "The architecture of a considered life",
+            "body": "A life is constructed, not received. Rooms, schedules, relationships, language — each is a load-bearing element. Coaching, at its best, is the slow editing of the building."
+          },
+          {
+            "num": "II",
+            "title": "Restraint is the discipline",
+            "body": "Less, more carefully chosen. The studio rejects optimisation, content velocity, the language of acceleration. We work in seasons, not sprints."
+          },
+          {
+            "num": "III",
+            "title": "Privacy is the standard",
+            "body": "Names, addresses, and detail are not for circulation. Every commission is private; every retreat is closed-door; every conversation is held."
+          },
+          {
+            "num": "IV",
+            "title": "The room is part of the work",
+            "body": "Where you live shapes who you become. The studio's interior practice and its coaching practice are not adjacent — they are the same idea, applied at different scales."
+          }
+        ],
+        "credentials": [
+          "MSc Coaching Psychology, University of East London",
+          "ICF Professional Certified Coach (PCC)",
+          "Trained in Internal Family Systems · grief literacy · trauma-informed coaching",
+          "Fifteen years in residential interior design — Oxford, London, Lisbon",
+          "Contributing essays in Cereal, World of Interiors, and The Gentlewoman"
+        ],
+        "image": "https://images.unsplash.com/photo-1600188769045-bc6026bfc8cd?auto=format&fit=crop&w=1600&q=85",
+        "imageCaption": "The reading room · Oxford · MMXXVI",
+        "cta": {
+          "label": "Begin a private conversation",
+          "to": "/enquire"
+        }
+      },
+      "speaking": {
+        "edition": "STUDIO · MMXXVI · SPEAKING",
+        "pretitle": "On stages, around tables, in rooms",
+        "title": "Quieter",
+        "titleEm": "speaking",
+        "title2": "— in service of a louder idea.",
+        "lede": "Eunice speaks to audiences working through transition — founders re-entering after burnout, women in second seasons, design teams interested in wellbeing as practice rather than perk. Keynote, workshop, and fireside formats. Sourced material, no slides for show.",
+        "topics": [
+          {
+            "num": "I",
+            "title": "The architecture of a considered life",
+            "body": "How rooms — physical and otherwise — shape the people inside them. A keynote on burnout, restoration, and the editorial practice of subtraction."
+          },
+          {
+            "num": "II",
+            "title": "Second seasons",
+            "body": "On women rebuilding in mid-life. The chapter no one warns you is coming, and the practice that meets it well."
+          },
+          {
+            "num": "III",
+            "title": "Interiors as wellbeing infrastructure",
+            "body": "For design teams and developers — designing residential spaces that hold a person, not just a programme. Case studies from fifteen years of private commissions."
+          },
+          {
+            "num": "IV",
+            "title": "Restraint, in a season of more",
+            "body": "On building a quiet brand in a loud industry. For founders, marketers, and creative directors who suspect velocity is not the answer."
+          }
+        ],
+        "formats": [
+          {
+            "num": "I",
+            "label": "Keynote",
+            "detail": "45–60 minutes · auditorium or conference"
+          },
+          {
+            "num": "II",
+            "label": "Workshop",
+            "detail": "Half-day or full · capped at 24 participants · materials included"
+          },
+          {
+            "num": "III",
+            "label": "Fireside / panel",
+            "detail": "Moderated conversation · 30–60 minutes"
+          },
+          {
+            "num": "IV",
+            "label": "Private salon",
+            "detail": "8–16 guests · in a borrowed room · by invitation"
+          }
+        ],
+        "engagements": [
+          {
+            "date": "MMXXVI",
+            "venue": "The London Design Biennale",
+            "title": "Rooms that hold us"
+          },
+          {
+            "date": "MMXXVI",
+            "venue": "Cereal Editions, in conversation",
+            "title": "On restraint"
+          },
+          {
+            "date": "MMXXV",
+            "venue": "House of St Barnabas, London",
+            "title": "Second seasons — closed salon"
+          },
+          {
+            "date": "MMXXV",
+            "venue": "Hawkwood College",
+            "title": "The architecture of a considered life"
+          }
+        ],
+        "audience": "Founders, executives in transition, designers, women in second chapter, considered creative teams.",
+        "cta": {
+          "label": "Invite Eunice to speak",
+          "to": "/enquire?subject=speaking"
+        }
+      },
+      "retreats": {
+        "edition": "STUDIO · MMXXVI · RETREATS",
+        "pretitle": "A small house, a quieter table, a closed door",
+        "title": "Three days that",
+        "titleEm": "behave",
+        "title2": "like a season.",
+        "lede": "Twice a year the studio takes a small group of guests into a sourced house — Tuscany in spring, the Hebrides in autumn — for a closed-door practice in coaching, conversation, and considered living. No optimisation, no agenda densely packed, no Instagram permitted. Eight guests. Three days. A long table.",
+        "philosophy": [
+          "A retreat is not a holiday. It is a practice of subtraction — fewer inputs, slower meals, a smaller room, a single book. The studio's retreats are designed around what you would do if you trusted yourself for three days.",
+          "Each retreat is built like a residency, not a programme: coaching sessions in the morning, long unstructured afternoons, a chef who reads the room, and conversations that finish themselves. Guests arrive at a stranger's table on Friday and leave it changed on Monday."
+        ],
+        "format": [
+          {
+            "num": "I",
+            "label": "Eight guests",
+            "detail": "Sometimes twelve. Never more. A waiting list is kept."
+          },
+          {
+            "num": "II",
+            "label": "Three or seven days",
+            "detail": "Short retreats are quarterly; long retreats are biannual."
+          },
+          {
+            "num": "III",
+            "label": "A sourced house",
+            "detail": "Always private, always small, always far from the road. Locations are confidential."
+          },
+          {
+            "num": "IV",
+            "label": "Coaching included",
+            "detail": "One private session per guest. Group coaching afternoons. A take-home practice."
+          },
+          {
+            "num": "V",
+            "label": "A chef in residence",
+            "detail": "Slow Italian, mostly vegetarian. Wine sourced locally. Coffee considered."
+          },
+          {
+            "num": "VI",
+            "label": "No phones, lightly",
+            "detail": "Phones are welcomed at the bedside, discouraged at the table."
+          }
+        ],
+        "upcoming": [
+          {
+            "title": "Spring — The Tuscan retreat",
+            "dates": "April · MMXXVII",
+            "where": "Val d'Orcia · Italy",
+            "length": "Three nights",
+            "status": "Application list open",
+            "applyTo": "/enquire?subject=retreat-tuscany"
+          },
+          {
+            "title": "Autumn — The Hebridean retreat",
+            "dates": "October · MMXXVI",
+            "where": "Isle of Mull · Scotland",
+            "length": "Three nights",
+            "status": "Waiting list only",
+            "applyTo": "/enquire?subject=retreat-hebrides"
+          },
+          {
+            "title": "Winter — The long retreat",
+            "dates": "January · MMXXVII",
+            "where": "Sourced · undisclosed",
+            "length": "Seven nights",
+            "status": "Closed",
+            "applyTo": "/enquire?subject=retreat-winter"
+          }
+        ],
+        "image": "https://images.unsplash.com/photo-1760681554843-da433454c08e?auto=format&fit=crop&w=1600&q=85",
+        "imageCaption": "The Tuscan retreat · April",
+        "cta": {
+          "label": "Apply to the retreat list",
+          "to": "/enquire?subject=retreat"
+        }
+      },
+      "legal": {
+        "privacy": {
+          "title": "Privacy",
+          "updated": "May MMXXVI",
+          "intro": "The studio collects only what is necessary to write back, send the letter, fulfil orders, and run its practice. No tracking pixels are loaded. No third-party advertising networks are used. This page tells you, plainly, what is kept and why.",
+          "sections": [
+            {
+              "title": "What we collect",
+              "body": [
+                "When you enquire — your name, email, and the message you write. When you subscribe to the letter — your email. When you purchase from the shop — billing and delivery details necessary to fulfil the order. When you browse — anonymous page counts (path, referrer, no IP, no identifier)."
+              ]
+            },
+            {
+              "title": "Where it lives",
+              "body": [
+                "Enquiries and subscribers are stored on the studio's own servers (the database is not shared with third parties). Newsletter delivery is operated by Mailerlite (your email is shared with them for the sole purpose of sending the letter; you can unsubscribe in one click). Payment processing, when available, is handled by Stripe — the studio does not see or store card numbers."
+              ]
+            },
+            {
+              "title": "What we never do",
+              "body": [
+                "Sell, rent, or share your details for advertising. Load third-party tracking pixels (Facebook, Google, TikTok, none). Use cookies for cross-site profiling. Send marketing email to anyone who has not asked for it."
+              ]
+            },
+            {
+              "title": "Your rights",
+              "body": [
+                "Ask for a copy of what we hold on you. Ask to correct anything wrong. Ask to be deleted entirely — and we will, within thirty days. Write to studio@eunicedecampi.com to exercise any of these."
+              ]
+            }
+          ]
+        },
+        "cookies": {
+          "title": "Cookies",
+          "updated": "May MMXXVI",
+          "intro": "The studio uses very few cookies. Those it does use are first-party only and do exactly what the page describes — nothing more.",
+          "sections": [
+            {
+              "title": "What we set",
+              "body": [
+                "edc.token — your sign-in token, if you are a member of the studio team using the admin. Only set after you log in.",
+                "edc.cookieConsent — remembers whether you accepted this notice, so you are not asked again.",
+                "edc.notification.dismissed — remembers whether you dismissed the small notice bar at the top of the page."
+              ]
+            },
+            {
+              "title": "What we do not set",
+              "body": [
+                "Advertising cookies. Cross-domain tracking. Social-media pixels. Any cookie set by a third party."
+              ]
+            },
+            {
+              "title": "Anonymous page counts",
+              "body": [
+                "We do count, anonymously, which pages are read. The count records the path and the referring page only — no IP address, no fingerprint, no identifier. Nothing about you, only about the page."
+              ]
+            }
+          ]
+        },
+        "terms": {
+          "title": "Terms",
+          "updated": "May MMXXVI",
+          "intro": "Plain-English terms for the studio's site, shop, and coaching practice. By using this site you accept what follows. If anything does not work for you, write — we will read it.",
+          "sections": [
+            {
+              "title": "The site",
+              "body": [
+                "The writing, photography, and design on this site are © Eunice De Campi unless attributed otherwise. Quote freely, with credit; reproduce in full only with written permission. Excerpts of the journal may be syndicated for editorial purposes with attribution."
+              ]
+            },
+            {
+              "title": "The shop",
+              "body": [
+                "Products are sold by the studio directly. Digital goods are non-refundable once downloaded. Physical goods may be returned, unused, within fourteen days. Bespoke commissions — interior, editorial, coaching — are governed by the engagement letter signed at the start of work."
+              ]
+            },
+            {
+              "title": "Coaching and retreats",
+              "body": [
+                "Coaching engagements are private. Retreat applications are reviewed individually; deposits, when invited, are non-refundable but transferable to a future cohort. Cancellations within twenty-eight days of a retreat forfeit the deposit; cancellations earlier are refunded in full less a small administration fee."
+              ]
+            },
+            {
+              "title": "Liability",
+              "body": [
+                "The studio writes about wellbeing, design, and reinvention. Nothing on this site is medical advice. Coaching is not therapy. Where you are working through a clinical question, the studio will refer you to a professional in the appropriate field."
+              ]
+            },
+            {
+              "title": "Law",
+              "body": [
+                "These terms are governed by the laws of England and Wales. Any dispute that cannot be resolved by writing will be heard in the courts of Oxford."
+              ]
+            }
+          ]
+        }
+      },
+      "updated_at": "2026-05-25T06:46:52.606Z"
+    }
+  }
+]

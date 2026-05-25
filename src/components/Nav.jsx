@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { List, X } from '@phosphor-icons/react'
-import { brand, navLinks } from '../data/siteData.js'
+import { useSettings } from '../lib/settings.jsx'
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const { pathname } = useLocation()
+  const { brand, navLinks } = useSettings()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -29,11 +30,12 @@ export default function Nav() {
         }`}
       />
       <nav className="container-edge h-[64px] flex items-center justify-between">
-        <Link to="/" className="flex items-baseline gap-3">
-          <span className="display-thin text-2xl tracking-tight">
-            Eunice De Campi
+        <Link to="/" className="flex items-baseline gap-3 group">
+          <span className="text-base md:text-lg font-medium uppercase tracking-[0.3em] text-ink transition-colors group-hover:text-clay-500">
+            <span className="md:hidden">EDC</span>
+            <span className="hidden md:inline">Eunice De Campi</span>
           </span>
-          <span className="hidden md:inline mono-sm text-ink/55">{brand.index}</span>
+          <span className="hidden md:inline mono-sm text-ink/65">{brand.index}</span>
         </Link>
 
         <ul className="hidden lg:flex items-center gap-7">
@@ -44,11 +46,11 @@ export default function Nav() {
                 end={link.to === '/'}
                 className={({ isActive }) =>
                   `mono inline-flex items-center gap-1.5 transition-colors duration-300 ${
-                    isActive ? 'text-ink' : 'text-ink/45 hover:text-ink'
+                    isActive ? 'text-ink' : 'text-ink/65 hover:text-ink'
                   }`
                 }
               >
-                <span className="text-[0.62rem] opacity-70">{link.num}</span> {link.label}
+                <span className="text-[0.7rem] opacity-70">{link.num}</span> {link.label}
               </NavLink>
             </li>
           ))}
@@ -75,7 +77,7 @@ export default function Nav() {
             <ul className="container-edge py-6 space-y-3">
               {navLinks.map((link) => (
                 <li key={link.to} className="flex items-baseline gap-4">
-                  <span className="mono-sm text-ink/40 w-8">{link.num}</span>
+                  <span className="mono-sm text-ink/65 w-8">{link.num}</span>
                   <NavLink
                     to={link.to}
                     end={link.to === '/'}

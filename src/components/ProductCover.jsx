@@ -16,7 +16,7 @@ const TONES = {
   ink: {
     wash: 'rgba(26, 26, 25, 0.72)',     // ink-500
     text: 'text-paper-warm',
-    soft: 'text-paper-warm/60',
+    soft: 'text-paper-warm/65',
     rule: 'border-paper-warm/22',
     ruleBg: 'bg-paper-warm/22',
     spine: 'bg-paper-warm/10',
@@ -61,7 +61,7 @@ const TONES = {
   stone: {
     wash: 'rgba(214, 207, 196, 0.62)',  // stone-300
     text: 'text-ink-500',
-    soft: 'text-ink/55',
+    soft: 'text-ink/65',
     rule: 'border-ink/22',
     ruleBg: 'bg-ink/22',
     spine: 'bg-ink/14',
@@ -208,7 +208,7 @@ export default function ProductCover({
 
         {/* Foot — museum-label spec strip */}
         <div className={`mt-auto pt-4 border-t ${tone.rule} grid grid-cols-3 gap-3 items-end`}>
-          <div className="col-span-2 mono-sm leading-[1.7] text-[0.55rem]">
+          <div className="col-span-2 mono-sm leading-[1.7] text-[0.7rem]">
             <div>{product.format || product.kind}</div>
             <div className={`opacity-80 ${tone.soft}`}>
               {[product.pages, product.binding].filter(Boolean).join(' · ')}
@@ -224,7 +224,7 @@ export default function ProductCover({
 
       {/* Featured ribbon — atelier-style: simple bar in clay */}
       {showRibbon && product.featured && (
-        <span className="absolute top-4 right-4 mono-sm text-[0.55rem] bg-clay-500 text-paper-warm px-2.5 py-1.5">
+        <span className="absolute top-4 right-4 mono-sm text-[0.7rem] bg-clay-500 text-paper-warm px-2.5 py-1.5">
           ★ Featured
         </span>
       )}
