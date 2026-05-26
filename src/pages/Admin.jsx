@@ -34,6 +34,8 @@ import {
 } from '@phosphor-icons/react'
 import { getToken, setToken, fetchMe, logout as apiLogout, resources, apiRequest, uploadFile } from '../lib/api.js'
 import { DEFAULT_NOTIFICATION } from '../lib/settings.jsx'
+import { useToast } from '../components/Toast.jsx'
+import { useConfirm } from '../components/ConfirmDialog.jsx'
 import {
   brand,
   notes as defaultNotes,
@@ -237,21 +239,8 @@ function Btn({ variant = 'default', children, ...props }) {
   return <button className={`${base} ${variants[variant]}`} {...props}>{children}</button>
 }
 
-function Toast({ message }) {
-  if (!message) return null
-  return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-ink-500 text-paper-warm px-4 py-2.5 mono-sm text-[0.7rem] tracking-wider shadow-lg flex items-center gap-2">
-      <CheckCircle size={14} className="text-clay-300" />
-      {message}
-    </div>
-  )
-}
-
-function useToast() {
-  const [msg, setMsg] = useState('')
-  function show(message) { setMsg(message); window.setTimeout(() => setMsg(''), 1800) }
-  return [msg, show]
-}
+/* Toast + confirm dialog are app-wide — see src/components/Toast.jsx and
+ * src/components/ConfirmDialog.jsx. We import the hooks below. */
 
 function StatPill({ label, value, hint }) {
   return (
@@ -638,7 +627,7 @@ export function NavSettings() {
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [busy, setBusy] = useState(false)
-  const [toast, showToast] = useToast()
+  const showToast = useToast()
 
   useEffect(() => {
     let alive = true
@@ -662,7 +651,7 @@ export function NavSettings() {
       await apiRequest('/settings/', { method: 'PATCH', body: { navLinks: items }, auth: true })
       showToast('Navigation saved')
     } catch (e) {
-      showToast(e.message || 'Save failed')
+      showToast(e.message || 'Save failed', { kind: 'error' })
     } finally {
       setBusy(false)
     }
@@ -694,7 +683,7 @@ export function NavSettings() {
         </Card>
       )}
 
-      <Toast message={toast} />
+      {/* Toasts are rendered globally by ToastProvider */}
     </>
   )
 }
@@ -705,7 +694,7 @@ export function NotificationSettings() {
   const [n, setN] = useState(DEFAULT_NOTIFICATION)
   const [loading, setLoading] = useState(true)
   const [busy, setBusy] = useState(false)
-  const [toast, showToast] = useToast()
+  const showToast = useToast()
 
   useEffect(() => {
     let alive = true
@@ -727,7 +716,7 @@ export function NotificationSettings() {
       await apiRequest('/settings/', { method: 'PATCH', body: { notification: n }, auth: true })
       showToast('Notice bar saved')
     } catch (e) {
-      showToast(e.message || 'Save failed')
+      showToast(e.message || 'Save failed', { kind: 'error' })
     } finally {
       setBusy(false)
     }
@@ -790,7 +779,7 @@ export function NotificationSettings() {
         </div>
       )}
 
-      <Toast message={toast} />
+      {/* Toasts are rendered globally by ToastProvider */}
     </>
   )
 }
@@ -802,7 +791,8 @@ export function MediaPanel() {
   const [loading, setLoading] = useState(true)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
-  const [toast, showToast] = useToast()
+  const showToast = useToast()
+  const confirm = useConfirm()
 
   useEffect(() => {
     let alive = true
@@ -821,19 +811,26 @@ export function MediaPanel() {
       showToast('Uploaded')
     } catch (e) {
       setError(e.message || 'Upload failed.')
+      showToast(e.message || 'Upload failed', { kind: 'error' })
     } finally {
       setBusy(false)
     }
   }
 
   async function remove(item) {
-    if (!window.confirm('Delete this image?')) return
+    const ok = await confirm({
+      title: 'Delete this image?',
+      message: 'Anywhere this image is used will fall back to its placeholder until you swap in a new one.',
+      confirmLabel: 'Delete',
+      danger: true,
+    })
+    if (!ok) return
     try {
       await apiRequest(`/media/${item.id}/`, { method: 'DELETE', auth: true })
       setItems((list) => list.filter((it) => it.id !== item.id))
       showToast('Deleted')
     } catch (e) {
-      showToast(e.message || 'Delete failed')
+      showToast(e.message || 'Delete failed', { kind: 'error' })
     }
   }
 
@@ -883,7 +880,7 @@ export function MediaPanel() {
         </div>
       )}
 
-      <Toast message={toast} />
+      {/* Toasts are rendered globally by ToastProvider */}
     </>
   )
 }
@@ -894,11 +891,29 @@ function CollectionEditor({ resource, label, title, kicker, subtitle, fields, li
   const [items, setItems] = useState([])
   const [activeSlug, setActiveSlug] = useState('')   // server slug of the selected item
   const [draft, setDraft] = useState(null)           // editable working copy
+  const [savedSnapshot, setSavedSnapshot] = useState(null)  // last server-confirmed version of draft
   const [loading, setLoading] = useState(true)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
-  const [toast, showToast] = useToast()
+  const showToast = useToast()
+  const confirm = useConfirm()
   const [q, setQ] = useState('')
+
+  // Has the user edited the draft since the last save / load?
+  // Compared by JSON to catch nested-object changes (modules, inclusions, etc.).
+  const isDirty = useMemo(() => {
+    if (!draft || !savedSnapshot) return false
+    return JSON.stringify(draft) !== JSON.stringify(savedSnapshot)
+  }, [draft, savedSnapshot])
+
+  // Warn before closing the tab / refreshing if there are unsaved changes.
+  useEffect(() => {
+    function onBeforeUnload(e) {
+      if (isDirty) { e.preventDefault(); e.returnValue = '' }
+    }
+    window.addEventListener('beforeunload', onBeforeUnload)
+    return () => window.removeEventListener('beforeunload', onBeforeUnload)
+  }, [isDirty])
 
   // Load the collection from the API.
   useEffect(() => {
@@ -909,8 +924,10 @@ function CollectionEditor({ resource, label, title, kicker, subtitle, fields, li
       .then((data) => {
         if (!alive) return
         setItems(data)
+        const first = data[0] ? { ...data[0] } : null
         setActiveSlug(data[0]?.slug || '')
-        setDraft(data[0] ? { ...data[0] } : null)
+        setDraft(first)
+        setSavedSnapshot(first)
         setLoading(false)
       })
       .catch((err) => {
@@ -925,10 +942,27 @@ function CollectionEditor({ resource, label, title, kicker, subtitle, fields, li
     q === '' || Object.values(it).some((v) => typeof v === 'string' && v.toLowerCase().includes(q.toLowerCase())),
   )
 
-  function select(slug) {
+  // Centralised guard — used by select, add, duplicate. Returns true if it's
+  // safe to switch to a different item.
+  async function confirmDiscardIfDirty() {
+    if (!isDirty) return true
+    const name = savedSnapshot?.title || savedSnapshot?.name || 'this item'
+    return confirm({
+      title: `Discard your changes to "${name}"?`,
+      message: 'You have unsaved edits. Switching now will lose them.',
+      confirmLabel: 'Discard',
+      cancelLabel: 'Keep editing',
+      danger: true,
+    })
+  }
+
+  async function select(slug) {
+    if (slug === activeSlug) return
+    if (!(await confirmDiscardIfDirty())) return
     const item = items.find((it) => it.slug === slug)
     setActiveSlug(slug)
     setDraft(item ? { ...item } : null)
+    setSavedSnapshot(item ? { ...item } : null)
     setError('')
   }
 
@@ -936,32 +970,51 @@ function CollectionEditor({ resource, label, title, kicker, subtitle, fields, li
     setDraft((d) => ({ ...d, [key]: val }))
   }
 
+  function revert() {
+    if (!savedSnapshot) return
+    setDraft({ ...savedSnapshot })
+    setError('')
+    showToast('Changes discarded')
+  }
+
   async function save() {
     if (!draft) return
+    const original = items.find((it) => it.slug === activeSlug)  // keep for rollback
+    const optimisticDraft = { ...draft }
     setBusy(true); setError('')
+    // Optimistic — reflect the edit in the list immediately, even though
+    // the API roundtrip to Neon takes ~2 seconds.
+    setItems((list) => list.map((it) => (it.slug === activeSlug ? optimisticDraft : it)))
     try {
       const saved = await resources.update(resource, activeSlug, draft)
       setItems((list) => list.map((it) => (it.slug === activeSlug ? saved : it)))
       setActiveSlug(saved.slug)
       setDraft({ ...saved })
+      setSavedSnapshot({ ...saved })
       showToast(`${saved.title || saved.name} saved`)
     } catch (err) {
+      // Roll back the optimistic list update.
+      if (original) setItems((list) => list.map((it) => (it.slug === activeSlug ? original : it)))
       setError(err.message || 'Save failed.')
+      showToast(err.message || 'Save failed', { kind: 'error' })
     } finally {
       setBusy(false)
     }
   }
 
   async function add() {
+    if (!(await confirmDiscardIfDirty())) return
     setBusy(true); setError('')
     try {
       const created = await resources.create(resource, newItem())
       setItems((list) => [created, ...list])
       setActiveSlug(created.slug)
       setDraft({ ...created })
+      setSavedSnapshot({ ...created })
       showToast('Created')
     } catch (err) {
       setError(err.message || 'Could not create.')
+      showToast(err.message || 'Could not create', { kind: 'error' })
     } finally {
       setBusy(false)
     }
@@ -969,6 +1022,7 @@ function CollectionEditor({ resource, label, title, kicker, subtitle, fields, li
 
   async function duplicate() {
     if (!draft) return
+    if (!(await confirmDiscardIfDirty())) return
     setBusy(true); setError('')
     try {
       const copy = {
@@ -981,9 +1035,11 @@ function CollectionEditor({ resource, label, title, kicker, subtitle, fields, li
       setItems((list) => [created, ...list])
       setActiveSlug(created.slug)
       setDraft({ ...created })
+      setSavedSnapshot({ ...created })
       showToast('Duplicated')
     } catch (err) {
       setError(err.message || 'Could not duplicate.')
+      showToast(err.message || 'Could not duplicate', { kind: 'error' })
     } finally {
       setBusy(false)
     }
@@ -991,16 +1047,44 @@ function CollectionEditor({ resource, label, title, kicker, subtitle, fields, li
 
   async function remove() {
     if (!draft) return
-    if (!window.confirm(`Delete "${draft.title || draft.name}"?`)) return
+    const name = draft.title || draft.name || 'this item'
+    const ok = await confirm({
+      title: `Delete "${name}"?`,
+      message: 'It will disappear from the public site immediately. This cannot be undone.',
+      confirmLabel: 'Delete',
+      danger: true,
+    })
+    if (!ok) return
+
+    const removed = items.find((it) => it.slug === activeSlug)
+    const removedIndex = items.findIndex((it) => it.slug === activeSlug)
+    const remaining = items.filter((it) => it.slug !== activeSlug)
+    const nextItem = remaining[0] || null
+
     setBusy(true); setError('')
+    // Optimistic — pull it out of the list and jump to the next item.
+    setItems(remaining)
+    setActiveSlug(nextItem?.slug || '')
+    setDraft(nextItem ? { ...nextItem } : null)
+    setSavedSnapshot(nextItem ? { ...nextItem } : null)
+
     try {
-      await resources.remove(resource, activeSlug)
-      const next = items.filter((it) => it.slug !== activeSlug)
-      setItems(next)
-      select(next[0]?.slug || '')
-      showToast('Deleted')
+      await resources.remove(resource, removed.slug)
+      showToast(`"${name}" deleted`)
     } catch (err) {
+      // Roll back — re-insert at the original index and re-select.
+      if (removed) {
+        setItems((list) => {
+          const restored = [...list]
+          restored.splice(removedIndex, 0, removed)
+          return restored
+        })
+        setActiveSlug(removed.slug)
+        setDraft({ ...removed })
+        setSavedSnapshot({ ...removed })
+      }
       setError(err.message || 'Could not delete.')
+      showToast(err.message || 'Could not delete', { kind: 'error' })
     } finally {
       setBusy(false)
     }
@@ -1054,15 +1138,34 @@ function CollectionEditor({ resource, label, title, kicker, subtitle, fields, li
             {draft ? (
               <>
                 <div className="flex items-center justify-between gap-3 flex-wrap mb-6">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 flex-wrap">
                     <Pencil size={14} className="text-ink/65" />
                     <span className="mono-sm text-ink/65 text-[0.7rem]">EDITING</span>
                     <span className="text-sm">{draft.title || draft.name}</span>
+                    {/* Dirty indicator — small clay dot when there are unsaved edits. */}
+                    {isDirty && (
+                      <span className="mono-sm text-clay-500 text-[0.65rem] tracking-[0.2em] inline-flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-clay-500" />
+                        UNSAVED
+                      </span>
+                    )}
                   </div>
                   <div className="flex items-center gap-2">
+                    {isDirty && (
+                      <Btn variant="ghost" onClick={revert} disabled={busy}>
+                        <ArrowsCounterClockwise size={12} /> Discard
+                      </Btn>
+                    )}
                     <Btn variant="ghost" onClick={duplicate} disabled={busy}><Folder size={12} /> Duplicate</Btn>
                     <Btn variant="danger" onClick={remove} disabled={busy}><Trash size={12} /> Delete</Btn>
-                    <Btn variant="primary" onClick={save} disabled={busy}><CheckCircle size={12} /> {busy ? 'Saving…' : 'Save'}</Btn>
+                    <Btn
+                      variant="primary"
+                      onClick={save}
+                      disabled={busy || !isDirty}
+                      title={!isDirty ? 'No changes to save' : ''}
+                    >
+                      <CheckCircle size={12} /> {busy ? 'Saving…' : 'Save'}
+                    </Btn>
                   </div>
                 </div>
 
@@ -1083,7 +1186,7 @@ function CollectionEditor({ resource, label, title, kicker, subtitle, fields, li
         </div>
       )}
 
-      <Toast message={toast} />
+      {/* Toasts are rendered globally by ToastProvider */}
     </>
   )
 }
@@ -1142,7 +1245,7 @@ export function SiteDetailsPanel() {
   const [busy, setBusy] = useState(false)
   const [loadErr, setLoadErr] = useState('')
   const [saveErr, setSaveErr] = useState('')
-  const [toast, showToast] = useToast()
+  const showToast = useToast()
 
   useEffect(() => {
     let alive = true
@@ -1302,7 +1405,7 @@ export function SiteDetailsPanel() {
         </div>
       </Card>
 
-      <Toast message={toast} />
+      {/* Toasts are rendered globally by ToastProvider */}
     </>
   )
 }

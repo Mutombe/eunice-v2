@@ -5,6 +5,7 @@ import PageTransition from '../components/PageTransition.jsx'
 import Seo from '../components/Seo.jsx'
 import Reveal from '../components/Reveal.jsx'
 import { login, getToken } from '../lib/api.js'
+import { useToast } from '../components/Toast.jsx'
 
 export default function Login() {
   const [identifier, setIdentifier] = useState('')
@@ -12,6 +13,7 @@ export default function Login() {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const navigate = useNavigate()
+  const toast = useToast()
 
   // Already signed in — the admin guard re-validates the token.
   if (getToken()) return <Navigate to="/admin" replace />
@@ -22,10 +24,12 @@ export default function Login() {
     setBusy(true)
     setError('')
     try {
-      await login(identifier, password)
+      const user = await login(identifier, password)
+      toast(`Welcome back, ${user?.name || user?.username || 'studio'}`)
       navigate('/admin', { replace: true })
     } catch (err) {
       setError(err.message || 'Sign-in failed. Please try again.')
+      toast(err.message || 'Sign-in failed', { kind: 'error' })
       setBusy(false)
     }
   }

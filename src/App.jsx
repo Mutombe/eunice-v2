@@ -12,6 +12,7 @@ import { useAnalytics } from './lib/analytics.js'
 // larger initial download; the win is no loading flash between routes.
 import Studio           from './pages/Studio.jsx'
 import About            from './pages/About.jsx'
+import NotFound         from './pages/NotFound.jsx'
 import Practice         from './pages/Practice.jsx'
 import PracticeDetail   from './pages/PracticeDetail.jsx'
 import Programmes       from './pages/Programmes.jsx'
@@ -109,6 +110,8 @@ export default function App() {
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/cookies" element={<Cookies />} />
             <Route path="/terms" element={<Terms />} />
+            {/* Anything else → 404 (still inside Layout for consistent chrome) */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </AnimatePresence>
       </Layout>

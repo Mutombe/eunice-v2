@@ -5,6 +5,8 @@ import { HelmetProvider } from 'react-helmet-async'
 import { IconContext } from '@phosphor-icons/react'
 import App from './App.jsx'
 import { SettingsProvider } from './lib/settings.jsx'
+import { ToastProvider } from './components/Toast.jsx'
+import { ConfirmProvider } from './components/ConfirmDialog.jsx'
 import './index.css'
 
 // Atelier-grade icon contract — Phosphor Thin, sized to text, mono-aligned.
@@ -16,7 +18,11 @@ createRoot(document.getElementById('root')).render(
       <SettingsProvider>
         <BrowserRouter>
           <IconContext.Provider value={iconContract}>
-            <App />
+            <ToastProvider>
+              <ConfirmProvider>
+                <App />
+              </ConfirmProvider>
+            </ToastProvider>
           </IconContext.Provider>
         </BrowserRouter>
       </SettingsProvider>
