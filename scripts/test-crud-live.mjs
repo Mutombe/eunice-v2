@@ -15,7 +15,16 @@
  */
 
 const API = process.env.TEST_API || 'https://eunice-backend.onrender.com/api'
-const TOKEN = process.env.TEST_TOKEN || '1e46edf8223cb735e4fa028a8d5a88ed06b03c59'
+
+// Token is required via env var — never committed.
+// Get one by logging in to /admin and copying the value from localStorage
+// (key: edc.token), or pass TEST_TOKEN=... when invoking the script:
+//   TEST_TOKEN=xxx node scripts/test-crud-live.mjs
+const TOKEN = process.env.TEST_TOKEN
+if (!TOKEN) {
+  console.error('✗ TEST_TOKEN env var required — see top of script for how to get one.')
+  process.exit(2)
+}
 
 let pass = 0, fail = 0, skipped = 0
 const failures = []
