@@ -8,7 +8,7 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const { pathname } = useLocation()
-  const { brand, navLinks } = useSettings()
+  const { navLinks } = useSettings()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -35,7 +35,6 @@ export default function Nav() {
             <span className="md:hidden">EDC</span>
             <span className="hidden md:inline">Eunice De Campi</span>
           </span>
-          <span className="hidden md:inline mono-sm text-ink/65">{brand.index}</span>
         </Link>
 
         <ul className="hidden lg:flex items-center gap-7">
@@ -45,12 +44,12 @@ export default function Nav() {
                 to={link.to}
                 end={link.to === '/'}
                 className={({ isActive }) =>
-                  `mono inline-flex items-center gap-1.5 transition-colors duration-300 ${
+                  `mono transition-colors duration-300 ${
                     isActive ? 'text-ink' : 'text-ink/65 hover:text-ink'
                   }`
                 }
               >
-                <span className="text-[0.7rem] opacity-70">{link.num}</span> {link.label}
+                {link.label}
               </NavLink>
             </li>
           ))}
@@ -79,8 +78,7 @@ export default function Nav() {
           >
             <ul className="container-edge py-6 space-y-3">
               {navLinks.map((link) => (
-                <li key={link.to} className="flex items-baseline gap-4">
-                  <span className="mono-sm text-ink/65 w-8">{link.num}</span>
+                <li key={link.to}>
                   <NavLink
                     to={link.to}
                     end={link.to === '/'}
