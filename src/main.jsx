@@ -16,7 +16,11 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <HelmetProvider>
       <SettingsProvider>
-        <BrowserRouter>
+        {/* basename lifts the /eunice-v2/ subpath off the URL react-router sees,
+            so routes match identically in dev (BASE_URL=/) and on GH Pages
+            (BASE_URL=/eunice-v2/). Without this, every route on the deployed
+            site fell through to the 404. */}
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
           <IconContext.Provider value={iconContract}>
             <ToastProvider>
               <ConfirmProvider>

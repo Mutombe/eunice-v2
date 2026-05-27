@@ -26,16 +26,16 @@ const HERO_SLIDES = [
     leftLabel: 'EDC—STUDIO 2026',
     rightLabel: 'OXFORD · MMXXVI',
     indexNum: '01 / 02',
-    pretitle: 'An atelier — for the long, considered work',
+    pretitle: 'A wellbeing practice — for women in second seasons',
     title: [
-      { text: 'Of', italic: false },
-      { text: 'interiors,', italic: true, br: true },
-      { text: 'mindset, and', italic: false },
-      { text: 'human living.', italic: true },
+      { text: 'The', italic: false },
+      { text: 'considered', italic: true, br: true },
+      { text: 'work of', italic: false },
+      { text: 'becoming.', italic: true },
     ],
     body:
-      'An interdisciplinary studio practice working at the intersection of residential interior design, mindset coaching, and the editorial study of how rooms shape the people inside them.',
-    primaryCta: { label: 'Read the practice →', to: '/practice' },
+      'Coaching for reinvention, recovery, and the long work of becoming someone new. Alongside it, a small interiors practice and a quarterly journal of considered living.',
+    primaryCta: { label: 'Read the programmes →', to: '/programmes' },
     secondaryCta: { label: 'Enquire', to: '/enquire' },
     meta: [
       { label: 'Founded', value: '2008' },
@@ -196,7 +196,7 @@ function StudioLayout({ slide }) {
       <div className="container-edge pt-6 md:pt-8 mono hero-eyebrow text-ink/65 flex items-center gap-3">
         <span className="tabular">{slide.indexNum}</span>
         <span className="w-10 h-px bg-ink/30" />
-        <span className="truncate">{slide.pretitle}</span>
+        <span className="md:truncate">{slide.pretitle}</span>
       </div>
 
       <div className="container-edge self-center w-full">
@@ -204,17 +204,20 @@ function StudioLayout({ slide }) {
       </div>
 
       <div className="container-edge pb-6 md:pb-8">
-        <div className="grid grid-cols-12 gap-4 md:gap-6 items-end">
+        {/* Mobile: stack body → CTAs row → meta strip. Desktop: 6 / 3 / 3
+            grid. The cramped col-span-6 + grid-cols-3 layout that used to
+            run on phones is gone — meta now lays out cleanly on its own row. */}
+        <div className="grid grid-cols-12 gap-y-4 md:gap-6 items-end">
           <p className="col-span-12 md:col-span-6 hero-body text-ink/75 max-w-md">
             {slide.body}
           </p>
-          <div className="col-span-6 md:col-span-3 flex flex-col gap-1.5 md:items-end">
+          <div className="col-span-12 md:col-span-3 flex flex-row md:flex-col gap-5 md:gap-1.5 md:items-end">
             <Link to={slide.primaryCta.to} className="mono hero-eyebrow atelier-link">{slide.primaryCta.label}</Link>
             {slide.secondaryCta && (
               <Link to={slide.secondaryCta.to} className="mono hero-eyebrow text-clay-500 atelier-link">{slide.secondaryCta.label}</Link>
             )}
           </div>
-          <div className="col-span-6 md:col-span-3 grid grid-cols-3 gap-2 border-t border-ink/15 pt-2.5">
+          <div className="col-span-12 md:col-span-3 grid grid-cols-3 gap-2 border-t border-ink/15 pt-2.5">
             {slide.meta.map((m) => (
               <div key={m.label}>
                 <div className="mono-sm text-ink/65 text-[0.7rem]">{m.label}</div>
@@ -235,7 +238,7 @@ function CircleLayout({ slide }) {
       <div className="container-edge pt-6 md:pt-8 mono hero-eyebrow text-ink/65 flex items-center gap-3">
         <span className="tabular">{slide.indexNum}</span>
         <span className="w-10 h-px bg-ink/30" />
-        <span className="truncate">{slide.pretitle}</span>
+        <span className="md:truncate">{slide.pretitle}</span>
       </div>
 
       <div className="container-edge self-center w-full">

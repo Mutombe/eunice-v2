@@ -41,7 +41,9 @@
   /* Warm ivory base (brief: warm ivory). */
   --color-paper: #F2ECE2;
   --color-paper-warm: #F7F1E6;
-  --color-ink: #1A1A19;
+  /* Body text — warm sepia/cocoa, deliberately NOT black (per Eunice).
+     Sits at ~9:1 contrast on paper (well above WCAG AA). */
+  --color-ink: #3D2F25;
 
   /* Hybrid direction — soft editorial serif + warm humanist sans.
      Fraunces (display) is a soft, optically-sized serif; Figtree (body +
@@ -214,16 +216,16 @@
         4deg,
         transparent 0px,
         transparent 7px,
-        rgba(26, 26, 25, 0.022) 7px,
-        rgba(26, 26, 25, 0.022) 8px
+        rgba(61, 47, 37, 0.022) 7px,
+        rgba(61, 47, 37, 0.022) 8px
       ),
       /* 94° opposing diagonal */
       repeating-linear-gradient(
         94deg,
         transparent 0px,
         transparent 9px,
-        rgba(26, 26, 25, 0.012) 9px,
-        rgba(26, 26, 25, 0.012) 10px
+        rgba(61, 47, 37, 0.012) 9px,
+        rgba(61, 47, 37, 0.012) 10px
       );
   }
 
@@ -235,8 +237,8 @@
     inset: 0;
     z-index: 1;
     box-shadow:
-      inset 0 0 200px 0 rgba(26, 26, 25, 0.05),
-      inset 0 0 480px 0 rgba(26, 26, 25, 0.03);
+      inset 0 0 200px 0 rgba(61, 47, 37, 0.05),
+      inset 0 0 480px 0 rgba(61, 47, 37, 0.03);
   }
 
   .drafting-surface > * {
@@ -253,24 +255,24 @@
     background-image:
       linear-gradient(to right,
         transparent calc(100%/6 - 0.5px),
-        rgba(26, 26, 25, 0.04) calc(100%/6 - 0.5px),
-        rgba(26, 26, 25, 0.04) calc(100%/6 + 0.5px),
+        rgba(61, 47, 37, 0.04) calc(100%/6 - 0.5px),
+        rgba(61, 47, 37, 0.04) calc(100%/6 + 0.5px),
         transparent calc(100%/6 + 0.5px),
         transparent calc(100%*2/6 - 0.5px),
-        rgba(26, 26, 25, 0.04) calc(100%*2/6 - 0.5px),
-        rgba(26, 26, 25, 0.04) calc(100%*2/6 + 0.5px),
+        rgba(61, 47, 37, 0.04) calc(100%*2/6 - 0.5px),
+        rgba(61, 47, 37, 0.04) calc(100%*2/6 + 0.5px),
         transparent calc(100%*2/6 + 0.5px),
         transparent calc(100%*3/6 - 0.5px),
-        rgba(26, 26, 25, 0.04) calc(100%*3/6 - 0.5px),
-        rgba(26, 26, 25, 0.04) calc(100%*3/6 + 0.5px),
+        rgba(61, 47, 37, 0.04) calc(100%*3/6 - 0.5px),
+        rgba(61, 47, 37, 0.04) calc(100%*3/6 + 0.5px),
         transparent calc(100%*3/6 + 0.5px),
         transparent calc(100%*4/6 - 0.5px),
-        rgba(26, 26, 25, 0.04) calc(100%*4/6 - 0.5px),
-        rgba(26, 26, 25, 0.04) calc(100%*4/6 + 0.5px),
+        rgba(61, 47, 37, 0.04) calc(100%*4/6 - 0.5px),
+        rgba(61, 47, 37, 0.04) calc(100%*4/6 + 0.5px),
         transparent calc(100%*4/6 + 0.5px),
         transparent calc(100%*5/6 - 0.5px),
-        rgba(26, 26, 25, 0.04) calc(100%*5/6 - 0.5px),
-        rgba(26, 26, 25, 0.04) calc(100%*5/6 + 0.5px),
+        rgba(61, 47, 37, 0.04) calc(100%*5/6 - 0.5px),
+        rgba(61, 47, 37, 0.04) calc(100%*5/6 + 0.5px),
         transparent calc(100%*5/6 + 0.5px)
       );
   }
@@ -300,27 +302,43 @@
 }
 
 /* === HERO STRICT-FIT ===
-   Hero is intentionally shorter than viewport — 88svh — so all content
-   (incl. bottom meta) is visible at landing, and a peek of the next section
-   hints at scroll. Capped at 820px on tall monitors. */
+   Hero fills the small viewport on phones (where 88svh + a 580px floor
+   would overflow short screens), then scales to 88svh on tablet+ and
+   caps at 820px on tall monitors. */
 .hero-fit {
-  height: 88svh;
-  min-height: 580px;
-  max-height: 820px;
+  height: clamp(520px, 88svh, 820px);
   overflow: hidden;
   display: grid;
   grid-template-rows: auto 1fr auto;
 }
 .hero-fit > * { min-height: 0; }
-/* Hero display — atelier scale. v2 displays a single large word/phrase
-   so it can be larger than v1's two-line title. */
+
+/* Below ~640px, let the hero be the full small-viewport height — no fixed
+   floor, no max. Stops the hero from running off the bottom on short phones. */
+@media (max-width: 640px) {
+  .hero-fit {
+    height: 100svh;
+    min-height: 0;
+    max-height: none;
+  }
+}
+
+/* Hero display — fluid scale. Tablet+ uses the big aspirational sizing;
+   on phones we cap firmly so multi-segment titles don't overflow the
+   right edge ("work of becoming." was running off at 375px). */
 .hero-display {
-  font-size: clamp(2.75rem, min(14vh, 14vw), 14rem);
-  line-height: 0.92;
+  font-size: clamp(2.25rem, min(13vh, 13vw), 13rem);
+  line-height: 0.95;
+}
+@media (max-width: 640px) {
+  .hero-display {
+    font-size: clamp(1.75rem, 8.5vw, 2.5rem);
+    line-height: 1.02;
+  }
 }
 .hero-body {
   font-size: clamp(0.95rem, min(1.55vh, 1.1vw), 1.2rem);
-  line-height: 1.55;
+  line-height: 1.6;
 }
 .hero-eyebrow {
   font-size: clamp(0.7rem, min(1.2vh, 0.95vw), 0.8rem);

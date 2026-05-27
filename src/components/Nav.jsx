@@ -56,8 +56,11 @@ export default function Nav() {
           ))}
         </ul>
 
-        <Link to="/login" className="hidden lg:inline-flex items-center gap-2 mono text-clay-500 hover:text-ink transition-colors">
-          Sign in <span className="text-clay-500">→</span>
+        <Link
+          to="/login"
+          className="hidden lg:inline-flex items-center mono text-clay-500 hover:text-ink transition-colors"
+        >
+          Sign in
         </Link>
 
         <button onClick={() => setOpen(!open)} className="lg:hidden text-ink" aria-label="Menu">

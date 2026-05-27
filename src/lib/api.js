@@ -2,7 +2,13 @@
    Token auth: the studio admin logs in, stores the token, and sends it as
    `Authorization: Token <key>` on authenticated requests. */
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
+// Runtime override (used by prerender — see scripts/prerender.mjs) takes
+// precedence so the bundle can be redirected to a same-origin /api proxy
+// without rebuilding. Falls back to VITE_API_URL baked at build time.
+const API_URL =
+  (typeof window !== 'undefined' && window.__EDC_API__) ||
+  import.meta.env.VITE_API_URL ||
+  'http://localhost:8000/api'
 const TOKEN_KEY = 'edc.adminToken'
 
 export function getToken() {

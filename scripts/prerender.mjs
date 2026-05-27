@@ -109,13 +109,49 @@ const MIME = {
 
 function startServer() {
   return new Promise((resolve) => {
-    const server = http.createServer((req, res) => {
+    const server = http.createServer(async (req, res) => {
       let urlPath
       try {
         urlPath = decodeURIComponent(new URL(req.url, `http://localhost:${PORT}`).pathname)
       } catch {
         res.writeHead(400)
         res.end('Bad URL')
+        return
+      }
+
+      // === /api/* — server-side proxy to the real backend.
+      //    The puppeteer page asks for /api/... (same-origin → no CORS),
+      //    and we forward the request to API_BASE here. This is the only
+      //    way to make a production-built bundle (which has a cross-
+      //    origin VITE_API_URL baked in) talk to the API from Puppeteer.
+      if (urlPath === '/api' || urlPath.startsWith('/api/')) {
+        try {
+          const upstream = `${API_BASE.replace(/\/$/, '')}${urlPath.replace(/^\/api/, '')}`
+          const body = ['GET', 'HEAD'].includes(req.method)
+            ? undefined
+            : await new Promise((resolve) => {
+                const chunks = []
+                req.on('data', (c) => chunks.push(c))
+                req.on('end', () => resolve(Buffer.concat(chunks)))
+              })
+          const upstreamRes = await fetch(upstream, {
+            method: req.method,
+            headers: {
+              ...(req.headers['content-type'] ? { 'content-type': req.headers['content-type'] } : {}),
+              ...(req.headers['authorization'] ? { 'authorization': req.headers['authorization'] } : {}),
+              'accept': req.headers['accept'] || 'application/json',
+            },
+            body,
+          })
+          const text = await upstreamRes.text()
+          res.writeHead(upstreamRes.status, {
+            'Content-Type': upstreamRes.headers.get('content-type') || 'application/json',
+          })
+          res.end(text)
+        } catch (err) {
+          res.writeHead(502, { 'Content-Type': 'application/json' })
+          res.end(JSON.stringify({ error: 'proxy failed', detail: err.message }))
+        }
         return
       }
 
@@ -200,6 +236,11 @@ async function snapshot(browser, route) {
   await page.setViewport({ width: 1280, height: 800 })
   // Mute console noise from React DevTools recommendation, etc.
   page.on('pageerror', (err) => console.error(`  pageerror on ${route}:`, err.message))
+
+  // Override the bundle's baked API URL to use our same-origin proxy
+  // (defined in startServer above). Bypasses CORS that would otherwise
+  // block the page from reaching the production API from localhost.
+  await page.evaluateOnNewDocument(() => { window.__EDC_API__ = '/api' })
 
   const url = `http://127.0.0.1:${PORT}${BASE_PATH === '/' ? '' : BASE_PATH.slice(0, -1)}${route}`
   try {
