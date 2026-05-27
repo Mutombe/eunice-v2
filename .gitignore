@@ -37,10 +37,13 @@ backend/sqlite_dump.json
 # --- Curation working files ---
 # Image previews fetched during review (1+ MB) — re-fetched on demand.
 scripts/preview-images/
+scripts/mobile-previews/
+scripts/tmp/
 # Audit/manifest JSONs ARE committed — they're the record of choices made.
 
 # --- Inspiration / scratch ---
 inspiration/
 
 # --- Client-supplied docs (live alongside the repo but not in it) ---
-BITS STUDIO COPY.docx
+*.pdf
+*.docx
