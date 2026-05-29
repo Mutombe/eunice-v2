@@ -29,7 +29,7 @@ export default function Nav() {
           scrolled ? 'opacity-100' : 'opacity-0'
         }`}
       />
-      <nav className="container-edge h-[64px] flex items-center justify-between">
+      <nav className="container-edge h-[80px] flex items-center justify-between">
         {/* Logo (provided by Eunice 29 May): wordmark on tablet+, submark
             monogram on mobile. Files live in public/brand/ — Vite prefixes
             BASE_URL automatically so /eunice-v2/ deploys still resolve. */}
@@ -37,12 +37,12 @@ export default function Nav() {
           <img
             src={`${import.meta.env.BASE_URL}brand/wordmark.png`}
             alt="Eunice De Campi"
-            className="hidden md:block h-7 w-auto transition-opacity group-hover:opacity-80"
+            className="hidden md:block h-12 w-auto transition-opacity group-hover:opacity-80"
           />
           <img
             src={`${import.meta.env.BASE_URL}brand/submark.png`}
             alt="EDC"
-            className="md:hidden h-9 w-auto transition-opacity group-hover:opacity-80"
+            className="md:hidden h-14 w-auto transition-opacity group-hover:opacity-80"
           />
         </Link>
 

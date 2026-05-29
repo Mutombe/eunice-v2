@@ -24,7 +24,7 @@ export default function Layout({ children }) {
       <GridOverlay />
       <NotificationBar />
       <Nav />
-      <main id="main" tabIndex={-1} className="flex-1 pt-[64px] focus:outline-none">{children}</main>
+      <main id="main" tabIndex={-1} className="flex-1 pt-[80px] focus:outline-none">{children}</main>
       <Ticker />
       <Footer />
       <ScrollToTopBtn />
