@@ -1,15 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  /* === Atelier — Eunice De Campi === */
-  --color-ink-50: #F5F4F1;
-  --color-ink-100: #E0DFD9;
-  --color-ink-200: #B8B5AB;
-  --color-ink-300: #7A7770;
-  --color-ink-400: #3F3D38;
-  --color-ink-500: #2B2722; /* warm deep charcoal — softened section/button fill */
-  --color-ink-600: #1C1916;
+  /* === Eunice De Campi — Scheme One palette (provided 29 May) ===
+     #3A2D28 deep cocoa  ·  #A48374 dusty rose  ·  #CBAD8D warm tan
+     #D1C7BD pale taupe  ·  #EBE3DB light cream ·  #F1EDE6 ivory
+     Plus a forest-green accent drawn from the logo. */
 
+  /* Ink scale — anchored on her #3A2D28 deep cocoa (definitely not black). */
+  --color-ink-50: #EBE3DB;
+  --color-ink-100: #D1C7BD;
+  --color-ink-200: #A48374;
+  --color-ink-300: #7A625A;
+  --color-ink-400: #5A463E;
+  --color-ink-500: #3A2D28; /* deep cocoa — footer / button fill */
+  --color-ink-600: #2A2018;
+  /* Body text — same #3A2D28 deep cocoa (no black, per meeting note). */
+  --color-ink: #3A2D28;
+
+  /* Olive — kept for the existing editorial sections, slightly muted. */
   --color-olive-50: #EFF1E8;
   --color-olive-100: #D6DBC2;
   --color-olive-200: #BBC198;
@@ -19,39 +27,36 @@
   --color-olive-600: #44502E;
   --color-olive-700: #2E371F;
 
-  --color-stone-50: #F5F2EC;
-  --color-stone-100: #EFE9E3;
-  --color-stone-200: #E2DBD0;
-  --color-stone-300: #D6CFC4;
-  --color-stone-400: #B8AE9E;
+  /* Stone — Scheme One neutrals top-to-bottom. */
+  --color-stone-50:  #F1EDE6;
+  --color-stone-100: #EBE3DB;
+  --color-stone-200: #D1C7BD;
+  --color-stone-300: #CBAD8D;
+  --color-stone-400: #A48374;
 
-  /* Accent — muted sage (was terracotta; re-tuned per brief).
-     Token names kept so no component file needs touching. */
-  --color-clay-300: #AEB794;
-  --color-clay-400: #8C9A70;
-  --color-clay-500: #5E6D44;
-  --color-clay-600: #47532F;
+  /* Clay — re-aimed at the forest-green pulled from her wordmark.
+     Same token names so no component file needs touching. */
+  --color-clay-300: #5A7460;
+  --color-clay-400: #3F5A48;
+  --color-clay-500: #2A4A37; /* logo green */
+  --color-clay-600: #1F3D2D;
 
-  /* Cocoa — warm earthy depth (brief: cocoa). For surgical accents. */
-  --color-cocoa-300: #B89A7D;
-  --color-cocoa-400: #7A6452;
-  --color-cocoa-500: #5A483A;
-  --color-cocoa-600: #3E3127;
+  /* Cocoa — warm tan + dusty rose from her palette. */
+  --color-cocoa-300: #CBAD8D; /* warm tan */
+  --color-cocoa-400: #A48374; /* dusty rose */
+  --color-cocoa-500: #7A6252;
+  --color-cocoa-600: #3A2D28; /* matches ink */
 
-  /* Warm ivory base (brief: warm ivory). */
-  --color-paper: #F2ECE2;
-  --color-paper-warm: #F7F1E6;
-  /* Body text — warm sepia/cocoa, deliberately NOT black (per Eunice).
-     Sits at ~9:1 contrast on paper (well above WCAG AA). */
-  --color-ink: #3D2F25;
+  /* Paper base — her ivory + cream. */
+  --color-paper: #F1EDE6;
+  --color-paper-warm: #EBE3DB;
 
-  /* Hybrid direction — soft editorial serif + warm humanist sans.
-     Fraunces (display) is a soft, optically-sized serif; Figtree (body +
-     labels) is a rounded, human-centred sans. Replaces Italiana + the
-     JetBrains Mono code-font used for labels. */
-  --font-display: "Fraunces", "Georgia", "Didot", serif;
-  --font-body: "Figtree", system-ui, -apple-system, sans-serif;
-  --font-mono: "Figtree", system-ui, sans-serif;
+  /* Typography (Eunice, 29 May): Cormorant Garamond display + Inter body.
+     Token names kept (font-display / font-body / font-mono) so existing
+     class names everywhere keep working. Brand font slots in later. */
+  --font-display: "Cormorant Garamond", "Georgia", "Didot", serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "Inter", system-ui, sans-serif;
 
   --spacing-edge: clamp(1.5rem, 4vw, 5rem);
 }

@@ -30,11 +30,20 @@ export default function Nav() {
         }`}
       />
       <nav className="container-edge h-[64px] flex items-center justify-between">
-        <Link to="/" className="flex items-baseline gap-3 group">
-          <span className="text-base md:text-lg font-medium uppercase tracking-[0.3em] text-ink transition-colors group-hover:text-clay-500">
-            <span className="md:hidden">EDC</span>
-            <span className="hidden md:inline">Eunice De Campi</span>
-          </span>
+        {/* Logo (provided by Eunice 29 May): wordmark on tablet+, submark
+            monogram on mobile. Files live in public/brand/ — Vite prefixes
+            BASE_URL automatically so /eunice-v2/ deploys still resolve. */}
+        <Link to="/" className="flex items-center group" aria-label="Eunice De Campi — home">
+          <img
+            src={`${import.meta.env.BASE_URL}brand/wordmark.png`}
+            alt="Eunice De Campi"
+            className="hidden md:block h-7 w-auto transition-opacity group-hover:opacity-80"
+          />
+          <img
+            src={`${import.meta.env.BASE_URL}brand/submark.png`}
+            alt="EDC"
+            className="md:hidden h-9 w-auto transition-opacity group-hover:opacity-80"
+          />
         </Link>
 
         <ul className="hidden lg:flex items-center gap-7">
