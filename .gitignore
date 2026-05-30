@@ -47,3 +47,6 @@ inspiration/
 # --- Client-supplied docs (live alongside the repo but not in it) ---
 *.pdf
 *.docx
+# Eunice's source assets — uploaded to DO Spaces, not committed.
+eunice-sent/
+blog images/
