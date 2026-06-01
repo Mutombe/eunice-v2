@@ -1,24 +1,27 @@
 @import "tailwindcss";
 
 @theme {
-  /* === Eunice De Campi — Scheme One palette (provided 29 May) ===
-     #3A2D28 deep cocoa  ·  #A48374 dusty rose  ·  #CBAD8D warm tan
-     #D1C7BD pale taupe  ·  #EBE3DB light cream ·  #F1EDE6 ivory
-     Plus a forest-green accent drawn from the logo. */
+  /* === FOREST SANCTUARY palette (variant) ===
+     Forest-green-led wellbeing register. Cool ivory base, deep forest ink,
+     sage olive primary accent, warm taupe + mushroom for earthy depth.
+     Pairs the logo green with a quieter olive/sage palette around it.
 
-  /* Ink scale — anchored on her #3A2D28 deep cocoa (definitely not black). */
-  --color-ink-50: #EBE3DB;
-  --color-ink-100: #D1C7BD;
-  --color-ink-200: #A48374;
-  --color-ink-300: #7A625A;
-  --color-ink-400: #5A463E;
-  --color-ink-500: #3A2D28; /* deep cocoa — footer / button fill */
-  --color-ink-600: #2A2018;
-  /* Body text — same #3A2D28 deep cocoa (no black, per meeting note). */
-  --color-ink: #3A2D28;
+     #ECEAE4 cool ivory  ·  #1F2D24 deep forest  ·  #4A6B5A sage olive
+     #C2B2A4 warm taupe  ·  #9B8979 mushroom    ·  #B07F70 dusty pink accent */
 
-  /* Olive — kept for the existing editorial sections, slightly muted. */
-  --color-olive-50: #EFF1E8;
+  /* Ink scale — anchored on #1F2D24 deep forest (cool, near-charcoal). */
+  --color-ink-50: #E2E0DA;
+  --color-ink-100: #CFD0C8;
+  --color-ink-200: #A8AAA0;
+  --color-ink-300: #6E7A6F;
+  --color-ink-400: #3E4B41;
+  --color-ink-500: #1F2D24; /* deep forest — footer / button fill */
+  --color-ink-600: #15201A;
+  /* Body text — deep forest near-charcoal, distinctly green-undertoned. */
+  --color-ink: #1F2D24;
+
+  /* Olive — secondary green family, slightly warmer than the primary. */
+  --color-olive-50: #ECEEE3;
   --color-olive-100: #D6DBC2;
   --color-olive-200: #BBC198;
   --color-olive-300: #8A9362;
@@ -27,29 +30,28 @@
   --color-olive-600: #44502E;
   --color-olive-700: #2E371F;
 
-  /* Stone — Scheme One neutrals top-to-bottom. */
-  --color-stone-50:  #F1EDE6;
-  --color-stone-100: #EBE3DB;
-  --color-stone-200: #D1C7BD;
-  --color-stone-300: #CBAD8D;
-  --color-stone-400: #A48374;
+  /* Stone — cool warm-grey neutrals (slightly cooler than control). */
+  --color-stone-50:  #ECEAE4;
+  --color-stone-100: #E2E0DA;
+  --color-stone-200: #CFD0C8;
+  --color-stone-300: #B0B2A8;
+  --color-stone-400: #87897E;
 
-  /* Clay — re-aimed at the forest-green pulled from her wordmark.
-     Same token names so no component file needs touching. */
-  --color-clay-300: #5A7460;
-  --color-clay-400: #3F5A48;
-  --color-clay-500: #2A4A37; /* logo green */
-  --color-clay-600: #1F3D2D;
+  /* Clay — sage olive as primary accent (links, CTAs, accent labels). */
+  --color-clay-300: #8B9D7E;
+  --color-clay-400: #6D8265;
+  --color-clay-500: #4A6B5A; /* sage olive — primary accent */
+  --color-clay-600: #344F42;
 
-  /* Cocoa — warm tan + dusty rose from her palette. */
-  --color-cocoa-300: #CBAD8D; /* warm tan */
-  --color-cocoa-400: #A48374; /* dusty rose */
-  --color-cocoa-500: #7A6252;
-  --color-cocoa-600: #3A2D28; /* matches ink */
+  /* Cocoa — warm taupe + mushroom for earthy depth. */
+  --color-cocoa-300: #C2B2A4; /* warm taupe */
+  --color-cocoa-400: #9B8979; /* mushroom */
+  --color-cocoa-500: #6B5849;
+  --color-cocoa-600: #1F2D24; /* matches ink */
 
-  /* Paper base — her ivory + cream. */
-  --color-paper: #F1EDE6;
-  --color-paper-warm: #EBE3DB;
+  /* Paper base — cool ivory + pale stone. */
+  --color-paper: #ECEAE4;
+  --color-paper-warm: #E2E0DA;
 
   /* Typography (Eunice, 29 May): Cormorant Garamond display + Inter body.
      Token names kept (font-display / font-body / font-mono) so existing
@@ -221,16 +223,16 @@
         4deg,
         transparent 0px,
         transparent 7px,
-        rgba(61, 47, 37, 0.022) 7px,
-        rgba(61, 47, 37, 0.022) 8px
+        rgba(31, 45, 36, 0.022) 7px,
+        rgba(31, 45, 36, 0.022) 8px
       ),
       /* 94° opposing diagonal */
       repeating-linear-gradient(
         94deg,
         transparent 0px,
         transparent 9px,
-        rgba(61, 47, 37, 0.012) 9px,
-        rgba(61, 47, 37, 0.012) 10px
+        rgba(31, 45, 36, 0.012) 9px,
+        rgba(31, 45, 36, 0.012) 10px
       );
   }
 
@@ -242,8 +244,8 @@
     inset: 0;
     z-index: 1;
     box-shadow:
-      inset 0 0 200px 0 rgba(61, 47, 37, 0.05),
-      inset 0 0 480px 0 rgba(61, 47, 37, 0.03);
+      inset 0 0 200px 0 rgba(31, 45, 36, 0.05),
+      inset 0 0 480px 0 rgba(31, 45, 36, 0.03);
   }
 
   .drafting-surface > * {
@@ -260,24 +262,24 @@
     background-image:
       linear-gradient(to right,
         transparent calc(100%/6 - 0.5px),
-        rgba(61, 47, 37, 0.04) calc(100%/6 - 0.5px),
-        rgba(61, 47, 37, 0.04) calc(100%/6 + 0.5px),
+        rgba(31, 45, 36, 0.04) calc(100%/6 - 0.5px),
+        rgba(31, 45, 36, 0.04) calc(100%/6 + 0.5px),
         transparent calc(100%/6 + 0.5px),
         transparent calc(100%*2/6 - 0.5px),
-        rgba(61, 47, 37, 0.04) calc(100%*2/6 - 0.5px),
-        rgba(61, 47, 37, 0.04) calc(100%*2/6 + 0.5px),
+        rgba(31, 45, 36, 0.04) calc(100%*2/6 - 0.5px),
+        rgba(31, 45, 36, 0.04) calc(100%*2/6 + 0.5px),
         transparent calc(100%*2/6 + 0.5px),
         transparent calc(100%*3/6 - 0.5px),
-        rgba(61, 47, 37, 0.04) calc(100%*3/6 - 0.5px),
-        rgba(61, 47, 37, 0.04) calc(100%*3/6 + 0.5px),
+        rgba(31, 45, 36, 0.04) calc(100%*3/6 - 0.5px),
+        rgba(31, 45, 36, 0.04) calc(100%*3/6 + 0.5px),
         transparent calc(100%*3/6 + 0.5px),
         transparent calc(100%*4/6 - 0.5px),
-        rgba(61, 47, 37, 0.04) calc(100%*4/6 - 0.5px),
-        rgba(61, 47, 37, 0.04) calc(100%*4/6 + 0.5px),
+        rgba(31, 45, 36, 0.04) calc(100%*4/6 - 0.5px),
+        rgba(31, 45, 36, 0.04) calc(100%*4/6 + 0.5px),
         transparent calc(100%*4/6 + 0.5px),
         transparent calc(100%*5/6 - 0.5px),
-        rgba(61, 47, 37, 0.04) calc(100%*5/6 - 0.5px),
-        rgba(61, 47, 37, 0.04) calc(100%*5/6 + 0.5px),
+        rgba(31, 45, 36, 0.04) calc(100%*5/6 - 0.5px),
+        rgba(31, 45, 36, 0.04) calc(100%*5/6 + 0.5px),
         transparent calc(100%*5/6 + 0.5px)
       );
   }
