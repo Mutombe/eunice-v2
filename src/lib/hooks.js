@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { resources } from './api.js'
-import { practice as mockPractice, notes as mockNotes, shop as mockShop, voices as mockVoices, mockProgrammes } from '../data/siteData.js'
+import snapshot from '../data/snapshot.json'
 
 /* Fetches a content collection from the API with a stale-while-revalidate cache.
  *
@@ -12,18 +12,15 @@ import { practice as mockPractice, notes as mockNotes, shop as mockShop, voices 
  * Reloading the tab starts fresh (deliberately — picks up any admin changes).
  *
  * Mock mode — when VITE_MOCK_DATA=true at build time, the hook bypasses
- * the API entirely and returns data baked into src/data/siteData.js. Used
- * by the palette-preview deploys so they don't depend on the backend. */
+ * the API entirely and returns the snapshot baked in at build time
+ * (src/data/snapshot.json, refreshed via scripts/snapshot-api.mjs).
+ * Used by the palette-preview deploys so they don't depend on the backend. */
 
 const MOCK = import.meta.env.VITE_MOCK_DATA === 'true'
 
-const MOCKS = {
-  practice:   mockPractice,
-  journal:    mockNotes,
-  shop:       mockShop?.products || [],
-  testimonials: mockVoices,
-  programmes: mockProgrammes,
-}
+// snapshot.collections is keyed by the same names useCollection accepts:
+// practice / programmes / journal / shop / testimonials.
+const MOCKS = snapshot.collections || {}
 
 const cache = new Map()       // name → array of items
 const inflight = new Map()    // name → Promise (de-dupes concurrent fetches)
