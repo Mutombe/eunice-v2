@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import PageTransition from '../components/PageTransition.jsx'
@@ -10,6 +10,20 @@ import ParallaxImage from '../components/ParallaxImage.jsx'
 import HairlineDivider from '../components/HairlineDivider.jsx'
 import CountUp from '../components/CountUp.jsx'
 import RingCursor from '../components/RingCursor.jsx'
+import HeroA from '../components/hero/HeroA.jsx'
+import HeroB from '../components/hero/HeroB.jsx'
+import HeroC from '../components/hero/HeroC.jsx'
+import HeroD from '../components/hero/HeroD.jsx'
+
+// Hero variant chooser — picks A/B/C/D via ?hero= URL param so we can
+// screenshot each direction without rebuilding. Defaults to A.
+const HERO_VARIANTS = { A: HeroA, B: HeroB, C: HeroC, D: HeroD }
+function HeroDispatch() {
+  const [params] = useSearchParams()
+  const variant = (params.get('hero') || 'A').toUpperCase()
+  const Component = HERO_VARIANTS[variant] || HeroA
+  return <Component />
+}
 import ProductCover from '../components/ProductCover.jsx'
 import { useCollection } from '../lib/hooks.js'
 import { useSettings } from '../lib/settings.jsx'
@@ -606,7 +620,7 @@ export default function Studio() {
     <PageTransition>
       <Seo path="/" description="A calm, elevated practice for high-achieving women navigating burnout, grief, transition and reinvention — coaching, wellbeing strategy and design for intentional living." />
       <RingCursor />
-      <Hero />
+      <HeroDispatch />
       <StatsRow />
       <Practice />
       <Beliefs />
