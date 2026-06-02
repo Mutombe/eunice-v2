@@ -20,7 +20,7 @@ import HeroD from '../components/hero/HeroD.jsx'
 const HERO_VARIANTS = { A: HeroA, B: HeroB, C: HeroC, D: HeroD }
 function HeroDispatch() {
   const [params] = useSearchParams()
-  const variant = (params.get('hero') || 'A').toUpperCase()
+  const variant = (params.get('hero') || 'D').toUpperCase()
   const Component = HERO_VARIANTS[variant] || HeroA
   return <Component />
 }
@@ -620,14 +620,18 @@ export default function Studio() {
     <PageTransition>
       <Seo path="/" description="A calm, elevated practice for high-achieving women navigating burnout, grief, transition and reinvention — coaching, wellbeing strategy and design for intentional living." />
       <RingCursor />
+      {/* HEIRLOOM layout — story/voice-forward. After the poster hero, open
+          with her founder story and beliefs, bring testimonials high as early
+          social proof, then the practice, journal and shop. A warmer, more
+          personal narrative order — distinct from the forest variant. */}
       <HeroDispatch />
-      <StatsRow />
-      <Practice />
-      <Beliefs />
       <Founder />
-      <ShopPreview />
-      <NotesPreview />
+      <Beliefs />
       <Voices />
+      <Practice />
+      <NotesPreview />
+      <StatsRow />
+      <ShopPreview />
       <ClosingCTA />
     </PageTransition>
   )
