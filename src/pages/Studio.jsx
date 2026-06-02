@@ -20,7 +20,7 @@ import HeroD from '../components/hero/HeroD.jsx'
 const HERO_VARIANTS = { A: HeroA, B: HeroB, C: HeroC, D: HeroD }
 function HeroDispatch() {
   const [params] = useSearchParams()
-  const variant = (params.get('hero') || 'A').toUpperCase()
+  const variant = (params.get('hero') || 'B').toUpperCase()
   const Component = HERO_VARIANTS[variant] || HeroA
   return <Component />
 }
@@ -620,14 +620,17 @@ export default function Studio() {
     <PageTransition>
       <Seo path="/" description="A calm, elevated practice for high-achieving women navigating burnout, grief, transition and reinvention — coaching, wellbeing strategy and design for intentional living." />
       <RingCursor />
+      {/* FOREST layout — practice/offerings-forward. Lead with the work
+          itself (the split-portrait hero already introduced her), then
+          beliefs, shop and voices; her founder story and stats sit lower. */}
       <HeroDispatch />
-      <StatsRow />
       <Practice />
       <Beliefs />
-      <Founder />
       <ShopPreview />
-      <NotesPreview />
       <Voices />
+      <NotesPreview />
+      <StatsRow />
+      <Founder />
       <ClosingCTA />
     </PageTransition>
   )
