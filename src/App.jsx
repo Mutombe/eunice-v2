@@ -11,6 +11,7 @@ import { useAnalytics } from './lib/analytics.js'
 // main chunk for instant client-side navigation. The cost is a slightly
 // larger initial download; the win is no loading flash between routes.
 import Studio           from './pages/Studio.jsx'
+import Heroes           from './pages/Heroes.jsx'
 import About            from './pages/About.jsx'
 import NotFound         from './pages/NotFound.jsx'
 import Practice         from './pages/Practice.jsx'
@@ -90,6 +91,7 @@ export default function App() {
         <AnimatePresence mode="popLayout">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Studio />} />
+            <Route path="/heroes" element={<Heroes />} />
             <Route path="/about" element={<About />} />
             <Route path="/practice" element={<Practice />} />
             <Route path="/practice/:slug" element={<PracticeDetail />} />
